@@ -43,7 +43,9 @@ fun NewCategory(
             // Currently point to the homepage.
             Button(
                 modifier = Modifier.padding(top = 10.dp),
-                onClick = { navController.navigate(Screens.Homepage.route)},
+                onClick = { navController.navigate(Screens.Homepage.route){
+                    popUpTo(0)
+                } },
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
                 Text(text = "Conferma")

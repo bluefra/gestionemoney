@@ -17,7 +17,9 @@ fun BackButton(
 ) {
     Row {
         Button(
-            onClick = { navController.navigate(Screens.Homepage.route)},
+            onClick = { navController.navigate(Screens.Homepage.route){
+                popUpTo(0)
+            } },
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ) {
             Text(text = "Indietro")

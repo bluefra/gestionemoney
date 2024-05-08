@@ -1,11 +1,13 @@
 package gestionemoney.compose.expense
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +46,7 @@ fun ExpensePage(
         modifier = Modifier.padding(10.dp)
     ) {
         // Back button function called.
-        BackButton(navController)
+        // BackButton(navController)
 
         // Draw a line to separate the two navigation bar
         Divider(
@@ -53,7 +55,7 @@ fun ExpensePage(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
+        // Homepage navigation bar at the top of the screen.
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -75,13 +77,6 @@ fun ExpensePage(
                 NewExpenseButton(navController)
             }
         }
-
-        // Draw a line to separate the content from the name category
-        Divider(
-            color = colorResource(R.color.orangeUltraLight) ,
-            thickness = 2.dp,
-            modifier = Modifier.fillMaxWidth()
-        )
 
         // Display the list of all the expense of the current category.
         LazyActivityColumn(
@@ -122,7 +117,9 @@ fun ExpenseItem(
     val image = painterResource(R.drawable.dress)
     Column(
         modifier = Modifier
-            .padding(10.dp),
+            .background(color = colorResource(R.color.orangeLight))
+            .padding(10.dp)
+            .fillMaxWidth(),
     ) {
         Text(
             text = text ,
@@ -166,7 +163,12 @@ fun LazyActivityColumn(
     LazyColumn() {
         expenses.forEach{expense ->
             items(expense.items) { text ->
-                ExpenseItem(text)
+                Card(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp)
+                ) {
+                    ExpenseItem(text)
+                }
             }
         }
     }

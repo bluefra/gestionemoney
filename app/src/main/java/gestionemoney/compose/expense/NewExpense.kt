@@ -27,8 +27,6 @@ import gestionemoney.compose.navigation.Screens
 fun NewExpense(
     navController: NavController
 ) {
-
-
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -52,7 +50,9 @@ fun NewExpense(
             horizontalArrangement = Arrangement.Center
         ){
             Button(
-                onClick = { navController.navigate(Screens.ExpensePage.route)},
+                onClick = { navController.navigate(Screens.ExpensePage.route){
+                    popUpTo(0)
+                } },
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
                 Text(text = "Conferma")

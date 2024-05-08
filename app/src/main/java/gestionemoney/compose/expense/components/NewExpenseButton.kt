@@ -20,7 +20,9 @@ fun NewExpenseButton (
     navController: NavController
 ) {
     Button(
-        onClick = { navController.navigate(Screens.NewExpense.route )},
+        onClick = { navController.navigate(Screens.NewExpense.route){
+            popUpTo(0)
+        } },
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ) {
         Text(

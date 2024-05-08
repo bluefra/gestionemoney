@@ -2,12 +2,8 @@ package gestionemoney.compose.homepage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -27,19 +23,16 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import gestionemoney.compose.R
-import gestionemoney.compose.homepage.components.NavigationTopBar
+import gestionemoney.compose.expense.components.NewExpenseButton
 import gestionemoney.compose.homepage.components.NewCategoryButton
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.resource.categorylist
-
 @Composable
 fun Homepage(
     navController: NavController
@@ -56,12 +49,8 @@ fun Homepage(
             .fillMaxSize()
             .padding(10.dp)
     ) {
-        // App navigation bar
-        NavigationTopBar(navController)
-
-        // Draw a line to seperate the 2 top menu
         Divider(
-            color = colorResource(R.color.orangeUltraLight),
+            color = colorResource(R.color.orangeUltraLight) ,
             thickness = 2.dp,
             modifier = Modifier.fillMaxWidth()
         )
@@ -74,7 +63,7 @@ fun Homepage(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Le tue spese",
+                    text = "Abbigliamento",
                     fontSize = 25.sp ,
                     fontFamily = FontFamily.Monospace ,
                     textAlign = TextAlign.Center,
@@ -84,7 +73,7 @@ fun Homepage(
             Column(
                 horizontalAlignment = Alignment.End
             ) {
-                NewCategoryButton(navController)
+                NewExpenseButton(navController)
             }
         }
         // RecyclerView(in compose) to view the category list
@@ -179,7 +168,9 @@ fun LazyCategoryColumn(
         categories.forEach{category ->
             items(category.items) { text ->
                 Card(
-                    onClick = { navController.navigate(Screens.ExpensePage.route) },
+                    onClick = { navController.navigate(Screens.ExpensePage.route){
+                        popUpTo(0)
+                    } },
                     modifier = Modifier.padding(bottom = 10.dp),
                 ) {
                     CategoryItem(text , navController = navController)
