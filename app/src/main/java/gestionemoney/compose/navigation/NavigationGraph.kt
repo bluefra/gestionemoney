@@ -44,10 +44,10 @@ fun NavigationGraph (
             NewExpense(navController)
         }
         composable(route = Screens.Register.route){
-            Register(/*navController*/)
+            Register(navController)
         }
         composable(route= Screens.Login.route){
-            Login(/*navController*/)
+            Login(navController)
         }
     }
 }

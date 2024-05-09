@@ -45,15 +45,14 @@ fun TextTitle(text: String) {
 
 @Composable
 fun RegisterButton(
-    //navController: NavController
+    navController: NavController
 ){
         Button(
-            onClick = { /*navController.navigate(Screens.Homepage.route)*/},
+            onClick = {navController.navigate(Screens.Homepage.route)},
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ){
             TextTitle(text = "Register")
         }
-    
 }
 
 @Composable
@@ -122,10 +121,10 @@ fun TextWithDivider() {
 
 @Composable
 fun GoToLoginButton(
-    //navController: NavController
+    navController: NavController
 ){
     Button(
-        onClick = { /*navController.navigate(Screens.Login.route)*/},
+        onClick = {navController.navigate(Screens.Login.route)},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ){
         TextTitle(text = "Login")
@@ -134,10 +133,10 @@ fun GoToLoginButton(
 
 @Composable
 fun LoginButton(
-    //navController: NavController
+    navController: NavController
 ){
     Button(
-        onClick = { /*navController.navigate(Screens.Homepage.route)*/},
+        onClick = {navController.navigate(Screens.Homepage.route)},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ){
         Text(text = "Login")
