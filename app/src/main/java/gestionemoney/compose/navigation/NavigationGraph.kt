@@ -10,6 +10,8 @@ import gestionemoney.compose.expense.ExpensePage
 import gestionemoney.compose.expense.NewExpense
 import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.newcategory.NewCategory
+import gestionemoney.compose.register_login.Login
+import gestionemoney.compose.register_login.Register
 import gestionemoney.compose.userpage.Userpage
 
 // Composable function used by the navController to change the displayed page.
@@ -20,7 +22,7 @@ fun NavigationGraph (
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Homepage.route
+        startDestination = Screens.Register.route
     ) {
         // Every call to the following composable function link the Screen(page) to the corresponding composable function
         composable(route = Screens.Homepage.route) {
@@ -40,6 +42,12 @@ fun NavigationGraph (
         }
         composable(route = Screens.NewExpense.route) {
             NewExpense(navController)
+        }
+        composable(route = Screens.Register.route){
+            Register(navController)
+        }
+        composable(route= Screens.Login.route){
+            Login(navController)
         }
     }
 }

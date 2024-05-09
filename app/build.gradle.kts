@@ -4,6 +4,9 @@ plugins {
     id("com.google.dagger.hilt.android")
     id ("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
+
+
 
 }
 
@@ -80,6 +83,13 @@ dependencies {
     kapt ("com.google.dagger:hilt-android-compiler:2.51.1")
     kapt ("androidx.hilt:hilt-compiler:1.2.0")
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
 }
 
 kapt {

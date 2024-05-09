@@ -40,6 +40,7 @@ fun ExpensePage(
             category = ""
         )
     }
+
     Column(
         modifier = Modifier.padding(10.dp)
     ) {
