@@ -33,14 +33,7 @@ import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
 
 @Composable
-fun Text(text: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+fun TextTitle(text: String) {
         Text(
             text = text,
             fontSize = 15.sp ,
@@ -48,17 +41,17 @@ fun Text(text: String) {
             textAlign = TextAlign.Center ,
             fontWeight = FontWeight.ExtraBold ,
         )
-    }
 }
 
 @Composable
 fun RegisterButton(
-    navController: NavController){
+    //navController: NavController
+){
         Button(
-            onClick = { navController.navigate(Screens.Homepage.route)},
+            onClick = { /*navController.navigate(Screens.Homepage.route)*/},
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ){
-            Text(text = "Register")
+            TextTitle(text = "Register")
         }
     
 }
@@ -129,20 +122,22 @@ fun TextWithDivider() {
 
 @Composable
 fun GoToLoginButton(
-    navController: NavController){
+    //navController: NavController
+){
     Button(
-        onClick = { navController.navigate(Screens.Login.route)},
+        onClick = { /*navController.navigate(Screens.Login.route)*/},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ){
-        Text(text = "Login")
+        TextTitle(text = "Login")
     }
 }
 
 @Composable
 fun LoginButton(
-    navController: NavController){
+    //navController: NavController
+){
     Button(
-        onClick = { navController.navigate(Screens.Homepage.route)},
+        onClick = { /*navController.navigate(Screens.Homepage.route)*/},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ){
         Text(text = "Login")

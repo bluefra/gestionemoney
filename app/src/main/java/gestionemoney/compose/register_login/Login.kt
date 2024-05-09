@@ -10,14 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun Login(navController: NavController){
-
-
-
+fun Login(
+    //navController: NavController
+){
 
     //scritte Benvenuto
     Row(verticalAlignment = Alignment.CenterVertically){
-        Text("   Bentornato! \nAccedi")
+        TextTitle("   Bentornato! \nAccedi")
     }
 
 
@@ -28,7 +27,7 @@ fun Login(navController: NavController){
 
         EmailEnter()
         PasswordEnter()
-        LoginButton(navController)
+        LoginButton(/*navController*/)
 
     }
 
