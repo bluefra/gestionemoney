@@ -85,11 +85,10 @@ dependencies {
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
-
+    implementation("com.google.firebase:firebase-database")
 }
 
 kapt {
