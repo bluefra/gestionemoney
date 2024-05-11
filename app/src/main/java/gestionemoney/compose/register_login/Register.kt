@@ -1,5 +1,6 @@
 package gestionemoney.compose.register_login
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,10 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import gestionemoney.compose.controller.AuthObserver
+import gestionemoney.compose.controller.DBauthentication
+import gestionemoney.compose.navigation.Screens
 
 //import com.google.firebase.Firebase
 //import com.google.firebase.auth.auth
-
+private var email = ""
+private var password = ""
 
 @Composable
 fun Register(navController: NavController){
@@ -33,8 +38,8 @@ fun Register(navController: NavController){
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EmailEnter()
-            PasswordEnter()
+            EmailEnter(onChange = {email = it})
+            PasswordEnter(onChange = {password = it})
             RegisterButton(navController)
             TextWithDivider()
             Column(
@@ -54,10 +59,28 @@ fun Register(navController: NavController){
     }
 }
 
-/*
-@Preview(showBackground = true)
-@Composable
-fun RegisterPreview(){
-    Register()
+class DBRegister(val navController: NavController): AuthObserver {
+    private var connecting = false
+    fun evaluateRegister() {
+        if(connecting) {
+            return
+        }
+        Log.w("test", email)
+        Log.w("test", password)
+        DBauthentication.getInstance().addObserver(this)
+        DBauthentication.getInstance().register(email, password)
+        connecting = true
+    }
+
+    override fun onFail(error: String) {
+        DBauthentication.getInstance().removeObserver(this)
+        connecting = false
+    }
+
+    override fun onSuccess(data: HashMap<String, String?>) {
+        DBauthentication.getInstance().removeObserver(this)
+        connecting = false
+        navController.navigate(Screens.Homepage.route)
+    }
+
 }
-*/

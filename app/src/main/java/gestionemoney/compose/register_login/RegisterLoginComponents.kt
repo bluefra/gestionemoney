@@ -1,10 +1,7 @@
 package gestionemoney.compose.register_login
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -48,7 +45,7 @@ fun RegisterButton(
     navController: NavController
 ){
         Button(
-            onClick = {navController.navigate(Screens.Homepage.route)},
+            onClick = { DBRegister(navController).evaluateRegister()},
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ){
             TextTitle(text = "Register")
@@ -56,7 +53,7 @@ fun RegisterButton(
 }
 
 @Composable
-fun EmailEnter(){
+fun EmailEnter(onChange: (String) -> Unit = {}){
 
         var text by remember { mutableStateOf("") }
 
@@ -67,16 +64,16 @@ fun EmailEnter(){
                 textAlign = TextAlign.Center ,
                 fontWeight = FontWeight.ExtraBold ,
                 modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
-
             TextField(
                 value = text,
-                onValueChange = { text = it },
+                onValueChange = { text = it
+                                  onChange(it)},
                 label = { Text("email") },
             )
 }
 
 @Composable
-fun PasswordEnter(){
+fun PasswordEnter(onChange: (String) -> Unit = {}){
 
         var text by remember { mutableStateOf("") }
 
@@ -90,7 +87,8 @@ fun PasswordEnter(){
 
         TextField(
             value = text,
-            onValueChange = { text = it },
+            onValueChange = { text = it
+                              onChange(it)},
             label = { Text("password") },
     )
 }
@@ -136,7 +134,7 @@ fun LoginButton(
     navController: NavController
 ){
     Button(
-        onClick = {navController.navigate(Screens.Homepage.route)},
+        onClick = { DBLogin(navController).evaluateLogin()},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ){
         Text(text = "Login")
