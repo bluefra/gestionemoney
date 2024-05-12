@@ -19,12 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropdownCategoryMenu() {
-
+fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}) {
     val context = LocalContext.current
-    val categories = arrayOf("Abbigliamento", "Alimentari", "Ristoranti", "Uscite varie")
     var expanded by remember { mutableStateOf(false) }
-    var selectedCategory by remember { mutableStateOf(categories[0]) }
+    var selectedCategory by remember { mutableStateOf(standardOption) }
 
     Row(
     ) {
@@ -37,7 +35,9 @@ fun DropdownCategoryMenu() {
         ) {
             TextField(
                 value = selectedCategory ,
-                onValueChange = {} ,
+                onValueChange = {
+                                onChange(it)
+                } ,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) } ,
                 modifier = Modifier.menuAnchor()
             )
@@ -46,11 +46,12 @@ fun DropdownCategoryMenu() {
                 expanded = expanded ,
                 onDismissRequest = { expanded = false }
             ) {
-                categories.forEach { category ->
+                categoryList.forEach { category ->
                     DropdownMenuItem(
-                        text = { Text(text = "category") } ,
+                        text = { Text(text = category) } ,
                         onClick = {
                             selectedCategory = category
+                            onChange(category)
                             expanded = false
                             Toast.makeText(context , category , Toast.LENGTH_SHORT).show()
                         }
@@ -59,10 +60,4 @@ fun DropdownCategoryMenu() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun DropDownCategoryMenuPreview(){
-    DropdownCategoryMenu()
 }

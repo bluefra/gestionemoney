@@ -1,5 +1,6 @@
 package gestionemoney.compose.model
 
+import android.util.Log
 import java.util.Date
 
 
@@ -7,6 +8,7 @@ class Category (private val name: String){
     private var expensesList: MutableList<Expense> = mutableListOf()
     private var imageURI: String? = null
     fun addExpenses(expense: Expense) {
+        Log.w("Category", "adding $expense")
         expensesList.add(expense)
     }
     fun compareName(c1: Category): Int {

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CategoryOfExpense(){
+fun CategoryOfExpense(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}){
     Text(
         text = "Select the category you want to add the expense to:" ,
         fontSize = 15.sp ,
@@ -20,5 +20,5 @@ fun CategoryOfExpense(){
         fontWeight = FontWeight.ExtraBold ,
         modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
     )
-    DropdownCategoryMenu()
+    DropdownCategoryMenu(categoryList, standardOption)
 }

@@ -2,10 +2,13 @@ package gestionemoney.compose.expense
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +26,9 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.expense.components.NewExpenseButton
 import gestionemoney.compose.homepage.components.NewCategoryButton
+import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.resource.expenselist
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import java.time.LocalDate
 
 @Composable
@@ -45,7 +50,25 @@ fun ExpensePage(
         modifier = Modifier.padding(10.dp)
     ) {
         // Back button function called.
-        BackButton(navController)
+        Row {
+            Column (
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.Start
+            ){
+                BackButton(navController)
+            }
+            Column (
+                horizontalAlignment = Alignment.End
+            ){
+                Button(
+                        onClick = { navController.navigate(Screens.NewExpense.route)},
+                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+                    ) {
+                    Text(text = "new Expense")
+                }
+            }
+        }
+
 
         // Draw a line to separate the two navigation bar
         Divider(

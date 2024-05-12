@@ -47,11 +47,14 @@ class DBLogin(val navController: NavController): AuthObserver {
         if(connecting) {
             return
         }
+        if(email == "" || password == "") {
+            return
+        }
         Log.w("test", email)
         Log.w("test", password)
+        connecting = true
         DBauthentication.getInstance().addObserver(this)
         DBauthentication.getInstance().login(email, password)
-        connecting = true
     }
 
     override fun onFail(error: String) {

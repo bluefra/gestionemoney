@@ -62,7 +62,9 @@ class UserWrapper private constructor(){
         if(!isSet()) {
             return null
         }
+        Log.w("UserWrapper", "Searching category $name")
         user!!.getList().forEach {
+            Log.w("UserWrapper", "looking category $it")
             if(it.getName() == name) {
                 return it
             }
@@ -79,6 +81,17 @@ class UserWrapper private constructor(){
             return null
         }
         return user!!.getList()
+    }
+
+    fun getCategoriesNames(): List<String> {
+        val list: MutableList<String> = mutableListOf()
+        if(!isSet()) {
+            return list
+        }
+        user!!.getList().forEach {
+            list.add(it.getName())
+        }
+        return list
     }
 
     fun createCategories(names: Array<String>): Boolean {
