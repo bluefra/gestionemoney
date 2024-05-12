@@ -9,6 +9,8 @@ import gestionemoney.compose.dashboard.Dashboard
 import gestionemoney.compose.expense.ExpensePage
 import gestionemoney.compose.expense.NewExpense
 import gestionemoney.compose.homepage.Homepage
+import gestionemoney.compose.loading.CreateLoading
+import gestionemoney.compose.loading.Loading
 import gestionemoney.compose.newcategory.NewCategory
 import gestionemoney.compose.register_login.Login
 import gestionemoney.compose.register_login.Register
@@ -43,11 +45,14 @@ fun NavigationGraph (
         composable(route = Screens.NewExpense.route) {
             NewExpense(navController)
         }
-        composable(route = Screens.Register.route){
+        composable(route = Screens.Register.route) {
             Register(navController)
         }
-        composable(route= Screens.Login.route){
+        composable(route = Screens.Login.route) {
             Login(navController)
+        }
+        composable(route = Screens.Loading.route) {
+            CreateLoading(navController)
         }
     }
 }

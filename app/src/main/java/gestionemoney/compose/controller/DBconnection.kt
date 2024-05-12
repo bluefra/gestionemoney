@@ -96,7 +96,4 @@ class DBconnection private constructor() {
         }
     }
 
-    fun getUser(): User? {
-        return user
-    }
 }

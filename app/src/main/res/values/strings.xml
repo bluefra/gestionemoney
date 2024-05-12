@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MoneyTake</string>
+    <string-array name="standard_category">
+        <item>card-market</item>
+        <item>vitto</item>
+        <item>trasporti</item>
+    </string-array>
 </resources>
