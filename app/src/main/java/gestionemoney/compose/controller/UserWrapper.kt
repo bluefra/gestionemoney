@@ -1,5 +1,6 @@
 package gestionemoney.compose.controller
 
+import android.util.Log
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.model.User
@@ -41,6 +42,7 @@ class UserWrapper private constructor(){
             return false
         }
         user!!.addCategory(Category(name))
+        Log.w("UserWrapper","category added: $name")
         return true
     }
 

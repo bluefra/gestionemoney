@@ -1,5 +1,6 @@
 package gestionemoney.compose.homepage
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,10 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.homepage.components.NavigationTopBar
 import gestionemoney.compose.homepage.components.NewCategoryButton
+import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.resource.categorylist
 
@@ -39,12 +43,8 @@ fun Homepage(
     navController: NavController
 ) {
     // Mapping the categorylist to the Category data class. (database implementation)
-    val categorynames = categorylist.map {
-        Category(
-            name = it.key.toString(),
-            items = it.value
-        )
-    }
+    val categorynames = UserWrapper.getInstance().getCategoryList()
+    Log.w("homepage", categorynames.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,13 +89,6 @@ fun Homepage(
     }
 }
 
-
-// Data class for category. (Need to be changed with database connection)
-data class Category(
-    val name : String,
-    val items: List<String>
-){}
-
 // Need to be changed with database connection)
 @Composable
 fun CategoryName(
@@ -114,7 +107,9 @@ fun CategoryName(
 // Composable function to display a single Category Item
 @Composable
 fun CategoryItem(
-    text: String,
+    name: String,
+    imageUri: String?,
+    totalExpences: Double,
     navController: NavController
 ){
     val image = painterResource(R.drawable.dress)
@@ -128,7 +123,7 @@ fun CategoryItem(
                 .padding(10.dp)
         ) {
             Text(
-                text = text ,
+                text = name ,
                 fontSize = 25.sp ,
                 fontFamily = FontFamily.Monospace ,
                 textAlign = TextAlign.Center ,
@@ -153,7 +148,7 @@ fun CategoryItem(
                 )
             }
             Text(
-                text = "150 €" ,
+                text = "$totalExpences €" ,
                 fontSize = 25.sp ,
                 fontWeight = FontWeight.Bold
             )
@@ -166,18 +161,22 @@ fun CategoryItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LazyCategoryColumn(
-    categories: List<Category>,
+    categories: List<Category>?,
     navController: NavController
-){
-    LazyColumn() {
-        categories.forEach{category ->
-            items(category.items) { text ->
-                Card(
-                    onClick = { navController.navigate(Screens.ExpensePage.route) },
-                    modifier = Modifier.padding(bottom = 10.dp),
-                ) {
-                    CategoryItem(text , navController = navController)
-                }
+) {
+    LazyColumn {
+        items(categories ?: emptyList()) { category ->
+            Card(
+                onClick = { navController.navigate(Screens.ExpensePage.route) },
+                modifier = Modifier.padding(bottom = 10.dp),
+            ) {
+                Log.w("homepage", category.getName())
+                CategoryItem(
+                    category.getName(),
+                    category.getImageURI(),
+                    category.GetTotalExpences(),
+                    navController = navController
+                )
             }
         }
     }

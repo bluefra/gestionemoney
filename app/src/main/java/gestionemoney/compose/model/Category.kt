@@ -5,7 +5,7 @@ import java.util.Date
 
 class Category (private val name: String){
     private var expensesList: MutableList<Expense> = mutableListOf()
-
+    private var imageURI: String? = null
     fun addExpenses(expense: Expense) {
         expensesList.add(expense)
     }
@@ -38,6 +38,28 @@ class Category (private val name: String){
         return name
     }
 
+    fun setImage(uri: String) {
+        imageURI = uri
+    }
+    fun getImageURI(): String? {
+        return imageURI
+    }
+
+    fun getDBname(): String {
+        var nameDB = name
+        if(imageURI != null) {
+            nameDB += Companion.DBtoken + imageURI
+        }
+        return nameDB
+    }
+
+    fun GetTotalExpences(): Double {
+        var tot: Double = 0.0
+        expensesList.forEach {
+            tot += it.getValue()
+        }
+        return tot
+    }
     fun toHashmap(): HashMap<String, Any> {
         val map: HashMap<String, Any> = HashMap()
         expensesList.forEach() {
@@ -52,7 +74,10 @@ class Category (private val name: String){
         }
     }
     override fun toString(): String {
-        var s: String = "$name:\t"
+        var s = "$name:\t"
+        if(imageURI != null) {
+            s += "imageURI: $imageURI\n"
+        }
         expensesList.forEach() {
             s+= it.toString()
         }
@@ -61,5 +86,18 @@ class Category (private val name: String){
     enum class ORDER{
         ASC,
         DEC
+    }
+
+    companion object {
+        private const val DBtoken: String = ":"
+
+        fun loadCategoryFromDB(name: String): Category {
+            val results = name.split(DBtoken)
+            val category = Category(results[0])
+            if(results.size == 2) {
+                category.setImage(results[1])
+            }
+            return category
+        }
     }
 }

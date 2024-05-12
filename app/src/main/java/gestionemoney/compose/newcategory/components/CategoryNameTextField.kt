@@ -18,8 +18,7 @@ import androidx.compose.ui.unit.sp
 
 // Composable function to display the new category text field.
 @Composable
-fun NewCategoryNameTextField(
-) {
+fun NewCategoryNameTextField(onChange: (String) -> Unit = {}) {
     var category by remember { mutableStateOf("") }
 
     Text(
@@ -33,7 +32,8 @@ fun NewCategoryNameTextField(
 
     OutlinedTextField(
         value = category ,
-        onValueChange = { category = it } ,
+        onValueChange = { category = it
+                         onChange(it)} ,
         label = { Text("Inserisci nome categoria") } ,
     )
 }

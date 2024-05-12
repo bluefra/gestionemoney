@@ -41,14 +41,14 @@ class User(private val userID: String) {
     fun toHashmap(): HashMap<String, HashMap<String, Any>>  {
         val map: HashMap<String, HashMap<String, Any>> = HashMap()
         categoriesList.forEach {
-            map[it.getName()] = it.toHashmap()
+            map[it.getDBname()] = it.toHashmap()
         }
         return map
     }
 
     fun loadFromHashmap(map: HashMap<String, Any>) {
         map.forEach {
-            val category = Category(it.key)
+            val category = Category.loadCategoryFromDB(it.key)
             val expense: HashMap<String, Double>? = it.value as? HashMap<String, Double>
             if(expense != null) {
                 category.loadFromHashmap(expense)

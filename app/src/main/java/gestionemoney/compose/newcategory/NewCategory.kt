@@ -1,7 +1,7 @@
 package gestionemoney.compose.newcategory
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -15,9 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
+import gestionemoney.compose.controller.DBconnection
+import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
+private var newCategory = ""
 @Composable
 fun NewCategory(
     navController: NavController
@@ -37,17 +40,28 @@ fun NewCategory(
         ) {
 
             // Call to new category text field
-            NewCategoryNameTextField()
+            NewCategoryNameTextField(onChange = { newCategory = it})
 
             // Database connection need to be implemented (save on db).
             // Currently point to the homepage.
             Button(
                 modifier = Modifier.padding(top = 10.dp),
-                onClick = { navController.navigate(Screens.Homepage.route)},
+                onClick = { addCategory(navController)},
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
                 Text(text = "Conferma")
             }
         }
     }
+}
+
+fun addCategory(navController: NavController) {
+    if(newCategory == "") {
+        Log.w("NewCategory", "campo vuoto")
+        return
+    }
+    Log.w("NewCategory", "adding $newCategory")
+    UserWrapper.getInstance().addCategory(newCategory)
+    DBconnection.getInstance().writeUser()
+    navController.navigate(Screens.Homepage.route)
 }
