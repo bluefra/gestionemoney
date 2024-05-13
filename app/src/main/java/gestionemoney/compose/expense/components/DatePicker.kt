@@ -52,8 +52,33 @@ fun parseDate(text: String, minDate: Date): Date? {
         if(date.before(minDate)) {
             return null
         }
-        return date
+        return setTime(date)
     } catch (e: Exception) {
         return null
     }
 }
+
+/**
+ * aggiunge ora, minuti e secondi attuali alla data passata
+ */
+fun setTime(date: Date): Date {
+    // Creazione dell'oggetto Calendar
+    val calendarNow = Calendar.getInstance()
+    val calendarDate = Calendar.getInstance()
+    // Impostazione dell'ora attuale sull'oggetto Calendar
+    calendarNow.time = Date()
+    calendarDate.time = date
+    // Ottenimento dell'ora attuale
+    val currentHour = calendarNow.get(Calendar.HOUR_OF_DAY)
+    val currentMinute = calendarNow.get(Calendar.MINUTE)
+    val currentSecond = calendarNow.get(Calendar.SECOND)
+
+    // Impostazione dell'ora corrente sull'oggetto Date
+    calendarDate.set(Calendar.HOUR_OF_DAY, currentHour)
+    calendarDate.set(Calendar.MINUTE, currentMinute)
+    calendarDate.set(Calendar.SECOND, currentSecond)
+
+    // Aggiornamento dell'oggetto Date
+    return calendarDate.time
+}
+

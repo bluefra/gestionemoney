@@ -87,6 +87,7 @@ val connection = LoadDB()
      override fun update(user: UserWrapper) {
          DBconnection.getInstance().removeObserver(this)
          standardCategory?.let { user.createCategories(it) }
+         DBconnection.getInstance().writeUser()
          Log.w("user", user.toString())
          navController?.navigate((Screens.Homepage.route))
      }

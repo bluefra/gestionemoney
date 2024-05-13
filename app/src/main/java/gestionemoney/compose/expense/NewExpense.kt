@@ -53,7 +53,8 @@ fun NewExpense(
             CategoryOfExpense(
                 categorylist,
                 AddExpense.standardOption,
-                onChange = { categoryName = it })
+                onChange = { categoryName = it
+                                Log.w("NewExpense", it)})
             CostOfExpense(onChange = { expense = it })
             DatePicker(initialDate = AddExpense.initialDate, onDateChanged = { date = it })
 
@@ -84,7 +85,6 @@ class AddExpense {
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(
             Expense(date, getCost(expense))
         )
-        Log.w("NewExpense", UserWrapper.getInstance().toString())
         DBconnection.getInstance().writeUser()
         navController.navigate(Screens.ExpensePage.route)
     }

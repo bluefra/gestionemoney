@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "96808457407",
-    "project_id": "moneytake-b2033",
-    "storage_bucket": "moneytake-b2033.appspot.com"
+    "project_number": "511863288934",
+    "project_id": "embedded-project-88eed",
+    "storage_bucket": "embedded-project-88eed.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:96808457407:android:b3c0ed3ed41b36f55f620a",
+        "mobilesdk_app_id": "1:511863288934:android:b578f0d5299331f552a9a7",
         "android_client_info": {
           "package_name": "gestionemoney.compose"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC7BoFvj91O9B1Lz8sVLTq9CQOGplHGR1E"
+          "current_key": "AIzaSyBmcvFStfrnLEvv8G-liiIM5UW-9Fxkov4"
         }
       ],
       "services": {

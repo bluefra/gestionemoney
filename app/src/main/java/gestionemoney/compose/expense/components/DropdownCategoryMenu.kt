@@ -36,8 +36,10 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
             TextField(
                 value = selectedCategory ,
                 onValueChange = {
-                                onChange(it)
-                } ,
+                    selectedCategory = it
+                    onChange(it) // Chiamare onChange qui
+                },
+                enabled = false,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) } ,
                 modifier = Modifier.menuAnchor()
             )
@@ -51,8 +53,8 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                         text = { Text(text = category) } ,
                         onClick = {
                             selectedCategory = category
-                            onChange(category)
                             expanded = false
+                            onChange(category)
                             Toast.makeText(context , category , Toast.LENGTH_SHORT).show()
                         }
                     )

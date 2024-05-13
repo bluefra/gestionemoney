@@ -20,5 +20,5 @@ fun CategoryOfExpense(categoryList: List<String>, standardOption: String, onChan
         fontWeight = FontWeight.ExtraBold ,
         modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
     )
-    DropdownCategoryMenu(categoryList, standardOption)
+    DropdownCategoryMenu(categoryList, standardOption, onChange)
 }
