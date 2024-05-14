@@ -24,7 +24,7 @@ fun NavigationGraph (
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Register.route
+        startDestination = Screens.Login.route
     ) {
         // Every call to the following composable function link the Screen(page) to the corresponding composable function
         composable(route = Screens.Homepage.route) {

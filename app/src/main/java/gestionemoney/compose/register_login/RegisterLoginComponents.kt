@@ -1,16 +1,27 @@
 package gestionemoney.compose.register_login
 
+import android.icu.number.NumberFormatter.TrailingZeroDisplay
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,7 +29,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -29,72 +43,117 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
+import gestionemoney.compose.ui.theme.Black
+import gestionemoney.compose.ui.theme.LemonYellon
+import gestionemoney.compose.ui.theme.Pink80
 
 @Composable
-fun TextTitle(text: String) {
-        Text(
-            text = text,
-            fontSize = 15.sp ,
-            fontFamily = FontFamily.Monospace ,
-            textAlign = TextAlign.Center ,
-            fontWeight = FontWeight.ExtraBold ,
+fun TopSection(text1 : String, text2: String){
+
+    Box(
+        contentAlignment = Alignment.TopCenter
+    ){
+        Image(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(fraction = 0.4f),
+            painter = painterResource(id = R.drawable.shape),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds
         )
+
+        Row(
+            modifier = Modifier.padding(top= 80.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = text1,
+                style = MaterialTheme.typography.titleMedium,
+                color = Black)
+            Spacer(modifier = Modifier.width(15.dp))
+        }
+        Text(
+            modifier = Modifier
+                .padding(bottom = 10.dp)
+                .align(alignment = Alignment.BottomCenter),
+            text = text2,
+            style = MaterialTheme.typography.headlineLarge,
+            color = Black
+        )
+    }
 }
+
 
 @Composable
 fun RegisterButton(
     navController: NavController
 ){
         Button(
+            modifier = Modifier.fillMaxWidth().height((40.dp)),
             onClick = { DBRegister(navController).evaluateRegister()},
-            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
+            shape = RoundedCornerShape(size = 4.dp)
         ){
-            TextTitle(text = "Register")
+            Text(text = "Register", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
         }
 }
 
 @Composable
-fun EmailEnter(onChange: (String) -> Unit = {}){
-
-        var text by remember { mutableStateOf("") }
-
-        Text(
-                text = "Inserisci la tua email",
-                fontSize = 15.sp ,
-                fontFamily = FontFamily.Monospace ,
-                textAlign = TextAlign.Center ,
-                fontWeight = FontWeight.ExtraBold ,
-                modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
-            TextField(
-                value = text,
-                onValueChange = { text = it
-                                  onChange(it)},
-                label = { Text("email") },
-            )
+fun LoginButton(
+    navController: NavController
+){
+    Button(
+        modifier = Modifier.fillMaxWidth().height((40.dp)),
+        onClick = { DBLogin(navController).evaluateLogin()},
+        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
+        shape = RoundedCornerShape(size = 4.dp)
+    ){
+        Text(text = "Login", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
+    }
 }
 
+
 @Composable
-fun PasswordEnter(onChange: (String) -> Unit = {}){
+fun EmailEnter(
+    modifier: Modifier = Modifier,
+    label: String,
+    onChange: (String) -> Unit = {}
+){
+    var text by remember { mutableStateOf("")}
 
-        var text by remember { mutableStateOf("") }
+    TextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = {text = it
+            onChange(it)},
+        label = { 
+                Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
+        },
+        colors = TextFieldDefaults.colors(Black),
 
-        Text(
-            text = "Inserisci la tua password",
-            fontSize = 15.sp ,
-            fontFamily = FontFamily.Monospace ,
-            textAlign = TextAlign.Center ,
-            fontWeight = FontWeight.ExtraBold ,
-            modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
-
-        TextField(
-            value = text,
-            onValueChange = { text = it
-                              onChange(it)},
-            visualTransformation = PasswordVisualTransformation(),
-            label = { Text("password") },
     )
 }
 
+@Composable
+fun PasswordEnter(
+    modifier: Modifier = Modifier,
+    label: String,
+    onChange: (String) -> Unit = {}){
+
+    var text by remember { mutableStateOf("")}
+
+    TextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = {text = it
+            onChange(it)},
+        label = {
+            Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
+        },
+        visualTransformation = PasswordVisualTransformation(),
+        colors = TextFieldDefaults.colors(Black),
+
+    )
+}
 @Composable
 fun TextWithDivider() {
     Row(
@@ -119,36 +178,55 @@ fun TextWithDivider() {
     }
 }
 
+
+
+/*
 @Composable
-fun GoToLoginButton(
-    navController: NavController
-){
-    Button(
-        onClick = {navController.navigate(Screens.Login.route)},
-        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
-    ){
-        TextTitle(text = "Login")
-    }
+fun EmailEnter(onChange: (String) -> Unit = {}){
+
+        var text by remember { mutableStateOf("") }
+
+        Text(
+                text = "Inserisci la tua email",
+                fontSize = 15.sp ,
+                fontFamily = FontFamily.Monospace ,
+                textAlign = TextAlign.Center ,
+                fontWeight = FontWeight.ExtraBold ,
+                modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
+            TextField(
+                value = text,
+                onValueChange = { text = it
+                                  onChange(it)},
+                label = { Text("email") },
+            )
 }
 
+
+
 @Composable
-fun LoginButton(
-    navController: NavController
-){
-    Button(
-        onClick = { DBLogin(navController).evaluateLogin()},
-        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
-    ){
-        Text(text = "Login")
-    }
+fun PasswordEnter(onChange: (String) -> Unit = {}){
+
+        var text by remember { mutableStateOf("") }
+
+        Text(
+            text = "Inserisci la tua password",
+            fontSize = 15.sp ,
+            fontFamily = FontFamily.Monospace ,
+            textAlign = TextAlign.Center ,
+            fontWeight = FontWeight.ExtraBold ,
+            modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
+
+        TextField(
+            value = text,
+            onValueChange = { text = it
+                              onChange(it)},
+            visualTransformation = PasswordVisualTransformation(),
+            label = { Text("password") },
+    )
 }
 
+*/
 
 
-@Preview
-@Composable
-fun EmailEnterPreview(){
-    EmailEnter()
-}
 
 
