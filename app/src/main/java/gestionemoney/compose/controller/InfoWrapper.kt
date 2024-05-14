@@ -40,4 +40,8 @@ class InfoWrapper private constructor(){
         info?.setHasMap(value)
     }
 
+    fun close() {
+        instance = null
+        info = null
+    }
 }

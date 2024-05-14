@@ -105,4 +105,9 @@ class UserWrapper private constructor(){
     override fun toString(): String {
         return user.toString()
     }
+
+    fun close() {
+        instance = null
+        user = null
+    }
 }

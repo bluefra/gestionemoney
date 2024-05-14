@@ -93,6 +93,7 @@ class DBauthentication {
 
     fun logOut() {
         FirebaseAuth.getInstance().signOut()
+        instance = null
         isSet = false
     }
     fun isSet(): Boolean {

@@ -53,7 +53,7 @@ class DBInfoConnection {
     fun writeInfo() {
         if(!isConnect()) { return }
         val myRef = database.getReference("userInfo")
-            myRef.child(userID!!).updateChildren(info.getHashMap())
+        myRef.child(userID!!).updateChildren(info.getHashMap())
     }
 
     fun isConnect(): Boolean {
@@ -71,5 +71,11 @@ class DBInfoConnection {
     private fun notifyInfoObservers(info: Info) {
         InfoWrapper.getInstance().updateInfo(info)
         InfoObservers.forEach { it.updateInfo(InfoWrapper.getInstance()) }
+    }
+
+    fun close() {
+        instance = null
+        info = Info()
+        InfoWrapper.getInstance().close()
     }
 }

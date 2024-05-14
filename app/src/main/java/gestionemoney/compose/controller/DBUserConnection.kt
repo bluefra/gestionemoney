@@ -96,4 +96,9 @@ class DBUserConnection private constructor() {
         }
     }
 
+    fun close() {
+        instance = null
+        user = null
+        UserWrapper.getInstance().close()
+    }
 }
