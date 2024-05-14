@@ -2,5 +2,5 @@ package gestionemoney.compose.controller
 
 
 interface UserChangeObserver {
-    fun update(user: UserWrapper)
+    fun updateUser(user: UserWrapper)
 }

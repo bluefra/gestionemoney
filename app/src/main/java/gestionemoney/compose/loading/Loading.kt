@@ -11,8 +11,11 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBauthentication
-import gestionemoney.compose.controller.DBconnection
+import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.controller.InfoChangeObserver
+import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
@@ -65,7 +68,7 @@ val connection = LoadDB()
         }
     }
 
- class LoadDB: UserChangeObserver{
+ class LoadDB: UserChangeObserver, InfoChangeObserver{
      private var connecting: Boolean = false
      private var navController: NavController? = null
      private var standardCategory: Array<String>? = null
@@ -81,15 +84,25 @@ val connection = LoadDB()
              nav.navigate(Screens.Login.route)
              return
          }
-         DBconnection.getInstance().addObserver(this)
-         DBconnection.getInstance().connect(uid)
+         DBUserConnection.getInstance().addUserObserver(this)
+         DBUserConnection.getInstance().connectUser(uid)
+         DBInfoConnection.getInstance().addInfoObserver(this)
+         DBInfoConnection.getInstance().connectInfo(uid)
      }
-     override fun update(user: UserWrapper) {
-         DBconnection.getInstance().removeObserver(this)
+     override fun updateUser(user: UserWrapper) {
+         DBUserConnection.getInstance().removeUserObserver(this)
          standardCategory?.let { user.createCategories(it) }
-         DBconnection.getInstance().writeUser()
+         DBUserConnection.getInstance().writeUser()
          Log.w("user", user.toString())
          navController?.navigate((Screens.Homepage.route))
+     }
+
+     override fun updateInfo(info: InfoWrapper) {
+         DBInfoConnection.getInstance().removeInfoObserver(this)
+         if(info.getHashMap().isEmpty()) {
+             info.setInfo("prova", "halo")
+         }
+         DBInfoConnection.getInstance().writeInfo()
      }
 
  }

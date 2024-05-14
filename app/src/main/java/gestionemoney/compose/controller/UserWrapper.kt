@@ -7,7 +7,7 @@ import gestionemoney.compose.model.User
 import java.util.Date
 
 class UserWrapper private constructor(){
-    var user: User? = null
+    private var user: User? = null
     /**
      * usato implementare il pattern Singleton nella classe UserWrapper
      */

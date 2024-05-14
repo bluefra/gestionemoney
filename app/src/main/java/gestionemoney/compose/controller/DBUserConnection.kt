@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
+import gestionemoney.compose.model.Info
 import gestionemoney.compose.model.User
 
 
@@ -15,9 +16,9 @@ import gestionemoney.compose.model.User
  * per utilizzare la seguente classe è necessario invocare: DBconnection.getInstance()
  * non è possibile creare direttamente la classe
  */
-class DBconnection private constructor() {
+class DBUserConnection private constructor() {
     private val database = Firebase.database
-    private val observers = mutableListOf<UserChangeObserver>()
+    private val userObservers = mutableListOf<UserChangeObserver>()
     private var user: User? = null
     private var userID: String? = null
 
@@ -25,18 +26,18 @@ class DBconnection private constructor() {
      * usato implementare il pattern Singleton nella classe DBconnection
      */
     companion object {
-        private var instance: DBconnection? = null
+        private var instance: DBUserConnection? = null
 
-        fun getInstance(): DBconnection {
+        fun getInstance(): DBUserConnection {
             return instance ?: synchronized(this) {
-                instance ?: DBconnection().also { instance = it }
+                instance ?: DBUserConnection().also { instance = it }
             }
         }
     }
 
-    fun connect(uid: String) {
+    fun connectUser(uid: String) {
         userID = uid
-        val myRef = database.getReference(uid)
+        val myRef = database.getReference("userData").child(uid)
         Log.w("db", "connecting")
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -49,20 +50,19 @@ class DBconnection private constructor() {
 
         })
     }
-
-    fun addObserver(observer: UserChangeObserver) {
-        observers.add(observer)
+    fun addUserObserver(observer: UserChangeObserver) {
+        userObservers.add(observer)
     }
 
-    fun removeObserver(observer: UserChangeObserver) {
-        observers.remove(observer)
+    fun removeUserObserver(observer: UserChangeObserver) {
+        userObservers.remove(observer)
     }
 
-    private fun notifyObservers(user: User) {
+    private fun notifyUserObservers(user: User) {
         val userWrapper: UserWrapper = UserWrapper.getInstance()
         userWrapper.updateUser(user)
         Log.w("db", "notifyng")
-        observers.forEach { it.update(userWrapper) }
+        userObservers.forEach { it.updateUser(userWrapper) }
     }
 
     private fun readUserData(value: DataSnapshot) {
@@ -72,7 +72,7 @@ class DBconnection private constructor() {
         if(map != null) {
             user!!.loadFromHashmap(map)
         }
-        notifyObservers(user!!)
+        notifyUserObservers(user!!)
     }
 
     fun isConnect(): Boolean {
@@ -80,7 +80,7 @@ class DBconnection private constructor() {
     }
     fun writeUser() {
         if(!isConnect()) { return }
-        val myRef = database.getReference("")
+        val myRef = database.getReference("userData")
         val categoryList = user!!.getList()
         val category = HashMap<String, Any>()
         categoryList.forEach {
