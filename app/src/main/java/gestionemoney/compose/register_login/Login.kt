@@ -15,8 +15,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,64 +59,74 @@ fun Login(
 
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
-            TopSection("Nome app ..... \n Bentornato", "Login")
+            TopSection("Nome app ..... \n Bentornato", "\nLogin")
             Spacer(modifier = Modifier.height(36.dp))
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 30.dp)
             ) {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    item{
+                    Card(modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.Transparent, //Card background color
+                            contentColor = Color.Transparent  //Card content color,e.g.text
+                        )
+                    ) {
 
-                EmailEnter(
-                    label = "Email",
-                    modifier = Modifier.fillMaxWidth(),
-                    onChange = { email = it })
-                Spacer(modifier = Modifier.height(35.dp))
-                PasswordEnter(
-                    label = "Password",
-                    modifier = Modifier.fillMaxWidth(),
-                    onChange = { password = it })
-                Spacer(modifier = Modifier.height(20.dp))
-                LoginButton(navController)
-                Spacer(modifier = Modifier.height(35.dp))
-                TextWithDivider()
-                Spacer(modifier = Modifier.height(20.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(fraction = 0.8f),
-                ) {
-                   Text(
-                        text = buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    color = Color(0xFF94A3B8),
-                                    fontSize = 14.sp,
-                                    fontFamily = Roboto,
-                                    fontWeight = FontWeight.Normal
-                                )
-                            ) {
-                                append("Non hai un account? ")
-                            }
-                        })
-                    Surface(onClick = { navController.navigate(Screens.Register.route) }) {
-                        Text(text = buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    color = Color(0xFF000000),
-                                    fontSize = 14.sp,
-                                    fontFamily = Roboto,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            ) {
-                                append(" ")
-                                append("Registrati ora ")
-                            }
-                        })
+
+                    EmailEnter(
+                        label = "Email",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { email = it })
+                    Spacer(modifier = Modifier.height(35.dp))
+                    PasswordEnter(
+                        label = "Password",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { password = it })
+                    Spacer(modifier = Modifier.height(20.dp))
+                    LoginButton(navController)
+                    Spacer(modifier = Modifier.height(35.dp))
+                    TextWithDivider()
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(fraction = 0.8f),
+                    ) {
+                        Text(
+                            text = buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF94A3B8),
+                                        fontSize = 14.sp,
+                                        fontFamily = Roboto,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append("Non hai un account? ")
+                                }
+                            })
+                        Surface(onClick = { navController.navigate(Screens.Register.route) }) {
+                            Text(text = buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF000000),
+                                        fontSize = 14.sp,
+                                        fontFamily = Roboto,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                ) {
+                                    append(" ")
+                                    append("Registrati ora ")
+                                }
+                            })
+                        }
+
                     }
 
-                }
-
+                }}}
             }
 
         }
