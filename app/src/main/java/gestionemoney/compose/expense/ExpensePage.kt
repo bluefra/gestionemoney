@@ -1,8 +1,8 @@
 package gestionemoney.compose.expense
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,28 +24,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
+import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.components.NewExpenseButton
-import gestionemoney.compose.homepage.components.NewCategoryButton
+import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
-import gestionemoney.compose.resource.expenselist
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun ExpensePage(
-    navController: NavController
+    navController: NavController,
+    categoryName: String
 ) {
     // Mapping the expenselist to the Expense data class. (database implementation)
-    val expenses = expenselist.map {
-        Expense(
-            name = it.key.toString(),
-            items = it.value,
-            date =  LocalDate.now(),
-            shop = "",
-            category = ""
-        )
-    }
-
+    val expenses = UserWrapper.getInstance().getCategory(categoryName)?.getList()
     Column(
         modifier = Modifier.padding(10.dp)
     ) {
@@ -86,7 +79,7 @@ fun ExpensePage(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Abbigliamento",
+                    text = categoryName,
                     fontSize = 25.sp ,
                     fontFamily = FontFamily.Monospace ,
                     textAlign = TextAlign.Center,
@@ -115,33 +108,11 @@ fun ExpensePage(
     }
 }
 
-// Data class to create Expense (db connection)
-data class Expense(
-    val name: String,
-    val items: List<String>,
-    val date: LocalDate,
-    val shop: String,
-    val category: String
-){}
-
-// Display the expense name.
-@Composable
-fun ExpenseName(
-    text: String
-){
-    Text(
-        text = text,
-        fontSize = 20.sp ,
-        fontFamily = FontFamily.Monospace ,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.ExtraBold
-    )
-}
 
 // Create and display a single Expense item.
 @Composable
 fun ExpenseItem(
-    text: String
+    expense: Expense
 ){
     val image = painterResource(R.drawable.dress)
     Column(
@@ -149,7 +120,7 @@ fun ExpenseItem(
             .padding(10.dp),
     ) {
         Text(
-            text = text ,
+            text = expense.getName() ,
             fontSize = 25.sp ,
             fontFamily = FontFamily.Monospace ,
             textAlign = TextAlign.Center ,
@@ -158,19 +129,14 @@ fun ExpenseItem(
         Row(
         ) {
             Text(
-                text = "150 €" ,
+                text = "${expense.getValue()} €" ,
                 fontSize = 20.sp ,
                 fontWeight = FontWeight.Bold ,
                 modifier = Modifier.padding(start = 10.dp)
             )
+
             Text(
-                text = "Padova" ,
-                fontSize = 20.sp ,
-                fontWeight = FontWeight.Bold ,
-                modifier = Modifier.padding(start = 10.dp)
-            )
-            Text(
-                text = "15 Aprile 2024" ,
+                text = formatDate(expense.getDate()) ,
                 fontSize = 20.sp ,
                 fontWeight = FontWeight.Bold ,
                 modifier = Modifier.padding(start = 10.dp)
@@ -184,14 +150,18 @@ fun ExpenseItem(
 // Need database implementation.
 @Composable
 fun LazyActivityColumn(
-    expenses: List<Expense>,
+    expenses: List<Expense>?,
     modifier: Modifier = Modifier
 ){
     LazyColumn() {
-        expenses.forEach{expense ->
-            items(expense.items) { text ->
-                ExpenseItem(text)
+            items(expenses ?: emptyList()) { expense ->
+                ExpenseItem(expense)
             }
-        }
     }
+}
+
+
+fun formatDate(date: Date): String {
+    val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+    return format.format(date)
 }

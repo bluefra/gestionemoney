@@ -3,6 +3,7 @@ package gestionemoney.compose.model
 import java.util.Date
 
 class Expense(private val date: Date = Date(), private val value: Double){
+    private var name: String = ""
     /**
      * if date == comparedDate -> return 0
      * if date > comparedDate -> return 1
@@ -32,8 +33,27 @@ class Expense(private val date: Date = Date(), private val value: Double){
     fun getDate(): Date {
         return date;
     }
-
+    fun setName(newName: String) {
+        name = newName
+    }
+    fun getName(): String {
+        return name
+    }
     override fun toString(): String {
         return " {$date -> $value} "
+    }
+
+    fun getDBName(): String {
+        return date.toString() + DBtoken + name;
+    }
+    companion object {
+        const val DBtoken: String = "_"
+
+        fun loadExpenseFromDB(name: String, value: Double): Expense {
+            val results = name.split(DBtoken)
+            val expense = Expense(Date(results[0]), value)
+                expense.setName(results[1])
+            return expense
+        }
     }
 }

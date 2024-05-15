@@ -167,7 +167,7 @@ fun LazyCategoryColumn(
     LazyColumn {
         items(categories ?: emptyList()) { category ->
             Card(
-                onClick = { navController.navigate(Screens.ExpensePage.route) },
+                onClick = { navController.navigate("${Screens.ExpensePage.route}/${category.getName()}") },
                 modifier = Modifier.padding(bottom = 10.dp),
             ) {
                 Log.w("homepage", category.getName())

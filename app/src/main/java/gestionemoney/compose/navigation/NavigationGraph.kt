@@ -33,9 +33,16 @@ fun NavigationGraph (
         composable(route = Screens.NewCategory.route) {
             NewCategory(navController)
         }
-        composable(route = Screens.ExpensePage.route) {
-            ExpensePage(navController)
+
+        composable(Screens.ExpensePage.route + "/{categoryName}") {backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName")
+            categoryName?.let {
+                ExpensePage(navController, categoryName)
+            } ?: run {
+                //ExpensePage(navController, "categoryName")
+            }
         }
+
         composable(route = Screens.UserPage.route) {
             Userpage(navController)
         }

@@ -38,10 +38,10 @@ class User(private val userID: String) {
         return null
     }
 
-    fun toHashmap(): HashMap<String, HashMap<String, Any>>  {
-        val map: HashMap<String, HashMap<String, Any>> = HashMap()
+    fun toHashmap(): HashMap<String, Any>  {
+        val map: HashMap<String, Any> = HashMap()
         categoriesList.forEach {
-            map[it.getDBname()] = it.toHashmap()
+            map[it.getDBname()] = ""
         }
         return map
     }

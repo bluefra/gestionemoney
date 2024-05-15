@@ -6,7 +6,7 @@ import java.util.Date
 
 class Category (private val name: String){
     private var expensesList: MutableList<Expense> = mutableListOf()
-    private var imageURI: String? = null
+    private var imageURI: String = ""
     fun addExpenses(expense: Expense) {
         Log.w("Category", "adding $expense")
         expensesList.add(expense)
@@ -50,8 +50,9 @@ class Category (private val name: String){
     fun getDBname(): String {
         var nameDB = name
         if(imageURI != null) {
-            nameDB += Companion.DBtoken + imageURI
+            nameDB += DBtoken + imageURI
         }
+        Log.w("dbextra", "nameDBCategory: "+nameDB)
         return nameDB
     }
 
@@ -65,14 +66,14 @@ class Category (private val name: String){
     fun toHashmap(): HashMap<String, Any> {
         val map: HashMap<String, Any> = HashMap()
         expensesList.forEach() {
-            map[it.getDate().toString()] = it.getValue()
+            map[it.getDBName()] = it.getValue()
         }
         return map
     }
 
     fun loadFromHashmap(map: HashMap<String, Double>) {
         map.forEach {
-            expensesList.add(Expense(Date(it.key), it.value))
+            expensesList.add(Expense.loadExpenseFromDB(it.key, it.value))
         }
     }
     override fun toString(): String {
@@ -91,14 +92,13 @@ class Category (private val name: String){
     }
 
     companion object {
-        private const val DBtoken: String = ":"
+        const val DBtoken: String = "_"
 
         fun loadCategoryFromDB(name: String): Category {
             val results = name.split(DBtoken)
             val category = Category(results[0])
-            if(results.size == 2) {
-                category.setImage(results[1])
-            }
+            Log.w("dbextra", "category ${results[0]}")
+            category.setImage(results[1])
             return category
         }
     }

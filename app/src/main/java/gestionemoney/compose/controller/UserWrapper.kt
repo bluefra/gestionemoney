@@ -71,9 +71,11 @@ class UserWrapper private constructor(){
         }
         return null
     }
-    fun addExpense(categoryName: String, date: Date, value: Double){
+    fun addExpense(categoryName: String, name: String, date: Date, value: Double){
         val category: Category? = getCategory(categoryName)
-        category?.addExpenses(Expense(date, value))
+        val expense = Expense(date, value)
+        expense.setName(name)
+        category?.addExpenses(expense)
     }
 
     fun getCategoryList(): List<Category>? {

@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
-import gestionemoney.compose.controller.DBconnection
+import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
@@ -62,6 +62,6 @@ fun addCategory(navController: NavController) {
     }
     Log.w("NewCategory", "adding $newCategory")
     UserWrapper.getInstance().addCategory(newCategory)
-    DBconnection.getInstance().writeUser()
+    DBUserConnection.getInstance().writeUser()
     navController.navigate(Screens.Homepage.route)
 }

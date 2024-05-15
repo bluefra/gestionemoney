@@ -81,18 +81,11 @@ class DBUserConnection private constructor() {
     fun writeUser() {
         if(!isConnect()) { return }
         val myRef = database.getReference("userData")
-        val categoryList = user!!.getList()
-        val category = HashMap<String, Any>()
-        categoryList.forEach {
-            category[it.getName()] = ""
-        }
-        myRef.child(userID!!).updateChildren(category)
-        categoryList.forEach { cat ->
-            val expense = HashMap<String, Any>()
-            cat.getList().forEach {
-                expense[it.getDate().toString()] = it.getValue()
-            }
-            myRef.child(userID!!).child(cat.getName()).updateChildren(expense)
+        Log.w("write", user!!.toHashmap().toString())
+        myRef.child(userID!!).updateChildren(user!!.toHashmap())
+        user!!.getList().forEach { cat ->
+            myRef.child(userID!!).child(cat.getDBname()).updateChildren(cat.toHashmap())
+            Log.w("write", cat.toHashmap().toString())
         }
     }
 

@@ -16,11 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
-import gestionemoney.compose.controller.DBconnection
+import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.components.CategoryOfExpense
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
+import gestionemoney.compose.expense.components.ExpenseName
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.util.Calendar
@@ -28,7 +29,8 @@ import java.util.Calendar
 import java.util.Date
 
 private var categoryName = ""
-private var expense: String = ""
+private var expense_name: String = ""
+private var expense_value: String = ""
 private var date = Date()
 
 @Composable
@@ -55,7 +57,8 @@ fun NewExpense(
                 AddExpense.standardOption,
                 onChange = { categoryName = it
                                 Log.w("NewExpense", it)})
-            CostOfExpense(onChange = { expense = it })
+            ExpenseName { expense_name = it }
+            CostOfExpense(onChange = { expense_value = it })
             DatePicker(initialDate = AddExpense.initialDate, onDateChanged = { date = it })
 
             Button(
@@ -71,35 +74,39 @@ fun NewExpense(
 
 class AddExpense {
 
-    fun getCost(cost: String): Double {
+    private fun getCost(cost: String): Double {
         return if(cost.toDoubleOrNull() == null) {
             0.0
         } else {
             cost.toDouble()
         }
     }
+    //the name shouldn't contain space
+    private fun verifyIntegrity(name: String): Boolean {
+        return !name.contains(Expense.DBtoken)
+    }
     fun addExpense(navController: NavController) {
         if(!verifyExpense()) {
             return
         }
-        UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(
-            Expense(date, getCost(expense))
-        )
-        DBconnection.getInstance().writeUser()
-        navController.navigate(Screens.ExpensePage.route)
+        val expense = Expense(date, getCost(expense_value))
+        expense.setName(expense_name)
+        UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
+        DBUserConnection.getInstance().writeUser()
+        navController.navigate(Screens.Homepage.route)
     }
 
-    fun verifyExpense(): Boolean {
+    private fun verifyExpense(): Boolean {
         if(categoryName == standardOption) {
             Log.w("NewExpenses","chose a category")
             return false
         }
-        val cost = getCost(expense)
+        val cost = getCost(expense_value)
         if(cost == 0.0) {
             Log.w("NewExpenses", "insert a valid expense")
             return false
         }
-        return true
+        return verifyIntegrity(expense_name)
     }
     companion object {
         const val standardOption = "chose a category..."
