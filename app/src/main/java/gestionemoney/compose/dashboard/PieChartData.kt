@@ -40,7 +40,7 @@ fun PieChart(data: Map<String, Float>) {
                     startAngle = startAngle,
                     sweepAngle = sweepAngle,
                     useCenter = false,
-                    style = Stroke(40f),
+                    style = Stroke(60f),
                 )
                 startAngle += sweepAngle
                 index++
@@ -91,16 +91,16 @@ fun Pie(entry: Map<String, Float>){
 }
 fun getColorList(number: Int): List<Color> {
     val colors: MutableList<Color> = mutableListOf()
-    for(i in 1..number) {
+    for(i in 0..<number) {
         colors.add(generateColor(i))
     }
     return colors
 }
 fun generateColor(index: Int): Color {
-    val numColorsPerGroup = 3 // Numero di colori in ciascun gruppo (rosso, arancione, giallo, ecc.)
+    val numColorsPerGroup = 2 // Numero di colori in ciascun gruppo (rosso, arancione, giallo, ecc.)
     val groupIndex = index / numColorsPerGroup
-    val colorMajorSweep = 51 * 2
-    val colorMinorSweep = 25 * 2
+    val colorMajorSweep = 51 * 3
+    val colorMinorSweep = 25 * 3
     val colorIndexInGroup = index % numColorsPerGroup
     val minorColor = colorMinorSweep * colorIndexInGroup
     val majorColor = colorMajorSweep * colorIndexInGroup
