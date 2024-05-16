@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
@@ -26,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,22 +48,28 @@ import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.ui.theme.Black
 import gestionemoney.compose.ui.theme.LemonYellon
-import gestionemoney.compose.ui.theme.Pink80
+
 
 @Composable
 fun TopSection(text1 : String, text2: String){
 
+    var text: String by rememberSaveable {
+        mutableStateOf("")
+    }
+
     Box(
-        contentAlignment = Alignment.TopCenter
+        contentAlignment = Alignment.TopCenter,
     ){
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.4f),
+                .fillMaxHeight(fraction = 0.4f)
+            ,
             painter = painterResource(id = R.drawable.shape),
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )
+
 
         Row(
             modifier = Modifier.padding(top= 80.dp),
@@ -68,7 +77,8 @@ fun TopSection(text1 : String, text2: String){
         ) {
             Text(text = text1,
                 style = MaterialTheme.typography.titleMedium,
-                color = Black)
+                color = Black,
+                )
             Spacer(modifier = Modifier.width(15.dp))
         }
         Text(
@@ -130,6 +140,7 @@ fun EmailEnter(
         },
         colors = TextFieldDefaults.colors(Black),
 
+
     )
 }
 
@@ -177,56 +188,5 @@ fun TextWithDivider() {
         )
     }
 }
-
-
-
-/*
-@Composable
-fun EmailEnter(onChange: (String) -> Unit = {}){
-
-        var text by remember { mutableStateOf("") }
-
-        Text(
-                text = "Inserisci la tua email",
-                fontSize = 15.sp ,
-                fontFamily = FontFamily.Monospace ,
-                textAlign = TextAlign.Center ,
-                fontWeight = FontWeight.ExtraBold ,
-                modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
-            TextField(
-                value = text,
-                onValueChange = { text = it
-                                  onChange(it)},
-                label = { Text("email") },
-            )
-}
-
-
-
-@Composable
-fun PasswordEnter(onChange: (String) -> Unit = {}){
-
-        var text by remember { mutableStateOf("") }
-
-        Text(
-            text = "Inserisci la tua password",
-            fontSize = 15.sp ,
-            fontFamily = FontFamily.Monospace ,
-            textAlign = TextAlign.Center ,
-            fontWeight = FontWeight.ExtraBold ,
-            modifier = Modifier.padding(top = 10.dp , bottom = 10.dp))
-
-        TextField(
-            value = text,
-            onValueChange = { text = it
-                              onChange(it)},
-            visualTransformation = PasswordVisualTransformation(),
-            label = { Text("password") },
-    )
-}
-
-*/
-
-
 
 

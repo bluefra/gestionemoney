@@ -23,6 +23,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,6 +91,7 @@ fun Login(
                     Spacer(modifier = Modifier.height(35.dp))
                     TextWithDivider()
                     Spacer(modifier = Modifier.height(20.dp))
+
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -108,7 +110,7 @@ fun Login(
                                     append("Non hai un account? ")
                                 }
                             })
-                        Surface(onClick = { navController.navigate(Screens.Register.route) }) {
+                        TextButton(onClick = { navController.navigate(Screens.Register.route)}) {
                             Text(text = buildAnnotatedString {
                                 withStyle(
                                     style = SpanStyle(
@@ -122,6 +124,7 @@ fun Login(
                                     append("Registrati ora ")
                                 }
                             })
+
                         }
 
                     }
