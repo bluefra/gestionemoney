@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +38,8 @@ import gestionemoney.compose.ui.theme.Roboto
 //import com.google.firebase.auth.auth
 private var email = ""
 private var password = ""
+private var name = ""
+private var surname = ""
 private var message: Toast? = null
 
 @SuppressLint("ShowToast")
@@ -47,30 +51,46 @@ fun Register(navController: NavController){
     var email by remember { mutableStateOf(false) }
     var password by remember { mutableStateOf("") }
 */
+    val scrollState = rememberScrollState()
 
     Surface {
-        Column(modifier = Modifier.fillMaxSize()) {
-            TopSection("Nome app ..... \n Benvenuto", "Register")
-            Spacer(modifier = Modifier.height(36.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 30.dp)
-            ) {
+        Column(modifier = Modifier
+            .fillMaxSize()
 
-                EmailEnter(
-                    label = "Email",
-                    modifier = Modifier.fillMaxWidth(),
-                    onChange = { email = it })
-                Spacer(modifier = Modifier.height(35.dp))
-                PasswordEnter(
-                    label = "Password",
-                    modifier = Modifier.fillMaxWidth(),
-                    onChange = { password = it })
-                Spacer(modifier = Modifier.height(20.dp))
-                RegisterButton(navController = navController)
-                
-            }
+            ) {
+                TopSection("Nome app ..... \n Benvenuto", "Register")
+                Spacer(modifier = Modifier.height(30.dp))
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 30.dp)
+                        .verticalScroll(scrollState),
+
+                ) {
+
+                    EmailEnter(
+                        label = "Email",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { email = it })
+                    Spacer(modifier = Modifier.height(15.dp))
+                    PasswordEnter(
+                        label = "Password",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { password = it })
+                    Spacer(modifier = Modifier.height(15.dp))
+                    InfoEnter(
+                        label = "Nome",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { name = it })
+                    Spacer(modifier = Modifier.height(15.dp))
+                    InfoEnter(
+                        label = "Cognome",
+                        modifier = Modifier.fillMaxWidth(),
+                        onChange = { surname = it })
+                    Spacer(modifier = Modifier.height(15.dp))
+                    RegisterButton(navController = navController)
+
+                }
 
         }
     }

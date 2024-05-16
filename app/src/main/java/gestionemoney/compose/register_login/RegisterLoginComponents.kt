@@ -70,26 +70,30 @@ fun TopSection(text1 : String, text2: String){
             contentScale = ContentScale.FillBounds
         )
 
-
-        Row(
-            modifier = Modifier.padding(top= 80.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = text1,
-                style = MaterialTheme.typography.titleMedium,
-                color = Black,
-                )
-            Spacer(modifier = Modifier.width(15.dp))
-        }
         Text(
             modifier = Modifier
-                .padding(bottom = 10.dp)
-                .align(alignment = Alignment.BottomCenter),
+                .padding(top = 20.dp)
+                .fillMaxWidth()
+                .align(alignment = Alignment.TopStart),
+            text = text1,
+            style = MaterialTheme.typography.titleMedium,
+            color = Black,
+        )
+        Text(
+            modifier = Modifier
+                .padding(top = 100.dp)
+                .align(alignment = Alignment.Center),
             text = text2,
             style = MaterialTheme.typography.headlineLarge,
             color = Black
         )
     }
+}
+
+@Preview
+@Composable
+fun Preview(){
+    TopSection(text1 = "ciao1", text2 = "ciao2")
 }
 
 
@@ -98,7 +102,9 @@ fun RegisterButton(
     navController: NavController
 ){
         Button(
-            modifier = Modifier.fillMaxWidth().height((40.dp)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height((40.dp)),
             onClick = { DBRegister(navController).evaluateRegister()},
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
             shape = RoundedCornerShape(size = 4.dp)
@@ -112,7 +118,9 @@ fun LoginButton(
     navController: NavController
 ){
     Button(
-        modifier = Modifier.fillMaxWidth().height((40.dp)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height((40.dp)),
         onClick = { DBLogin(navController).evaluateLogin()},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
         shape = RoundedCornerShape(size = 4.dp)
@@ -143,6 +151,28 @@ fun EmailEnter(
 
     )
 }
+
+@Composable
+fun InfoEnter(
+    modifier: Modifier = Modifier,
+    label: String,
+    onChange: (String) -> Unit = {}
+){
+    var text by remember { mutableStateOf("")}
+
+    TextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = {text = it
+            onChange(it)},
+        label = {
+            Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
+        },
+        colors = TextFieldDefaults.colors(Black),
+
+        )
+}
+
 
 @Composable
 fun PasswordEnter(
