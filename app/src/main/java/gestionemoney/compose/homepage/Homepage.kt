@@ -1,5 +1,6 @@
 package gestionemoney.compose.homepage
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,8 +27,10 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import gestionemoney.compose.R
@@ -105,6 +108,7 @@ fun CategoryName(
 
 
 // Composable function to display a single Category Item
+@SuppressLint("DiscouragedApi")
 @Composable
 fun CategoryItem(
     name: String,
@@ -112,7 +116,14 @@ fun CategoryItem(
     totalExpences: Double,
     navController: NavController
 ){
-    val image = painterResource(R.drawable.dress)
+    val context = LocalContext.current
+
+    var imageName: String = imageUri?: stringResource(R.string.standard_image)
+    if(imageName == "") {
+        imageName = stringResource(R.string.standard_image)
+    }
+    // Ottieni l'ID dell'immagine utilizzando il nome dell'immagine come stringa
+    val image = painterResource(context.resources.getIdentifier(imageName, "drawable", context.packageName))
     Column(
         modifier = Modifier
             .background(color = colorResource(R.color.orangeLight))
@@ -136,7 +147,7 @@ fun CategoryItem(
                 .fillMaxWidth()
         ) {
             Button(
-                onClick = { navController.navigate(Screens.ExpensePage.route) } ,
+                onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") } ,
                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
             ) {
                 Image(

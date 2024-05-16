@@ -29,7 +29,11 @@ val spaceBetween = 2.dp
 val connection = LoadDB()
     @Composable
     fun CreateLoading(navController: NavController) {
-        connection.connect(navController, stringArrayResource(R.array.standard_category))
+        connection.connect(
+            navController,
+            stringArrayResource(R.array.standard_category),
+            stringArrayResource(R.array.standard_category_image)
+        )
         Loading()
     }
     @Composable
@@ -72,13 +76,15 @@ val connection = LoadDB()
      private var connecting: Boolean = false
      private var navController: NavController? = null
      private var standardCategory: Array<String>? = null
-     fun connect(nav: NavController, sCat: Array<String>) {
+     private var standardImage: Array<String>?= null
+     fun connect(nav: NavController, sCat: Array<String>, sImg: Array<String>) {
          if(connecting) {
              return
          }
          connecting = true
          navController = nav
          standardCategory = sCat
+         standardImage = sImg
          val uid = DBauthentication.getInstance().getUID()
          if(uid == null) {
              nav.navigate(Screens.Login.route)
@@ -91,8 +97,11 @@ val connection = LoadDB()
      }
      override fun updateUser(user: UserWrapper) {
          DBUserConnection.getInstance().removeUserObserver(this)
-         standardCategory?.let { user.createCategories(it) }
-         DBUserConnection.getInstance().writeUser()
+         if(standardCategory != null && standardImage != null) {
+             if(user.createCategories(standardCategory!!, standardImage!!)) {
+                 DBUserConnection.getInstance().writeUser()
+             }
+         }
          Log.w("user", user.toString())
          navController?.navigate((Screens.Homepage.route))
      }

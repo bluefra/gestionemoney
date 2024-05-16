@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import com.google.firebase.database.getValue
+import gestionemoney.compose.model.Category
+import gestionemoney.compose.model.Expense
 import gestionemoney.compose.model.Info
 import gestionemoney.compose.model.User
 
@@ -21,13 +23,12 @@ class DBUserConnection private constructor() {
     private val userObservers = mutableListOf<UserChangeObserver>()
     private var user: User? = null
     private var userID: String? = null
-
     /**
      * usato implementare il pattern Singleton nella classe DBconnection
      */
     companion object {
         private var instance: DBUserConnection? = null
-
+        private const val dbNode = "userData"
         fun getInstance(): DBUserConnection {
             return instance ?: synchronized(this) {
                 instance ?: DBUserConnection().also { instance = it }
@@ -37,9 +38,9 @@ class DBUserConnection private constructor() {
 
     fun connectUser(uid: String) {
         userID = uid
-        val myRef = database.getReference("userData").child(uid)
+        val myRef = database.getReference(dbNode).child(uid)
         Log.w("db", "connecting")
-        myRef.addValueEventListener(object : ValueEventListener {
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("db", "readed")
                 readUserData(dataSnapshot)
@@ -80,7 +81,7 @@ class DBUserConnection private constructor() {
     }
     fun writeUser() {
         if(!isConnect()) { return }
-        val myRef = database.getReference("userData")
+        val myRef = database.getReference(dbNode)
         Log.w("write", user!!.toHashmap().toString())
         myRef.child(userID!!).updateChildren(user!!.toHashmap())
         user!!.getList().forEach { cat ->
@@ -89,6 +90,74 @@ class DBUserConnection private constructor() {
         }
     }
 
+    fun writeCategoryName(categoryName: String) {
+        if (!isConnect()) {
+            return
+        }
+        if (user!!.getCategory(categoryName) == null) {
+            return
+        }
+        val category: Category = user!!.getCategory(categoryName)!!
+        val map: HashMap<String, Any> = HashMap()
+        map[category.getDBname()] = ""
+        database.getReference(dbNode)
+            .child(userID!!)
+            .updateChildren(map)
+    }
+
+    fun writeLastExpense(categoryName: String) {
+        if (!isConnect()) {
+            return
+        }
+        if (user!!.getCategory(categoryName) == null) {
+            return
+        }
+        val category: Category = user!!.getCategory(categoryName)!!
+        val myRef = database.getReference(dbNode)
+            .child(userID!!)
+            .child(category.getDBname())
+        val lastExpense = category.lastExpenseHashMap() ?: return
+        myRef.updateChildren(lastExpense)
+    }
+
+    fun deleteCategory(categoryName: String) {
+        if (!isConnect()) {
+            return
+        }
+        if (user!!.getCategory(categoryName) == null) {
+            return
+        }
+        val category: Category = user!!.getCategory(categoryName)!!
+        val myRef = database.getReference(dbNode)
+            .child(userID!!)
+            .child(category.getDBname())
+        myRef.removeValue().addOnSuccessListener {
+            user!!.deleteCategory(categoryName)
+            notifyUserObservers(user!!)
+        }
+    }
+
+    fun deleteExpense(categoryName: String, expenseDate: String) {
+        if (!isConnect()) {
+            return
+        }
+        if (user!!.getCategory(categoryName) == null) {
+            return
+        }
+        if(user!!.getCategory(categoryName)!!.getExpense(expenseDate) == null) {
+            return
+        }
+        val category: Category = user!!.getCategory(categoryName)!!
+        val expense: Expense = category.getExpense(expenseDate)!!
+        val myRef = database.getReference(dbNode)
+            .child(userID!!)
+            .child(category.getDBname())
+            .child(expense.getDBName())
+        myRef.removeValue().addOnSuccessListener {
+            user!!.deleteCategory(categoryName)
+            notifyUserObservers(user!!)
+        }
+    }
     fun close() {
         instance = null
         user = null

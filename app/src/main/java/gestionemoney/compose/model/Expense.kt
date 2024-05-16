@@ -2,26 +2,34 @@ package gestionemoney.compose.model
 
 import java.util.Date
 
-class Expense(private val date: Date = Date(), private val value: Double){
-    private var name: String = ""
+class Expense(private val date: Date = Date(), private val value: Double, private var name: String = ""){
     /**
      * if date == comparedDate -> return 0
      * if date > comparedDate -> return 1
      * if date < comparedDate -> return -1
      */
-    fun confrontDate(e1: Expense): Int {
+    fun confrontExpense(e1: Expense): Int {
         val result: Int = date.compareTo(e1.date)
         if(result == 0) { return 0 }
         if(result > 0) { return 1 }
         return -1
     }
 
+    fun compareDate(date: Date): Int {
+        val result: Int = date.compareTo(date)
+        if(result == 0) { return 0 }
+        if(result > 0) { return 1 }
+        return -1
+    }
     fun confrontValue(e1: Expense): Int{
         if(value == e1.value) { return 0 }
         if(value > e1.value) { return 1 }
         return -1
     }
 
+    fun confrontDate(date: Date) {
+
+    }
     fun getValue(): Double {
         return value
     }
@@ -51,9 +59,7 @@ class Expense(private val date: Date = Date(), private val value: Double){
 
         fun loadExpenseFromDB(name: String, value: Double): Expense {
             val results = name.split(DBtoken)
-            val expense = Expense(Date(results[0]), value)
-                expense.setName(results[1])
-            return expense
+            return Expense(Date(results[0]), value, results[1])
         }
     }
 }

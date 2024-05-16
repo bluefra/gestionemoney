@@ -11,14 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
-import gestionemoney.compose.expense.components.CategoryOfExpense
+import gestionemoney.compose.components.CategoryMenu
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
 import gestionemoney.compose.expense.components.ExpenseName
@@ -35,9 +37,13 @@ private var date = Date()
 
 @Composable
 fun NewExpense(
-    navController: NavController
+    navController: NavController,
+    category: String?
 ) {
     val categorylist = UserWrapper.getInstance().getCategoriesNames()
+    val baseOption = category?: AddExpense.standardOption
+    AddExpense.setStandardCategory(stringResource(R.string.standard_category_selection))
+    categoryName = category?: categoryName
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -52,14 +58,13 @@ fun NewExpense(
         ) {
 
             // Functions for user input data to create new expense.
-            CategoryOfExpense(
+            CategoryMenu(
                 categorylist,
-                AddExpense.standardOption,
-                onChange = { categoryName = it
-                                Log.w("NewExpense", it)})
+                baseOption,
+                onChange = { categoryName = it})
             ExpenseName { expense_name = it }
             CostOfExpense(onChange = { expense_value = it })
-            DatePicker(initialDate = AddExpense.initialDate, onDateChanged = { date = it })
+            DatePicker(defaultDate = AddExpense.currDate,initialDate = AddExpense.initialDate, onDateChanged = { date = it })
 
             Button(
                 onClick = { AddExpense().addExpense(navController) },
@@ -92,7 +97,7 @@ class AddExpense {
         val expense = Expense(date, getCost(expense_value))
         expense.setName(expense_name)
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
-        DBUserConnection.getInstance().writeUser()
+        DBUserConnection.getInstance().writeLastExpense(categoryName)
         navController.navigate(Screens.Homepage.route)
     }
 
@@ -109,9 +114,13 @@ class AddExpense {
         return verifyIntegrity(expense_name)
     }
     companion object {
-        const val standardOption = "chose a category..."
+        var standardOption = ""
         val initialDate = getDateOneYearAgo()
-        fun getDateOneYearAgo(): Date {
+        val currDate = Date()
+        fun setStandardCategory(option: String) {
+            standardOption = option
+        }
+        private fun getDateOneYearAgo(): Date {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.YEAR, -1)
             return calendar.time

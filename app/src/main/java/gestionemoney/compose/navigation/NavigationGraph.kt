@@ -10,7 +10,6 @@ import gestionemoney.compose.expense.ExpensePage
 import gestionemoney.compose.expense.NewExpense
 import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.loading.CreateLoading
-import gestionemoney.compose.loading.Loading
 import gestionemoney.compose.newcategory.NewCategory
 import gestionemoney.compose.register_login.Login
 import gestionemoney.compose.register_login.Register
@@ -39,7 +38,7 @@ fun NavigationGraph (
             categoryName?.let {
                 ExpensePage(navController, categoryName)
             } ?: run {
-                //ExpensePage(navController, "categoryName")
+                Homepage(navController)
             }
         }
 
@@ -49,8 +48,9 @@ fun NavigationGraph (
         composable(route = Screens.Dashboard.route) {
             Dashboard(navController)
         }
-        composable(route = Screens.NewExpense.route) {
-            NewExpense(navController)
+        composable(route = Screens.NewExpense.route + "/{categoryName}") {backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName")
+                NewExpense(navController, categoryName)
         }
         composable(route = Screens.Register.route) {
             Register(navController)

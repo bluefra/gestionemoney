@@ -4,9 +4,8 @@ import android.util.Log
 import java.util.Date
 
 
-class Category (private val name: String){
+class Category (private val name: String, private var imageURI: String = ""){
     private var expensesList: MutableList<Expense> = mutableListOf()
-    private var imageURI: String = ""
     fun addExpenses(expense: Expense) {
         Log.w("Category", "adding $expense")
         expensesList.add(expense)
@@ -27,8 +26,8 @@ class Category (private val name: String){
 
     fun orderByDate(order: ORDER): List<Expense> {
         return when (order) {
-            ORDER.ASC -> expensesList.sortedWith { e0, e1 -> e0.confrontDate(e1) }
-            ORDER.DEC -> expensesList.sortedWith { e0, e1 -> -e0.confrontDate(e1) }
+            ORDER.ASC -> expensesList.sortedWith { e0, e1 -> e0.confrontExpense(e1) }
+            ORDER.DEC -> expensesList.sortedWith { e0, e1 -> -e0.confrontExpense(e1) }
         }
     }
 
@@ -63,6 +62,21 @@ class Category (private val name: String){
         }
         return tot
     }
+
+    fun getExpense(dateString: String): Expense? {
+        val date = Date(dateString)
+        expensesList.forEach{
+            if(it.compareDate(date) == 0) { return it }
+        }
+        return null
+    }
+    fun lastExpenseHashMap(): HashMap<String, Any>? {
+        if(expensesList.size == 0) { return null }
+        val map: HashMap<String, Any> = HashMap()
+        val lastExpense = expensesList.last()
+        map[lastExpense.getDBName()] = lastExpense.getValue()
+        return map
+    }
     fun toHashmap(): HashMap<String, Any> {
         val map: HashMap<String, Any> = HashMap()
         expensesList.forEach() {
@@ -96,10 +110,7 @@ class Category (private val name: String){
 
         fun loadCategoryFromDB(name: String): Category {
             val results = name.split(DBtoken)
-            val category = Category(results[0])
-            Log.w("dbextra", "category ${results[0]}")
-            category.setImage(results[1])
-            return category
+            return Category(results[0], results[1])
         }
     }
 }

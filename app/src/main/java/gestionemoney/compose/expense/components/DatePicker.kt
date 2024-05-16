@@ -14,10 +14,11 @@ import java.util.*
 
 @Composable
 fun DatePicker(
+    defaultDate: Date,
     initialDate: Date,
     onDateChanged: (Date) -> Unit
 ) {
-    var date by remember { mutableStateOf(initialDate) }
+    var date by remember { mutableStateOf(defaultDate) }
     var text by remember { mutableStateOf(TextFieldValue()) }
 
     val dateFormat = remember { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }

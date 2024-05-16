@@ -34,14 +34,14 @@ class UserWrapper private constructor(){
         return user!!.getUID()
     }
 
-    fun addCategory(name: String): Boolean {
+    fun addCategory(name: String, imageUri: String = ""): Boolean {
         if(!isSet()) {
             return false
         }
         if(hasCategory(name)) {
             return false
         }
-        user!!.addCategory(Category(name))
+        user!!.addCategory(Category(name, imageUri))
         Log.w("UserWrapper","category added: $name")
         return true
     }
@@ -73,8 +73,7 @@ class UserWrapper private constructor(){
     }
     fun addExpense(categoryName: String, name: String, date: Date, value: Double){
         val category: Category? = getCategory(categoryName)
-        val expense = Expense(date, value)
-        expense.setName(name)
+        val expense = Expense(date, value, name)
         category?.addExpenses(expense)
     }
 
@@ -96,10 +95,13 @@ class UserWrapper private constructor(){
         return list
     }
 
-    fun createCategories(names: Array<String>): Boolean {
-        var added: Boolean = false //->added = true se almeno una categoria è stata aggiunta
-        names.forEach {
-            added = addCategory(it) || added
+    fun createCategories(names: Array<String>, images: Array<String>): Boolean {
+        var added = false //->added = true se almeno una categoria è stata aggiunta
+        if(names.size == images.size) {
+            for(i in names.indices) {
+                Log.w("adding", "${names[i]} _____ ${images[i]}")
+                added = addCategory(names[i],images[i]) || added
+            }
         }
         return added
     }

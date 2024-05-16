@@ -17,7 +17,7 @@ class DBInfoConnection {
 
     companion object {
         private var instance: DBInfoConnection? = null
-
+        private const val dbNode = "userInfo"
         fun getInstance(): DBInfoConnection {
             return instance ?: synchronized(this) {
                 instance ?: DBInfoConnection().also { instance = it }
@@ -27,9 +27,9 @@ class DBInfoConnection {
 
     fun connectInfo(uid: String) {
         userID = uid
-        val myRef = database.getReference("userInfo").child(uid)
+        val myRef = database.getReference(dbNode).child(uid)
         Log.w("info", "connecting")
-        myRef.addValueEventListener(object : ValueEventListener {
+        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("info", "readed")
                 readInfoData(dataSnapshot)
@@ -52,7 +52,7 @@ class DBInfoConnection {
 
     fun writeInfo() {
         if(!isConnect()) { return }
-        val myRef = database.getReference("userInfo")
+        val myRef = database.getReference(dbNode)
         myRef.child(userID!!).updateChildren(info.getHashMap())
     }
 

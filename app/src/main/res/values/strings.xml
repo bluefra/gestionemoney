@@ -1,8 +1,18 @@
 <resources>
     <string name="app_name">Happy Wallet</string>
+    <string name="standard_image">dress</string>
+    <string name="standard_category_selection">chose a category…</string>
+
+
     <string-array name="standard_category">
         <item>card-market</item>
         <item>vitto</item>
         <item>trasporti</item>
     </string-array>
+    <string-array name="standard_category_image">
+    <item>dress</item>
+    <item>dress</item>
+    <item>dress</item>
+</string-array>
+
 </resources>

@@ -22,6 +22,9 @@ class User(private val userID: String) {
         }
     }
 
+    fun deleteCategory(categoryName: String) {
+        categoriesList.remove(getCategory(categoryName))
+    }
     fun getList(): List<Category> {
         return categoriesList
     }
