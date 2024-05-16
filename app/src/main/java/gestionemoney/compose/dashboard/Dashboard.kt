@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,7 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
+import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.model.Category
 import gestionemoney.compose.ui.theme.Black
+import kotlin.math.roundToInt
 
 
 @Composable
@@ -30,7 +35,7 @@ fun Dashboard(
     ) {
         Row(
             verticalAlignment = Alignment.Top,
-            ) {
+        ) {
             BackButton(navController)
         }
         Spacer(modifier = Modifier.width(5.dp))
@@ -42,7 +47,7 @@ fun Dashboard(
         Spacer(modifier = Modifier.width(10.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Text(
                 modifier = Modifier
                     .padding(bottom = 10.dp)
@@ -52,9 +57,23 @@ fun Dashboard(
                 color = Black
             )
         }
+        LazyColumn {
+            item { 
+                Pie(entry = categoryPie())
+            }
+    }
 
 
     }
+}
+
+fun categoryPie(): Map<String, Float> {
+    val categoryList: List<Category>? = UserWrapper.getInstance().getCategoryList()
+    val result: MutableMap<String, Float> = mutableMapOf()
+    categoryList?.forEach{
+        result[it.getName()] = it.GetTotalExpences().toFloat()
+    }
+    return result
 }
 
 
