@@ -7,10 +7,13 @@ import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.components.ErrorAlert
+import gestionemoney.compose.controller.ConnectionCheck
 import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.controller.DBUserConnection
@@ -29,12 +32,18 @@ val spaceBetween = 2.dp
 val connection = LoadDB()
     @Composable
     fun CreateLoading(navController: NavController) {
-        connection.connect(
-            navController,
-            stringArrayResource(R.array.standard_category),
-            stringArrayResource(R.array.standard_category_image)
-        )
-        Loading()
+        if(ConnectionCheck().checkForInternet(LocalContext.current)) {
+            Log.w("check internet", "yes")
+            connection.connect(
+                navController,
+                stringArrayResource(R.array.standard_category),
+                stringArrayResource(R.array.standard_category_image)
+            )
+            Loading()
+        } else {
+            ErrorAlert(navController,"internet missing")
+            Log.w("check internet", "no")
+        }
     }
     @Composable
     fun Loading() {

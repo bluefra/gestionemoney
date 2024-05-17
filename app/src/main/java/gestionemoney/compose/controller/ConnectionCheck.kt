@@ -5,8 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 
 class ConnectionCheck {
-
-    private fun checkForInternet(context: Context): Boolean {
+    fun checkForInternet(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
