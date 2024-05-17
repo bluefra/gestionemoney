@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,13 +26,19 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.UserWrapper
@@ -39,7 +46,7 @@ import gestionemoney.compose.homepage.components.NavigationTopBar
 import gestionemoney.compose.homepage.components.NewCategoryButton
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
-import gestionemoney.compose.resource.categorylist
+import gestionemoney.compose.newcategory.components.CategoryDelete
 
 @Composable
 fun Homepage(
@@ -48,11 +55,14 @@ fun Homepage(
     // Mapping the categorylist to the Category data class. (database implementation)
     val categorynames = UserWrapper.getInstance().getCategoryList()
     Log.w("homepage", categorynames.toString())
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
     ) {
+
         // App navigation bar
         NavigationTopBar(navController)
 
@@ -76,14 +86,17 @@ fun Homepage(
                     fontFamily = FontFamily.Monospace ,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.ExtraBold
+
                 )
             }
             Column(
-                horizontalAlignment = Alignment.End
+                horizontalAlignment = Alignment.End,
+
             ) {
                 NewCategoryButton(navController)
             }
         }
+
         // RecyclerView(in compose) to view the category list
         LazyCategoryColumn(
             categories = categorynames,
@@ -117,6 +130,7 @@ fun CategoryItem(
     navController: NavController
 ){
     val context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
 
     var imageName: String = imageUri?: stringResource(R.string.standard_image)
     if(imageName == "") {
@@ -134,12 +148,32 @@ fun CategoryItem(
                 .padding(10.dp)
         ) {
             Text(
-                text = name ,
-                fontSize = 25.sp ,
-                fontFamily = FontFamily.Monospace ,
-                textAlign = TextAlign.Center ,
+                text = name,
+                modifier = Modifier.offset(x = 6.dp),
+                fontSize = 25.sp,
+                fontFamily = FontFamily.Monospace,
+                textAlign = TextAlign.Center,
                 fontWeight = FontWeight.ExtraBold
             )
+            Button(
+                onClick = ({ showDialog = true }),
+                colors = ButtonDefaults.buttonColors(
+                    colorResource(R.color.orange),
+                    contentColor = Color.Black),
+                modifier = Modifier.padding(start = 80.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.delete_icon),
+                    contentDescription = "delete_category",
+                    modifier = Modifier.size(24.dp))
+            }
+            if (showDialog) {
+                CategoryDelete(
+                    onDismissRequest = { navController.navigate(Screens.Homepage.route) },
+                    navController,
+                    categoryName = name
+                )
+            }
         }
         Row(
             modifier = Modifier
@@ -147,25 +181,25 @@ fun CategoryItem(
                 .fillMaxWidth()
         ) {
             Button(
-                onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") } ,
+                onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") },
                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
             ) {
                 Image(
-                    painter = image ,
-                    contentDescription = null ,
-                    contentScale = ContentScale.Crop ,
+                    painter = image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(50.dp)
                 )
             }
             Text(
-                text = "$totalExpences €" ,
-                fontSize = 25.sp ,
+                text = "$totalExpences €",
+                fontSize = 25.sp,
                 fontWeight = FontWeight.Bold
             )
+
         }
     }
-
 }
 
 // Composable function to generate the Recyclerview (in compose: LazyColumn) for the category list

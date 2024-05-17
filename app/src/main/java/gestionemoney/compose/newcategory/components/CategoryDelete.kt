@@ -8,14 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.navigation.Screens
 
 
 @Composable
 fun CategoryDelete(
     onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-
+    navController: NavController,
+    categoryName: String
 ) {
     AlertDialog(
         icon = {
@@ -25,12 +28,13 @@ fun CategoryDelete(
             Text(text = "Sei sicuro di voler cancellare?")
         },
         onDismissRequest = {
-            onDismissRequest()
+            navController.navigate(Screens.Homepage.route)
         },
         confirmButton = {
             TextButton(
                 onClick = {
-                    onConfirmation()
+                    DBUserConnection.getInstance().deleteCategory(categoryName)
+                    navController.navigate(Screens.Homepage.route)
                 }
             ) {
                 Text("Conferma")
