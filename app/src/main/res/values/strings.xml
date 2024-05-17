@@ -3,7 +3,8 @@
     <string name="standard_image">dress</string>
     <string name="standard_category_selection">chose a category…</string>
     <string name="pieTitle">Totale:</string>
-
+    <string name="delete_category">Sei sicuro di voler cancellare?</string>
+    <string name="deleting">Eliminazione in corso…</string>
     <string-array name="standard_category">
         <item>card-market</item>
         <item>vitto</item>
