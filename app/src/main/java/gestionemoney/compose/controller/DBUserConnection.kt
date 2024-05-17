@@ -35,7 +35,6 @@ class DBUserConnection private constructor() {
             }
         }
     }
-
     fun connectUser(uid: String) {
         userID = uid
         val myRef = database.getReference(dbNode).child(uid)
@@ -47,8 +46,8 @@ class DBUserConnection private constructor() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                notifyError(error.message)
             }
-
         })
     }
     fun addUserObserver(observer: UserChangeObserver) {
@@ -64,6 +63,10 @@ class DBUserConnection private constructor() {
         userWrapper.updateUser(user)
         Log.w("db", "notifyng")
         userObservers.forEach { it.updateUser(userWrapper) }
+    }
+
+    private fun notifyError(error: String) {
+        userObservers.forEach { it.updateError(error) }
     }
 
     private fun readUserData(value: DataSnapshot) {
@@ -85,7 +88,9 @@ class DBUserConnection private constructor() {
         Log.w("write", user!!.toHashmap().toString())
         myRef.child(userID!!).updateChildren(user!!.toHashmap())
         user!!.getList().forEach { cat ->
-            myRef.child(userID!!).child(cat.getDBname()).updateChildren(cat.toHashmap())
+            myRef.child(userID!!).child(cat.getDBname()).updateChildren(cat.toHashmap()).addOnFailureListener {
+                notifyError(it.message.toString())
+            }
             Log.w("write", cat.toHashmap().toString())
         }
     }
@@ -102,7 +107,12 @@ class DBUserConnection private constructor() {
         map[category.getDBname()] = ""
         database.getReference(dbNode)
             .child(userID!!)
-            .updateChildren(map)
+            .updateChildren(map).addOnSuccessListener {
+                notifyUserObservers(user!!)
+            }
+            .addOnFailureListener {
+                notifyError(it.message.toString())
+            }
     }
 
     fun writeLastExpense(categoryName: String) {
@@ -117,7 +127,12 @@ class DBUserConnection private constructor() {
             .child(userID!!)
             .child(category.getDBname())
         val lastExpense = category.lastExpenseHashMap() ?: return
-        myRef.updateChildren(lastExpense)
+        myRef.updateChildren(lastExpense).addOnSuccessListener {
+            notifyUserObservers(user!!)
+        }
+            .addOnFailureListener {
+                notifyError(it.message.toString())
+            }
     }
 
     fun deleteCategory(categoryName: String) {
@@ -135,6 +150,9 @@ class DBUserConnection private constructor() {
             user!!.deleteCategory(categoryName)
             notifyUserObservers(user!!)
         }
+            .addOnFailureListener {
+                notifyError(it.message.toString())
+            }
     }
 
     fun deleteExpense(categoryName: String, expenseDate: String) {
@@ -157,6 +175,9 @@ class DBUserConnection private constructor() {
             user!!.deleteCategory(categoryName)
             notifyUserObservers(user!!)
         }
+            .addOnFailureListener {
+                notifyError(it.message.toString())
+            }
     }
     fun close() {
         instance = null

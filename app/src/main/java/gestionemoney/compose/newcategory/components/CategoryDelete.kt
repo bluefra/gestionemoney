@@ -81,5 +81,9 @@ class DeleteCategory(val navController: NavController): UserChangeObserver {
         navController.navigate(Screens.Homepage.route)
     }
 
+    override fun updateError(error: String) {
+
+    }
+
 
 }

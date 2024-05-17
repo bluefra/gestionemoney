@@ -106,6 +106,10 @@ val connection = LoadDB()
          navController?.navigate((Screens.Homepage.route))
      }
 
+     override fun updateError(error: String) {
+         TODO("Not yet implemented")
+     }
+
      override fun updateInfo(info: InfoWrapper) {
          DBInfoConnection.getInstance().removeInfoObserver(this)
          if(info.getHashMap().isEmpty()) {
