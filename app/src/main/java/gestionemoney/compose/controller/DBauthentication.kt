@@ -50,10 +50,13 @@ class DBauthentication {
     }
 
     fun login(email: String, password: String) {
+        val timer = Timer()
+        timer.startTimer()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     saveData()
+                    WriteLog.getInstance().writeTime("auth_succ", timer.endTimer())
                 } else {
                     notifyFailObservers(task.exception.toString())
                 }
@@ -67,6 +70,7 @@ class DBauthentication {
             data["email"] = user.email
             data["uid"] = user.uid
             isSet = true
+            WriteLog.getInstance().start(user.uid)//FIREBASE LOG
             notifySuccessObservers(data)
         } else {
             notifyFailObservers("data persi")

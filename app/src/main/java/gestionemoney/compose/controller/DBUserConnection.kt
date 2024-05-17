@@ -37,16 +37,20 @@ class DBUserConnection private constructor() {
     }
     fun connectUser(uid: String) {
         userID = uid
+        val timer = Timer()
+        timer.startTimer()
         val myRef = database.getReference(dbNode).child(uid)
         Log.w("db", "connecting")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("db", "readed")
                 readUserData(dataSnapshot)
+                WriteLog.getInstance().writeTime("user_connection_succ", timer.endTimer()) //FIREBASE LOG
             }
 
             override fun onCancelled(error: DatabaseError) {
                 notifyError(error.message)
+                WriteLog.getInstance().writeTime("user_connection_err", timer.endTimer()) //FIREBASE LOG
             }
         })
     }
@@ -89,6 +93,8 @@ class DBUserConnection private constructor() {
         myRef.child(userID!!).updateChildren(user!!.toHashmap())
         user!!.getList().forEach { cat ->
             myRef.child(userID!!).child(cat.getDBname()).updateChildren(cat.toHashmap()).addOnFailureListener {
+                notifyError(it.message.toString())
+            }.addOnFailureListener {
                 notifyError(it.message.toString())
             }
             Log.w("write", cat.toHashmap().toString())

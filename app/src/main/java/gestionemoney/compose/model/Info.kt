@@ -19,7 +19,7 @@ class Info {
         return info as HashMap<String, Any>
     }
 
-    fun setHasMap(value: HashMap<String, Any>) {
+    fun setHashMap(value: HashMap<String, Any>) {
         val map = value as HashMap<String, String>
         map.forEach{
             info[it.key] = it.value

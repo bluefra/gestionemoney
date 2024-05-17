@@ -122,9 +122,18 @@ val connection = LoadDB()
      override fun updateInfo(info: InfoWrapper) {
          DBInfoConnection.getInstance().removeInfoObserver(this)
          if(info.getHashMap().isEmpty()) {
-             info.setInfo("prova", "halo")
+             val map: HashMap<String, String> = HashMap()
+             map["nome"] = "matteo"
+             map["cognome"] = "campagnaro"
+             DBInfoConnection.getInstance().writeMultipleInfo(map)
+             Log.w("loading", info.toString())
+             map.remove("nome")
+             map.remove("cognome")
+             map["codiceFiscale"] = "CMPMTT02P03F241O"
+             DBInfoConnection.getInstance().writeMultipleInfo(map)
+
          }
-         DBInfoConnection.getInstance().writeInfo()
+
      }
 
  }

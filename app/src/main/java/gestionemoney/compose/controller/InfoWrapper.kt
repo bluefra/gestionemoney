@@ -37,7 +37,7 @@ class InfoWrapper private constructor(){
     }
 
     fun setHasMap(value: HashMap<String, Any>) {
-        info?.setHasMap(value)
+        info?.setHashMap(value)
     }
 
     fun close() {

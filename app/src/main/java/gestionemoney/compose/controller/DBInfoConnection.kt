@@ -45,7 +45,7 @@ class DBInfoConnection {
         val map: HashMap<String, Any>?
         map = value.getValue<HashMap<String,Any>>()
         if(map != null) {
-            info.setHasMap(map)
+            info.setHashMap(map)
         }
         notifyInfoObservers(info)
     }
@@ -56,6 +56,21 @@ class DBInfoConnection {
         myRef.child(userID!!).updateChildren(info.getHashMap())
     }
 
+    fun writeSingleInfo(key: String, value: String) {
+        if(!isConnect()) { return }
+        val map: HashMap<String, Any> = HashMap()
+        val myRef = database.getReference(dbNode)
+        map[key] = value
+        info.setInfo(key, value)
+        myRef.child(userID!!).updateChildren(map)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun writeMultipleInfo(map: HashMap<String, String>) {
+        val myRef = database.getReference(dbNode)
+        info.setHashMap(map as HashMap<String, Any>)
+        myRef.child(userID!!).updateChildren(map as HashMap<String, Any>)
+    }
     fun isConnect(): Boolean {
         return userID != null
     }
