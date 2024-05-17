@@ -46,7 +46,7 @@ fun CategoryDelete(
                     onDismissRequest()
                 }
             ) {
-                Text("Chiudi")
+                Text("Annulla")
             }
         }
     )
