@@ -3,6 +3,7 @@ package gestionemoney.compose
 import android.annotation.SuppressLint
 import android.graphics.drawable.Icon
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -17,12 +18,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
@@ -39,9 +43,14 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -54,24 +63,37 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.findNavController
 import gestionemoney.compose.navigation.NavigationGraph
 import gestionemoney.compose.navigation.Screens
+import gestionemoney.compose.newcategory.components.CategoryDelete
+import gestionemoney.compose.register_login_logout.Logout
 import gestionemoney.compose.ui.theme.ComposeTheme
 import kotlinx.coroutines.launch
+import kotlin.system.exitProcess
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        setContent{
+           /* val navController = rememberNavController()
+            NavigationGraph(
+                navController = navController
+            )
+
+            */
             NavigationDrawer()
         }
     }
 }
 
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationDrawer(
 ){
+    var navigator : NavController
     var navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -96,7 +118,7 @@ fun NavigationDrawer(
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = "MoneySave",
+                                text = "Money Check",
                                 fontSize = 45.sp,
                                 fontFamily = FontFamily.Cursive,
                                 fontStyle = FontStyle.Italic,
@@ -191,6 +213,11 @@ fun NavigationDrawer(
                                 }
                             )
                         }
+                        Row(
+                            modifier = Modifier.padding(top = 230.dp, bottom = 10.dp)
+                        ) {
+                            Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
+                        }
                     }
                 }
             }
@@ -203,7 +230,7 @@ fun NavigationDrawer(
                 val coroutineScope = rememberCoroutineScope()
                 CenterAlignedTopAppBar(
                     title = { Text(
-                        text = "MoneySave",
+                        text = "Money Check",
                         fontSize = 45.sp,
                         fontFamily = FontFamily.Cursive,
                         fontStyle = FontStyle.Italic,
@@ -232,7 +259,9 @@ fun NavigationDrawer(
                 NavigationGraph(
                     navController = navController
                 )
+
             }
         }
     }
 }
+
