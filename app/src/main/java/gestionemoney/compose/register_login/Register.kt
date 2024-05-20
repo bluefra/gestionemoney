@@ -106,8 +106,6 @@ class DBRegister(val navController: NavController): AuthObserver {
         if(email == "" || password == "") {
             return
         }
-        Log.w("test", email)
-        Log.w("test", password)
         connecting = true
         DBauthentication.getInstance().addObserver(this)
         DBauthentication.getInstance().register(email, password)
@@ -117,7 +115,6 @@ class DBRegister(val navController: NavController): AuthObserver {
         DBauthentication.getInstance().removeObserver(this)
         message?.setText(error)
         message?.show()
-        Log.w("error", error)
         connecting = false
     }
 

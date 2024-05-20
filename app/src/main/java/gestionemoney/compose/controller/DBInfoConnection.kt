@@ -28,10 +28,8 @@ class DBInfoConnection {
     fun connectInfo(uid: String) {
         userID = uid
         val myRef = database.getReference(dbNode).child(uid)
-        Log.w("info", "connecting")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.w("info", "readed")
                 readInfoData(dataSnapshot)
             }
 
@@ -88,6 +86,12 @@ class DBInfoConnection {
         InfoObservers.forEach { it.updateInfo(InfoWrapper.getInstance()) }
     }
 
+    fun updateInfo(key: String, value: String): Boolean {
+        if(!info.containsInfo(key)) {return false}
+        if(info.getInfo(key) == value) {return true}
+        writeSingleInfo(key, value)
+        return true
+    }
     fun close() {
         instance = null
         info = Info()

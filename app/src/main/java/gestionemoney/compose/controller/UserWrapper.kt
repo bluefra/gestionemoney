@@ -42,7 +42,6 @@ class UserWrapper private constructor(){
             return false
         }
         user!!.addCategory(Category(name, imageUri))
-        Log.w("UserWrapper","category added: $name")
         return true
     }
 
@@ -62,9 +61,7 @@ class UserWrapper private constructor(){
         if(!isSet()) {
             return null
         }
-        Log.w("UserWrapper", "Searching category $name")
         user!!.getList().forEach {
-            Log.w("UserWrapper", "looking category $it")
             if(it.getName() == name) {
                 return it
             }
@@ -99,11 +96,15 @@ class UserWrapper private constructor(){
         var added = false //->added = true se almeno una categoria è stata aggiunta
         if(names.size == images.size) {
             for(i in names.indices) {
-                Log.w("adding", "${names[i]} _____ ${images[i]}")
                 added = addCategory(names[i],images[i]) || added
             }
         }
         return added
+    }
+
+    fun getCategoryNumber(): Int{
+        if(!isSet()) { return 0 }
+        return user!!.getList().size
     }
 
     override fun toString(): String {

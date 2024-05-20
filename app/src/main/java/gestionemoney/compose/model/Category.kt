@@ -7,7 +7,6 @@ import java.util.Date
 class Category (private val name: String, private var imageURI: String = ""){
     private var expensesList: MutableList<Expense> = mutableListOf()
     fun addExpenses(expense: Expense) {
-        Log.w("Category", "adding $expense")
         expensesList.add(expense)
     }
     fun compareName(c1: Category): Int {
@@ -51,7 +50,6 @@ class Category (private val name: String, private var imageURI: String = ""){
         if(imageURI != null) {
             nameDB += DBtoken + imageURI
         }
-        Log.w("dbextra", "nameDBCategory: "+nameDB)
         return nameDB
     }
 

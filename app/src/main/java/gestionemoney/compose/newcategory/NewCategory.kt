@@ -84,10 +84,8 @@ fun NewCategory(
 
 fun addCategory(navController: NavController) {
     if(newCategory == "") {
-        Log.w("NewCategory", "campo vuoto")
         return
     }
-    Log.w("NewCategory", "adding $newCategory $newCategoryImage")
     UserWrapper.getInstance().addCategory(newCategory, newCategoryImage)
     DBUserConnection.getInstance().writeCategoryName(newCategory)
     navController.navigate(Screens.Homepage.route)

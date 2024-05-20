@@ -1,7 +1,6 @@
 package gestionemoney.compose.homepage
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -68,7 +67,6 @@ fun Homepage(
 ) {
     // Mapping the categorylist to the Category data class. (database implementation)
     val categorynames = UserWrapper.getInstance().getCategoryList()
-    Log.w("homepage", categorynames.toString())
 
 
     Column(
@@ -116,21 +114,6 @@ fun Homepage(
         )
     }
 }
-
-// Need to be changed with database connection)
-@Composable
-fun CategoryName(
-    text: String
-){
-    Text(
-        text = text,
-        fontSize = 25.sp ,
-        fontFamily = FontFamily.Monospace ,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.ExtraBold
-    )
-}
-
 
 // Composable function to display a single Category Item
 @SuppressLint("DiscouragedApi")
@@ -227,7 +210,6 @@ fun LazyCategoryColumn(
                 onClick = { navController.navigate("${Screens.ExpensePage.route}/${category.getName()}") },
                 modifier = Modifier.padding(bottom = 10.dp),
             ) {
-                Log.w("homepage", category.getName())
                 CategoryItem(
                     category.getName(),
                     category.getImageURI(),

@@ -142,8 +142,6 @@ class DBLogin(val navController: NavController): AuthObserver {
         if (email == "" || password == "") {
             return
         }
-        Log.w("test", email)
-        Log.w("test", password)
         connecting = true
         DBauthentication.getInstance().addObserver(this)
         DBauthentication.getInstance().login(email, password)
@@ -153,14 +151,12 @@ class DBLogin(val navController: NavController): AuthObserver {
         DBauthentication.getInstance().removeObserver(this)
         message?.setText(error)
         message?.show()
-        Log.w("error", error)
         connecting = false
     }
 
     override fun onSuccess(data: HashMap<String, String?>) {
         DBauthentication.getInstance().removeObserver(this)
         connecting = false
-        Log.w("succ", "connected")
         navController.navigate(Screens.Loading.route)
     }
 

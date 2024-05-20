@@ -15,6 +15,10 @@ class Info {
         }
     }
 
+    fun containsInfo(key: String): Boolean {
+        return info.containsKey(key)
+    }
+
     fun getHashMap(): HashMap<String, Any> {
         return info as HashMap<String, Any>
     }

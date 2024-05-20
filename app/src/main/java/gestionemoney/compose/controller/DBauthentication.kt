@@ -65,7 +65,6 @@ class DBauthentication {
     private fun saveData() {
         val user = Firebase.auth.currentUser
         if(user != null) {
-            Log.w("auth", user.displayName.toString())
             data["name"] = user.displayName
             data["email"] = user.email
             data["uid"] = user.uid
@@ -77,11 +76,9 @@ class DBauthentication {
         }
     }
     fun register(email: String, password: String) {
-        Log.w("auth", "starting register")
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task->
                 if (task.isSuccessful) {
-                    Log.w("auth", "success")
                     saveData()
                 } else {
                     notifyFailObservers(task.exception.toString())
