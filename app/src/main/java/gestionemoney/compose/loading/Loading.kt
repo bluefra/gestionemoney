@@ -69,6 +69,7 @@ val connection = LoadDB()
         for (i in 0 until numberOfDots) {
             offsets.add(animateOffsetWithDelay(delay = i * delayUnit))
         }
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
@@ -99,7 +100,11 @@ val connection = LoadDB()
          standardImage = sImg
          val uid = DBauthentication.getInstance().getUID()
          if(uid == null) {
-             nav.navigate(Screens.Login.route)
+             nav.navigate(Screens.Login.route){
+                 popUpTo(0){
+                     inclusive = true
+                 }
+             }
              return
          }
          DBUserConnection.getInstance().addUserObserver(this)
@@ -144,7 +149,11 @@ val connection = LoadDB()
 
      fun navigate() {
          if(isUserDBset && isInfoDBset) {
-             navController?.navigate((Screens.Homepage.route))
+             navController?.navigate((Screens.Homepage.route)){
+                 popUpTo(0){
+                     inclusive = false
+                 }
+             }
          }
      }
 
