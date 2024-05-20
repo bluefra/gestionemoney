@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 fun ExpenseName(onChange: (String) -> Unit = {}) {
 
     var text by rememberSaveable { mutableStateOf("") }
+    val maxChar : Int = 15
 
     Text(
         text = "Name of the expense:" ,
@@ -32,10 +33,15 @@ fun ExpenseName(onChange: (String) -> Unit = {}) {
     )
     TextField(
         value = text,
-        onValueChange = { text = it
-            onChange(it)},
+        onValueChange = {
+            if (it.length <= maxChar) {
+                text = it
+                onChange(it)
+            }
+        },
         keyboardOptions = KeyboardOptions.Default.copy(
         ),
         label = { Text("avoid _") },
+        singleLine = true
     )
 }
