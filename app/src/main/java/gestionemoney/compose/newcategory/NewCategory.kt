@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,13 +22,28 @@ import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.components.CategoryMenu
+import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
 private var newCategory = ""
 private var newCategoryImage = ""
+
+@Composable
+fun NewCategoryNavigation(
+    navController: NavController
+){
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
+        { NewCategory(navController = navController) }
+    )
+}
+
+
 @Composable
 fun NewCategory(
     navController: NavController

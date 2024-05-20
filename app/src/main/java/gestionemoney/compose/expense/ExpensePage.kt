@@ -10,8 +10,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -24,13 +27,27 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
+import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.components.NewExpenseButton
+import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+@Composable
+fun ExpenseNavigation(
+    navController: NavController,
+    categoryName: String
+){
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
+        { ExpensePage(navController = navController, categoryName)}
+    )
+}
 
 @Composable
 fun ExpensePage(

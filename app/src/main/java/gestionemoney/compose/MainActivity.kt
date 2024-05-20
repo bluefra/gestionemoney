@@ -76,19 +76,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent{
-           /* val navController = rememberNavController()
+           val navController = rememberNavController()
             NavigationGraph(
                 navController = navController
             )
-
-            */
-            NavigationDrawer()
+            //NavigationDrawer()
         }
     }
 }
 
 
-
+/*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationDrawer(
@@ -213,11 +211,7 @@ fun NavigationDrawer(
                                 }
                             )
                         }
-                        Row(
-                            modifier = Modifier.padding(top = 230.dp, bottom = 10.dp)
-                        ) {
-                            Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
-                        }
+
                     }
                 }
             }
@@ -264,4 +258,5 @@ fun NavigationDrawer(
         }
     }
 }
+*/
 

@@ -25,11 +25,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
@@ -41,12 +44,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.UserWrapper
-import gestionemoney.compose.homepage.components.NavigationTopBar
 import gestionemoney.compose.homepage.components.NewCategoryButton
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.CategoryDelete
+
+@Composable
+fun HomeNavigation(
+    navController: NavController
+){
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
+        { Homepage(navController = navController)}
+    )
+}
 
 @Composable
 fun Homepage(
@@ -63,8 +77,6 @@ fun Homepage(
             .padding(10.dp)
     ) {
 
-        // App navigation bar
-        NavigationTopBar(navController)
 
         // Draw a line to seperate the 2 top menu
         Divider(

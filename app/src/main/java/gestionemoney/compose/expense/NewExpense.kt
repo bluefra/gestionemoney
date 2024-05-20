@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +24,7 @@ import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.components.CategoryMenu
+import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
 import gestionemoney.compose.expense.components.ExpenseName
@@ -36,6 +40,18 @@ private var expense_value: String = ""
 private var date = Date()
 
 @Composable
+fun NewExpenseNavigation(
+    navController: NavController,
+    category: String?
+){
+    val coroutineScope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
+        { NewExpense(navController = navController, category)}
+    )
+}
+
+@Composable
 fun NewExpense(
     navController: NavController,
     category: String?
@@ -48,6 +64,7 @@ fun NewExpense(
         modifier = Modifier
             .padding(10.dp)
     ) {
+
         // Back button function.
         BackButton(navController)
 
