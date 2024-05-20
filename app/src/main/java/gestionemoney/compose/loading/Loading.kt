@@ -41,6 +41,11 @@ val connection = LoadDB()
                 stringArrayResource(R.array.standard_category_image)
             )
             Loading()
+            navController.navigate(Screens.Homepage.route){
+                popUpTo(0){
+                    inclusive = true
+                }
+            }
         } else {
             ErrorAlert(navController,"internet missing")
             Log.w("check internet", "no")
