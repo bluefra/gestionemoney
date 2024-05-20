@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -32,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
@@ -75,13 +77,6 @@ fun Homepage(
             .padding(10.dp)
     ) {
 
-
-        // Draw a line to seperate the 2 top menu
-        Divider(
-            color = colorResource(R.color.orangeUltraLight),
-            thickness = 2.dp,
-            modifier = Modifier.fillMaxWidth()
-        )
         // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -125,7 +120,7 @@ fun CategoryItem(
     navController: NavController
 ){
     val context = LocalContext.current
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
 
     var imageName: String = imageUri?: stringResource(R.string.standard_image)
     if(imageName == "") {
@@ -144,10 +139,12 @@ fun CategoryItem(
         ) {
             Text(
                 text = name,
-                modifier = Modifier.offset(x = 6.dp),
+                modifier = Modifier
+                    .offset(x = 6.dp)
+                    .weight(1f),
                 fontSize = 25.sp,
                 fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Start,
                 fontWeight = FontWeight.ExtraBold
             )
             Button(

@@ -136,7 +136,7 @@ fun EmailEnter(
     label: String,
     onChange: (String) -> Unit = {}
 ){
-    var text by remember { mutableStateOf("")}
+    var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
         modifier = modifier,
@@ -158,7 +158,7 @@ fun InfoEnter(
     label: String,
     onChange: (String) -> Unit = {}
 ){
-    var text by remember { mutableStateOf("")}
+    var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
         modifier = modifier,
@@ -180,7 +180,7 @@ fun PasswordEnter(
     label: String,
     onChange: (String) -> Unit = {}){
 
-    var text by remember { mutableStateOf("")}
+    var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
         modifier = modifier,

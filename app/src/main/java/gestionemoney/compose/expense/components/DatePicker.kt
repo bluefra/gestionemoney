@@ -6,6 +6,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -18,10 +19,10 @@ fun DatePicker(
     initialDate: Date,
     onDateChanged: (Date) -> Unit
 ) {
-    var date by remember { mutableStateOf(defaultDate) }
-    var text by remember { mutableStateOf(TextFieldValue()) }
+    var date by rememberSaveable { mutableStateOf(defaultDate) }
+    var text by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
 
-    val dateFormat = remember { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
+    val dateFormat = rememberSaveable { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
 
     Column {
         Spacer(modifier = Modifier.height(16.dp))
