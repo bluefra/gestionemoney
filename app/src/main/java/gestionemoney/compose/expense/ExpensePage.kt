@@ -1,14 +1,18 @@
 package gestionemoney.compose.expense
 
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
@@ -59,8 +63,7 @@ fun ExpensePage(
     Column(
         modifier = Modifier.padding(10.dp)
     ) {
-        // Back button function called.
-        Row {
+        Row() {
             Column (
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.Start
@@ -74,22 +77,14 @@ fun ExpensePage(
                         onClick = { navController.navigate("${Screens.NewExpense.route}/$categoryName")},
                         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
                     ) {
-                    Text(text = "new Expense")
+                    Text(text = "Add Expense")
                 }
             }
         }
 
-
-        // Draw a line to separate the two navigation bar
-        Divider(
-            color = colorResource(R.color.orangeUltraLight) ,
-            thickness = 2.dp,
-            modifier = Modifier.fillMaxWidth()
-        )
-
         // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(
                 modifier = Modifier.weight(1f),
@@ -105,18 +100,10 @@ fun ExpensePage(
             }
         }
 
-        // Draw a line to separate the content from the name category
-        Divider(
-            color = colorResource(R.color.orangeUltraLight) ,
-            thickness = 2.dp,
-            modifier = Modifier.fillMaxWidth()
-        )
-
         // Display the list of all the expense of the current category.
         LazyActivityColumn(
             expenses = expenses
         )
-
     }
 }
 
@@ -129,24 +116,27 @@ fun ExpenseItem(
     val image = painterResource(R.drawable.dress)
     Column(
         modifier = Modifier
+            .background(color = colorResource(R.color.orangeLight))
+            .fillMaxWidth()
+            .padding(start = 20.dp)
             .padding(10.dp),
     ) {
-        Text(
-            text = expense.getName() ,
-            fontSize = 25.sp ,
-            fontFamily = FontFamily.Monospace ,
-            textAlign = TextAlign.Center ,
-            fontWeight = FontWeight.ExtraBold
-        )
-        Row(
-        ) {
+        Row() {
+            Text(
+                text = expense.getName() ,
+                fontSize = 25.sp ,
+                fontFamily = FontFamily.Monospace ,
+                textAlign = TextAlign.Center ,
+                fontWeight = FontWeight.ExtraBold
+            )
+        }
+        Row() {
             Text(
                 text = "${expense.getValue()} €" ,
                 fontSize = 20.sp ,
                 fontWeight = FontWeight.Bold ,
                 modifier = Modifier.padding(start = 10.dp)
             )
-
             Text(
                 text = formatDate(expense.getDate()) ,
                 fontSize = 20.sp ,
@@ -167,7 +157,13 @@ fun LazyActivityColumn(
 ){
     LazyColumn() {
             items(expenses ?: emptyList()) { expense ->
-                ExpenseItem(expense)
+                Card(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp),
+                    shape = RoundedCornerShape(50.dp)
+                ) {
+                    ExpenseItem(expense)
+                }
             }
     }
 }
