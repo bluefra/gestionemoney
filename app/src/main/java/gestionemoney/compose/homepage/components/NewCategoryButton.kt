@@ -20,7 +20,9 @@ fun NewCategoryButton (
     navController: NavController
 ) {
     Button(
-        onClick = { navController.navigate(Screens.NewCategory.route )},
+        onClick = { navController.navigate(Screens.NewCategory.route) {
+            popUpTo(0)
+        } },
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
     ) {
         Text(

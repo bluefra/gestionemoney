@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.navigation.Screens
@@ -62,7 +63,14 @@ fun Logout(
                     onClick = {
                         showDialog=false
                         DBauthentication.getInstance().logOut()
-                        navController.navigate(Screens.Login.route)
+                        DBUserConnection.getInstance().close()
+                        DBInfoConnection.getInstance().close()
+                        navController.navigate(Screens.Login.route){
+                            popUpTo(Screens.Login.route){
+                                inclusive = true
+                            }
+                        }
+
                     }
                 ) {
                     Text("Conferma")
