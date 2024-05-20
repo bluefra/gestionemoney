@@ -5,6 +5,7 @@ import gestionemoney.compose.model.Category
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.model.User
 import java.util.Date
+import kotlin.math.round
 
 class UserWrapper private constructor(){
     private var user: User? = null
@@ -105,6 +106,25 @@ class UserWrapper private constructor(){
     fun getCategoryNumber(): Int{
         if(!isSet()) { return 0 }
         return user!!.getList().size
+    }
+
+    fun getTotalExpenseNumber(): Int {
+        if(!isSet()) { return 0 }
+        var tot = 0
+        user!!.getList().forEach {
+            tot += it.getList().size
+        }
+        return tot
+    }
+
+    fun getAvgExpenseNumber(): Int {
+        if(!isSet()) { return 0 }
+        var tot = 0
+        user!!.getList().forEach {
+            tot += it.getList().size
+        }
+        return round(tot.toDouble() / user!!.getList().size).toInt()
+        TODO("control and fix the AVG output")
     }
 
     override fun toString(): String {
