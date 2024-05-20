@@ -27,21 +27,26 @@ class WriteLog {
         firebaseAnalytics.setUserId(uid)
     }
 
-    private fun write(eventType: String, key: String, message: String) {
+    fun write(eventType: String, key: String, message: String) {
         if (!isConnect()) {return}
         firebaseAnalytics.logEvent(eventType) {
             param(key, message)
         }
     }
 
+    fun writeValue(eventType: String, value: String) {
+        if (!isConnect()) {return}
+        firebaseAnalytics.logEvent(eventType) {
+            param(FirebaseAnalytics.Param.VALUE, value)
+            param("userID", userID!!)
+        }
+    }
+
     fun writeTime(eventType: String, time: Long) {
         if (!isConnect()) {return}
         val formattedNumber = String.format("%.2f", time.toDouble())
+        writeValue(eventType, formattedNumber)
         Log.w("log", "$eventType $formattedNumber")
-        firebaseAnalytics.logEvent(eventType) {
-            param(FirebaseAnalytics.Param.VALUE, formattedNumber)
-            param("userID", userID!!)
-        }
     }
 
     fun isConnect(): Boolean {

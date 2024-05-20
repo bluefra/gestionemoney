@@ -44,6 +44,7 @@ import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.AuthObserver
 import gestionemoney.compose.controller.DBauthentication
+import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.ui.theme.Roboto
 
@@ -56,6 +57,7 @@ fun Login(
     navController: NavController
 ) {
     if (DBauthentication.getInstance().isSet()) {
+        WriteLog.getInstance().writeValue("login", "0")
         navController.navigate(Screens.Loading.route)
     }
     message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)

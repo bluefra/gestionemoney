@@ -59,6 +59,7 @@ class DBauthentication {
                     WriteLog.getInstance().writeTime("auth_succ", timer.endTimer())
                 } else {
                     notifyFailObservers(task.exception.toString())
+                    WriteLog.getInstance().writeTime("auth_fail", timer.endTimer())
                 }
             }
     }
@@ -78,13 +79,17 @@ class DBauthentication {
     }
     fun register(email: String, password: String) {
         Log.w("auth", "starting register")
+        val timer = Timer()
+        timer.startTimer()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task->
                 if (task.isSuccessful) {
                     Log.w("auth", "success")
                     saveData()
+                    WriteLog.getInstance().writeTime("register_succ", timer.endTimer())
                 } else {
                     notifyFailObservers(task.exception.toString())
+                    WriteLog.getInstance().writeTime("register_fail", timer.endTimer())
                 }
             }
     }
