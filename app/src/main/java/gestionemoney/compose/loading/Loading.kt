@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,14 +25,14 @@ import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
 
 const val numberOfDots = 7
-val dotSize = 10.dp
-val dotColor: Color = Color.Yellow
-const val delayUnit = 200
+val dotSize = 25.dp
+const val delayUnit = 150
 const val duration = numberOfDots * delayUnit
-val spaceBetween = 2.dp
+val spaceBetween = 4.dp
 val connection = LoadDB()
     @Composable
     fun CreateLoading(navController: NavController) {
+
         if(ConnectionCheck().checkForInternet(LocalContext.current)) {
             Log.w("check internet", "yes")
             connection.connect(
@@ -68,14 +69,13 @@ val connection = LoadDB()
         for (i in 0 until numberOfDots) {
             offsets.add(animateOffsetWithDelay(delay = i * delayUnit))
         }
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.padding(top = maxOffset.dp)
         ) {
             offsets.forEach {
-                Dot(it.value)
+                Dot(it.value, colorResource(R.color.orangeLight))
                 Spacer(Modifier.width(spaceBetween))
             }
         }
@@ -86,6 +86,9 @@ val connection = LoadDB()
      private var navController: NavController? = null
      private var standardCategory: Array<String>? = null
      private var standardImage: Array<String>?= null
+     private var isUserDBset = false
+     private var isInfoDBset = false
+
      fun connect(nav: NavController, sCat: Array<String>, sImg: Array<String>) {
          if(connecting) {
              return
@@ -104,6 +107,7 @@ val connection = LoadDB()
          DBInfoConnection.getInstance().addInfoObserver(this)
          DBInfoConnection.getInstance().connectInfo(uid)
      }
+
      override fun updateUser(user: UserWrapper) {
          DBUserConnection.getInstance().removeUserObserver(this)
          if(standardCategory != null && standardImage != null) {
@@ -111,8 +115,8 @@ val connection = LoadDB()
                  DBUserConnection.getInstance().writeUser()
              }
          }
-         Log.w("user", user.toString())
-         navController?.navigate((Screens.Homepage.route))
+         isUserDBset = true
+         navigate()
      }
 
      override fun updateError(error: String) {
@@ -121,19 +125,25 @@ val connection = LoadDB()
 
      override fun updateInfo(info: InfoWrapper) {
          DBInfoConnection.getInstance().removeInfoObserver(this)
+         DBInfoConnection.getInstance().writeSingleInfo("categoryNumber", UserWrapper.getInstance().getCategoryNumber().toString())
          if(info.getHashMap().isEmpty()) {
              val map: HashMap<String, String> = HashMap()
              map["nome"] = "matteo"
              map["cognome"] = "campagnaro"
              DBInfoConnection.getInstance().writeMultipleInfo(map)
-             Log.w("loading", info.toString())
              map.remove("nome")
              map.remove("cognome")
              map["codiceFiscale"] = "CMPMTT02P03F241O"
              DBInfoConnection.getInstance().writeMultipleInfo(map)
-
          }
+         isInfoDBset = true
+         navigate()
+     }
 
+     fun navigate() {
+         if(isUserDBset && isInfoDBset) {
+             navController?.navigate((Screens.Homepage.route))
+         }
      }
 
  }
