@@ -155,94 +155,98 @@ fun NavigationDrawerBody(
         ) {
             NavigationDrawerHeader()
             //Body
-            Row(
-                modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+            Column(
+                modifier = Modifier.weight(1f)
             ) {
-                NavigationDrawerItem(
-                    label = { Text(text = "Homepage") } ,
-                    selected = false ,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Home ,
-                            contentDescription = null
-                        )
-                    } ,
-                    onClick = {
-                        coroutineScope.launch {
-                            drawerState.close()
+                Row(
+                    modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+                ) {
+                    NavigationDrawerItem(
+                        label = { Text(text = "Homepage") } ,
+                        selected = false ,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Home ,
+                                contentDescription = null
+                            )
+                        } ,
+                        onClick = {
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                            navController.navigate(Screens.Homepage.route) {
+                                popUpTo(0)
+                            }
                         }
-                        navController.navigate(Screens.Homepage.route) {
-                            popUpTo(0)
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+                ) {
+                    NavigationDrawerItem(
+                        label = { Text(text = "Dashboard") } ,
+                        selected = false ,
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.bar_chart_4_bars_24dp_fill0_wght400_grad0_opsz24) ,
+                                contentDescription = null
+                            )
+                        } ,
+                        onClick = {
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                            navController.navigate(Screens.Dashboard.route) {}
                         }
-                    }
-                )
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+                ) {
+                    NavigationDrawerItem(
+                        label = { Text(text = "Userpage") } ,
+                        selected = false ,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle ,
+                                contentDescription = null
+                            )
+                        } ,
+                        onClick = {
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                            navController.navigate(Screens.UserPage.route) {
+                                popUpTo(0)
+                            }
+                        }
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+                ) {
+                    NavigationDrawerItem(
+                        label = { Text(text = "Setting") } ,
+                        selected = false ,
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Settings ,
+                                contentDescription = null
+                            )
+                        } ,
+                        onClick = {
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                            navController.navigate(Screens.Homepage.route) {
+                                popUpTo(0)
+                            }
+                        }
+                    )
+                }
             }
             Row(
-                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
-            ) {
-                NavigationDrawerItem(
-                    label = { Text(text = "Dashboard") } ,
-                    selected = false ,
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.bar_chart_4_bars_24dp_fill0_wght400_grad0_opsz24)  ,
-                            contentDescription = null
-                        )
-                    } ,
-                    onClick = {
-                        coroutineScope.launch {
-                            drawerState.close()
-                        }
-                        navController.navigate(Screens.Dashboard.route) {}
-                    }
-                )
-            }
-            Row(
-                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
-            ) {
-                NavigationDrawerItem(
-                    label = { Text(text = "Userpage") } ,
-                    selected = false ,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle ,
-                            contentDescription = null
-                        )
-                    } ,
-                    onClick = {
-                        coroutineScope.launch {
-                            drawerState.close()
-                        }
-                        navController.navigate(Screens.UserPage.route) {
-                            popUpTo(0)
-                        }
-                    }
-                )
-            }
-            Row(
-                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
-            ) {
-                NavigationDrawerItem(
-                    label = { Text(text = "Setting") } ,
-                    selected = false ,
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Settings ,
-                            contentDescription = null
-                        )
-                    } ,
-                    onClick = {
-                        coroutineScope.launch {
-                            drawerState.close()
-                        }
-                        navController.navigate(Screens.Homepage.route) {
-                            popUpTo(0)
-                        }
-                    }
-                )
-            }
-            Row(
-                modifier = Modifier.padding(top = 230.dp, bottom = 10.dp)
+                modifier = Modifier.padding(bottom = 10.dp)
             ) {
                 Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
             }
