@@ -82,6 +82,14 @@ class UserWrapper private constructor(){
         return user!!.getList()
     }
 
+
+    fun getOrderedList(order: Category.ORDER): List<Category> {
+        if(!isSet()) {
+            return listOf()
+        }
+        return user!!.orderByName(order)
+    }
+
     fun getCategoriesNames(): List<String> {
         val list: MutableList<String> = mutableListOf()
         if(!isSet()) {
