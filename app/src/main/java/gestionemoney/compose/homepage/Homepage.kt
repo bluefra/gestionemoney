@@ -47,6 +47,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
+import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.homepage.components.NewCategoryButton
 import gestionemoney.compose.model.Category
@@ -87,7 +88,8 @@ fun Homepage(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(
+                TitlePageText(string = stringResource(id = R.string.your_expenses))
+                /*Text(
                     text = stringResource(id = R.string.your_expenses),
                     fontSize = 25.sp ,
                     fontFamily = FontFamily.Monospace ,
@@ -95,6 +97,8 @@ fun Homepage(
                     fontWeight = FontWeight.ExtraBold
 
                 )
+
+                 */
             }
             Column(
                 horizontalAlignment = Alignment.End,
@@ -178,7 +182,7 @@ fun CategoryItem(
         ) {
             Button(
                 onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") },
-                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orange))
             ) {
                 Image(
                     painter = image,
