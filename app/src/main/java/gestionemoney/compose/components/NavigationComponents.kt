@@ -129,13 +129,8 @@ fun NavigationDrawerHeader(){
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            fontSize = 45.sp,
-            fontFamily = FontFamily.Cursive,
-            fontStyle = FontStyle.Italic,
-            fontWeight = FontWeight.ExtraBold
-        )
+        AppNameText(string = stringResource(id = R.string.app_name))
+
     }
 }
 

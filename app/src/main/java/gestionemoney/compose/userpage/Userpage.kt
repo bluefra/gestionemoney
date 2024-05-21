@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -52,6 +53,7 @@ import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.components.NavigationDrawer
+import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.homepage.Homepage
 
 @Composable
@@ -81,11 +83,7 @@ fun Userpage(
                     titleContentColor = Color.Black,
                 ),
                 title = {
-                    Text(
-                        text = stringResource(id = R.string.my_account),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                        TitlePageText(string = stringResource(id = R.string.my_account))
                 },
             )
         },
@@ -144,7 +142,9 @@ fun InfoText(string1: String, string2 : String) {
             modifier = Modifier
                 .size(width = 200.dp, height = 50.dp)
                 .background(colorResource(R.color.orangeUltraLight))
-                .padding(16.dp),
+                .padding(16.dp)
+                .clip(RoundedCornerShape(10.dp)),
+
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
