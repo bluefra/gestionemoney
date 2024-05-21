@@ -31,7 +31,7 @@ import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
 private var newCategory = ""
 private var newCategoryImage = ""
-
+private const val imageSuffix = "cat"
 @Composable
 fun NewCategoryNavigation(
     navController: NavController
@@ -49,7 +49,7 @@ fun NewCategory(
     navController: NavController
 ) {
     val context = LocalContext.current
-    newCategoryImage = stringResource(R.string.standard_image)
+    newCategoryImage = stringResource(R.string.standard_image).removeSuffix(imageSuffix)
     Column(
         modifier = Modifier.padding((10.dp))
     ) {
@@ -63,9 +63,9 @@ fun NewCategory(
                 .padding(top = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CategoryMenu(categoryList = getDrawableResources(context),
+            CategoryMenu(categoryList = getDrawableResources(),
                          standardOption = newCategoryImage,
-                         onChange = { newCategoryImage = it})
+                         onChange = { newCategoryImage = it + imageSuffix})
             // Call to new category text field
             NewCategoryNameTextField(onChange = { newCategory = it})
 
@@ -93,13 +93,13 @@ fun addCategory(navController: NavController) {
     navController.navigate(Screens.Homepage.route)
 }
 
-fun getDrawableResources(context: Context): List<String> {
+fun getDrawableResources(): List<String> {
     val drawables = mutableListOf<String>()
     try {
         val fields = R.drawable::class.java.fields
         for (field in fields) {
-            if(field.name.contains("ico")) {
-                drawables.add(field.name)
+            if(field.name.contains(imageSuffix)) {
+                drawables.add(field.name.removeSuffix(imageSuffix))
             }
         }
     } catch (e: Exception) {

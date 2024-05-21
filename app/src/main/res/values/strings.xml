@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Money Check</string>
-    <string name="standard_image">dress_ico</string>
+    <string name="standard_image">dresscat</string>
     <string name="standard_category_selection">chose a category…</string>
     <string name="pieTitle">Totale:</string>
     <string name="delete_category">Sei sicuro di voler cancellare?</string>
@@ -11,9 +11,9 @@
         <item>trasporti</item>
     </string-array>
     <string-array name="standard_category_image">
-    <item>dress_ico</item>
-    <item>dress_ico</item>
-    <item>dress_ico</item>
+    <item>dresscat</item>
+    <item>dresscat</item>
+    <item>dresscat</item>
 </string-array>
 
 </resources>

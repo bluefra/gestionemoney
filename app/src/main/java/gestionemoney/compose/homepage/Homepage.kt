@@ -143,6 +143,7 @@ fun CategoryItem(
     if(imageName == "") {
         imageName = stringResource(R.string.standard_image)
     }
+    Log.w("crash", imageName)
     // Ottieni l'ID dell'immagine utilizzando il nome dell'immagine come stringa
     val image = painterResource(context.resources.getIdentifier(imageName, "drawable", context.packageName))
     Column(

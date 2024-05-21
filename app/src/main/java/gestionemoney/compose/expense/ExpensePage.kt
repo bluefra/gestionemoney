@@ -108,7 +108,7 @@ fun ExpensePage(
 fun ExpenseItem(
     expense: Expense
 ){
-    val image = painterResource(R.drawable.dress_ico)
+    val image = painterResource(R.drawable.dresscat)
     Column(
         modifier = Modifier
             .background(color = colorResource(R.color.orangeLight))
