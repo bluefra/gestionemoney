@@ -53,7 +53,9 @@ import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.components.NavigationDrawer
+import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.expense.ExpenseItem
 import gestionemoney.compose.homepage.Homepage
 
 @Composable
@@ -125,7 +127,6 @@ fun InfoText(string1: String, string2 : String) {
         verticalAlignment = Alignment.CenterVertically,
 
     ) {
-
         Box(
             modifier = Modifier
                 .size(width = 150.dp, height = 50.dp)
@@ -133,10 +134,7 @@ fun InfoText(string1: String, string2 : String) {
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
         ){
-            Text(
-                text = string1,
-                modifier = Modifier.padding(end = 16.dp)
-            )
+            NormalText(string = string1)
         }
         Box(
             modifier = Modifier
@@ -147,16 +145,9 @@ fun InfoText(string1: String, string2 : String) {
 
             contentAlignment = Alignment.CenterStart
         ) {
-            Text(
-                text = string2,
-                color = Color.Black
-            )
+            NormalText(string = string2)
         }
+
     }
 }
 
-@Preview
-@Composable
-fun Preview(){
-    InfoText(string1 = "ciao", string2 = "ciao")
-}
