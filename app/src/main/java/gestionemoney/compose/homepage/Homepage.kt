@@ -71,7 +71,7 @@ fun Homepage(
 ) {
     // Mapping the categorylist to the Category data class. (database implementation)
     val categorynames = UserWrapper.getInstance().getOrderedList(Category.ORDER.ASC)
-    Log.w("homepage", categorynames.toString())
+    Log.w("homepage1", categorynames.toString())
 
 
     Column(
@@ -114,20 +114,6 @@ fun Homepage(
             navController = navController
         )
     }
-}
-
-// Need to be changed with database connection)
-@Composable
-fun CategoryName(
-    text: String
-){
-    Text(
-        text = text,
-        fontSize = 25.sp ,
-        fontFamily = FontFamily.Monospace ,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.ExtraBold
-    )
 }
 
 
@@ -229,7 +215,7 @@ fun LazyCategoryColumn(
                 onClick = { navController.navigate("${Screens.ExpensePage.route}/${category.getName()}") },
                 modifier = Modifier.padding(bottom = 10.dp),
             ) {
-                Log.w("homepage", category.getName())
+                Log.w("homepage2", category.getName())
                 CategoryItem(
                     category.getName(),
                     category.getImageURI(),
