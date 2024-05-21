@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -77,9 +78,9 @@ fun ExpensePage(
             ){
                 Button(
                         onClick = { navController.navigate("${Screens.NewExpense.route}/$categoryName")},
-                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orangeLight))
                     ) {
-                    Text(text = "Add Expense")
+                    Text(text = stringResource(id = R.string.new_expense_add))
                 }
             }
         }

@@ -51,7 +51,7 @@ fun ExpenseDelete(
                         DeleteExpense(navController).delete(expenseName, expenseDate)
                     }
                 ) {
-                    Text("Conferma")
+                    Text(text = stringResource(id = R.string.confirmation_string))
                 }
             }
         },
@@ -62,7 +62,7 @@ fun ExpenseDelete(
                         onDismissRequest()
                     }
                 ) {
-                    Text("Annulla")
+                    Text(text = stringResource(id = R.string.negation_string))
                 }
             }
         }

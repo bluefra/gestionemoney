@@ -76,7 +76,7 @@ fun NewCategory(
                 onClick = { addCategory(navController)},
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
-                Text(text = "Conferma")
+                Text(text = stringResource(id = R.string.confirmation_string))
             }
         }
     }

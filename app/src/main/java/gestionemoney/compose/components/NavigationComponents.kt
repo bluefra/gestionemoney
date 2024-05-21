@@ -31,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -56,7 +57,7 @@ fun AppToolbar(
     CenterAlignedTopAppBar(
         title = {
             Text(
-                text = "Happy Wallet",
+                text = stringResource(id = R.string.app_name),
                 fontSize = 45.sp,
                 fontFamily = FontFamily.Cursive,
                 fontStyle = FontStyle.Italic,
@@ -129,7 +130,7 @@ fun NavigationDrawerHeader(){
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Happy Wallet",
+            text = stringResource(id = R.string.app_name),
             fontSize = 45.sp,
             fontFamily = FontFamily.Cursive,
             fontStyle = FontStyle.Italic,

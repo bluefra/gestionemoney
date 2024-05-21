@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -66,7 +67,7 @@ fun Login(
         Column(modifier = Modifier
             .fillMaxSize()
             ) {
-                TopSection("Nome app ..... \n Bentornato", "\nLogin")
+                TopSection(stringResource(id = R.string.app_name), "\nLogin")
                 Spacer(modifier = Modifier.height(36.dp))
                 Column(
                     modifier = Modifier
@@ -104,7 +105,7 @@ fun Login(
                                             fontWeight = FontWeight.Normal
                                         )
                                     ) {
-                                        append("Non hai un account? ")
+                                        append(text = stringResource(id = R.string.no_account_question))
                                     }
                                 })
                             TextButton(onClick = { navController.navigate(Screens.Register.route)}) {
@@ -118,7 +119,7 @@ fun Login(
                                         )
                                     ) {
                                         append(" ")
-                                        append("Registrati ora ")
+                                        append(text = stringResource(id = R.string.register_now))
                                     }
                                 })
 

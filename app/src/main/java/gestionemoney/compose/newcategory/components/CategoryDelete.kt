@@ -52,7 +52,7 @@ fun CategoryDelete(
                         DeleteCategory(navController).delete(categoryName)
                     }
                 ) {
-                    Text("Conferma")
+                    Text(text = stringResource(id = R.string.confirmation_string))
                 }
             }
         },
@@ -63,7 +63,7 @@ fun CategoryDelete(
                         onDismissRequest()
                     }
                 ) {
-                    Text("Annulla")
+                    Text(text = stringResource(id = R.string.negation_string))
                 }
             }
         }

@@ -88,7 +88,7 @@ fun Homepage(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Le tue spese",
+                    text = stringResource(id = R.string.your_expenses),
                     fontSize = 25.sp ,
                     fontFamily = FontFamily.Monospace ,
                     textAlign = TextAlign.Center,

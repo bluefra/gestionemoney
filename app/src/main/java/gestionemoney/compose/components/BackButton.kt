@@ -6,6 +6,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
@@ -20,7 +21,7 @@ fun BackButton(
             onClick = { navController.navigate(Screens.Homepage.route)},
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ) {
-            Text(text = "Indietro")
+            Text(text = stringResource(id = R.string.back_button))
         }
     }
 }

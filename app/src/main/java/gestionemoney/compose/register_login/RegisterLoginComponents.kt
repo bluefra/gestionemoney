@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -208,7 +209,7 @@ fun TextWithDivider() {
         )
         Spacer(modifier = Modifier.width(8.dp))
         BasicText(
-            text = "oppure",
+            text = stringResource(id = R.string.or),
         )
         Spacer(modifier = Modifier.width(8.dp))
         Divider(
