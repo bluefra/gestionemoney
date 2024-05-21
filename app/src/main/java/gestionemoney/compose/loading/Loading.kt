@@ -41,11 +41,6 @@ val connection = LoadDB()
                 stringArrayResource(R.array.standard_category_image)
             )
             Loading()
-            navController.navigate(Screens.Homepage.route){
-                popUpTo(0){
-                    inclusive = true
-                }
-            }
         } else {
             ErrorAlert(navController,"internet missing")
             Log.w("check internet", "no")
@@ -112,9 +107,9 @@ val connection = LoadDB()
              }
              return
          }
+         DBInfoConnection.getInstance().addInfoObserver(this)
          DBUserConnection.getInstance().addUserObserver(this)
          DBUserConnection.getInstance().connectUser(uid)
-         DBInfoConnection.getInstance().addInfoObserver(this)
          DBInfoConnection.getInstance().connectInfo(uid)
      }
 

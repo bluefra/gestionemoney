@@ -14,6 +14,9 @@ class DBInfoConnection {
     private var info: Info = Info()
     private val InfoObservers = mutableListOf<InfoChangeObserver>()
     private var userID: String? = null
+    init {
+        database.setPersistenceEnabled(true)
+    }
 
     companion object {
         private var instance: DBInfoConnection? = null

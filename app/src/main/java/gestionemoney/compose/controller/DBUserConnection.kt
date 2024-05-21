@@ -23,6 +23,10 @@ class DBUserConnection private constructor() {
     private val userObservers = mutableListOf<UserChangeObserver>()
     private var user: User? = null
     private var userID: String? = null
+    
+    init {
+        database.setPersistenceEnabled(true)
+    }
     /**
      * usato implementare il pattern Singleton nella classe DBconnection
      */
