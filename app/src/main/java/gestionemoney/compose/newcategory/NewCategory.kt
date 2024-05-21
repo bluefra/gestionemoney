@@ -63,7 +63,7 @@ fun NewCategory(
                 .padding(top = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CategoryMenu(categoryList = getAllDrawableResources(context),
+            CategoryMenu(categoryList = getDrawableResources(context),
                          standardOption = newCategoryImage,
                          onChange = { newCategoryImage = it})
             // Call to new category text field
@@ -93,8 +93,17 @@ fun addCategory(navController: NavController) {
     navController.navigate(Screens.Homepage.route)
 }
 
-fun getAllDrawableResources(context: Context): List<String> {
-    val assetManager = context.resources.assets
-    val imageFiles = assetManager.list("drawable")
-    return imageFiles?.toList() ?: emptyList()
+fun getDrawableResources(context: Context): List<String> {
+    val drawables = mutableListOf<String>()
+    try {
+        val fields = R.drawable::class.java.fields
+        for (field in fields) {
+            if(field.name.contains("ico")) {
+                drawables.add(field.name)
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return drawables
 }

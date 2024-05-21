@@ -1,8 +1,6 @@
 package gestionemoney.compose.expense
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
@@ -33,8 +30,6 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.UserWrapper
-import gestionemoney.compose.expense.components.NewExpenseButton
-import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
@@ -113,7 +108,7 @@ fun ExpensePage(
 fun ExpenseItem(
     expense: Expense
 ){
-    val image = painterResource(R.drawable.dress)
+    val image = painterResource(R.drawable.dress_ico)
     Column(
         modifier = Modifier
             .background(color = colorResource(R.color.orangeLight))
