@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -140,6 +142,7 @@ fun NavigationDrawerBody(
     coroutineScope: CoroutineScope,
     navController: NavController
 ){
+    val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(color = colorResource(id = R.color.orangeLight))
@@ -147,12 +150,14 @@ fun NavigationDrawerBody(
     ) {
 
         Column(
-            modifier = Modifier.padding(20.dp)
+            modifier = Modifier
+                .padding(20.dp)
+
         ) {
             NavigationDrawerHeader()
             //Body
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).verticalScroll(scrollState)
             ) {
                 Row(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
@@ -240,11 +245,12 @@ fun NavigationDrawerBody(
                         }
                     )
                 }
-            }
-            Row(
-                modifier = Modifier.padding(bottom = 10.dp)
-            ) {
-                Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
+                Row(
+                    modifier = Modifier.padding(top = 220.dp)
+                ) {
+                    Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
+                }
+
             }
         }
     }
