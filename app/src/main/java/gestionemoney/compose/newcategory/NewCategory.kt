@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,8 +45,7 @@ fun NewCategoryNavigation(
 fun NewCategory(
     navController: NavController
 ) {
-    val context = LocalContext.current
-    newCategoryImage = stringResource(R.string.standard_image).removeSuffix(imageSuffix)
+    val standardImage = stringResource(id = R.string.standard_image_selection)
     Column(
         modifier = Modifier.padding((10.dp))
     ) {
@@ -62,7 +60,7 @@ fun NewCategory(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CategoryMenu(categoryList = getDrawableResources(),
-                         standardOption = newCategoryImage,
+                         standardOption = standardImage,
                          onChange = { newCategoryImage = it + imageSuffix})
             // Call to new category text field
             NewCategoryNameTextField(onChange = { newCategory = it})
@@ -71,7 +69,7 @@ fun NewCategory(
             // Currently point to the homepage.
             Button(
                 modifier = Modifier.padding(top = 10.dp),
-                onClick = { addCategory(navController)},
+                onClick = { addCategory(navController, standardImage)},
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
                 Text(text = stringResource(id = R.string.confirmation_string))
@@ -80,9 +78,13 @@ fun NewCategory(
     }
 }
 
-fun addCategory(navController: NavController) {
-    if(newCategory == "") {
+fun addCategory(navController: NavController, standardImage: String) {
+    if(newCategory == "" || newCategoryImage == standardImage || newCategoryImage == "") {
         Log.w("NewCategory", "campo vuoto")
+        return
+    }
+    if(UserWrapper.getInstance().getCategory(newCategory) != null) {
+        Log.w("NewCategory", "categoria gia esistente")
         return
     }
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")

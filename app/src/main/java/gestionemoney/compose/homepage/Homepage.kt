@@ -42,7 +42,7 @@ import gestionemoney.compose.components.MediumText
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
-import gestionemoney.compose.components.NewCategoryButton
+import gestionemoney.compose.homepage.components.NewCategoryButton
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.CategoryDelete
