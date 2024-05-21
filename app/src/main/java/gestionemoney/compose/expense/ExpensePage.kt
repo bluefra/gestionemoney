@@ -43,7 +43,6 @@ import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 @Composable
 fun ExpenseNavigation(
     navController: NavController,
@@ -104,7 +103,7 @@ fun ExpensePage(
         }
 
         // Display the list of all the expense of the current category.
-        LazyActivityColumn(expenses = expenses, navController)
+        LazyActivityColumn(expenses = expenses, categoryName ,navController)
     }
 }
 
@@ -113,6 +112,7 @@ fun ExpensePage(
 @Composable
 fun ExpenseItem(
     expense: Expense,
+    categoryName: String,
     navController: NavController
 ){
     var showDialog by rememberSaveable { mutableStateOf(false) }
@@ -148,10 +148,10 @@ fun ExpenseItem(
             }
             if (showDialog) {
                 ExpenseDelete(
-                    onDismissRequest = { navController.navigate(Screens.Homepage.route) },
                     navController,
-                    expenseName = expense.getName(),
-                    expenseDate = formatDate(expense.getDate())
+                    categoryName,
+                    expenseDate = expense.getDate().toString(),
+                    onButtonVisibilityChange = { isVisible -> showDialog = isVisible }
                 )
             }
         }
@@ -178,6 +178,7 @@ fun ExpenseItem(
 @Composable
 fun LazyActivityColumn(
     expenses: List<Expense>?,
+    categoryName: String,
     navController: NavController
 ){
     LazyColumn() {
@@ -187,7 +188,7 @@ fun LazyActivityColumn(
                         .padding(bottom = 10.dp),
                     shape = RoundedCornerShape(10.dp)
                 ) {
-                    ExpenseItem(expense, navController)
+                    ExpenseItem(expense, categoryName, navController)
                 }
             }
     }
