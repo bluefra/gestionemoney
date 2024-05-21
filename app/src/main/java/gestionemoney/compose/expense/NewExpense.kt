@@ -113,9 +113,11 @@ class AddExpense {
         }
         val expense = Expense(date, getCost(expense_value))
         expense.setName(expense_name)
+        Log.w("adding expense", UserWrapper.getInstance().toString())
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
+        Log.w("adding expense", UserWrapper.getInstance().toString())
         DBUserConnection.getInstance().writeLastExpense(categoryName)
-        navController.navigate(Screens.Homepage.route)
+        navController.navigate("${Screens.ExpensePage.route}/$categoryName")
     }
 
     private fun verifyExpense(): Boolean {

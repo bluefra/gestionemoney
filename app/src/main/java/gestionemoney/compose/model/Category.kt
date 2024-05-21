@@ -26,8 +26,8 @@ class Category (private val name: String, private var imageURI: String = ""){
 
     fun orderByDate(order: ORDER): List<Expense> {
         return when (order) {
-            ORDER.ASC -> expensesList.sortedWith { e0, e1 -> e0.confrontExpense(e1) }
-            ORDER.DEC -> expensesList.sortedWith { e0, e1 -> -e0.confrontExpense(e1) }
+            ORDER.ASC -> expensesList.sortedWith { e0, e1 -> e0.compareDate(e1.getDate()) }
+            ORDER.DEC -> expensesList.sortedWith { e0, e1 -> -e0.compareDate(e1.getDate()) }
         }
     }
 
@@ -42,7 +42,7 @@ class Category (private val name: String, private var imageURI: String = ""){
     fun setImage(uri: String) {
         imageURI = uri
     }
-    fun getImageURI(): String? {
+    fun getImageURI(): String {
         return imageURI
     }
 
@@ -55,6 +55,9 @@ class Category (private val name: String, private var imageURI: String = ""){
         return nameDB
     }
 
+    fun deleteExpense(expense: Expense) {
+        expensesList.remove(expense)
+    }
     fun GetTotalExpences(): Double {
         var tot: Double = 0.0
         expensesList.forEach {
@@ -66,7 +69,18 @@ class Category (private val name: String, private var imageURI: String = ""){
     fun getExpense(dateString: String): Expense? {
         val date = Date(dateString)
         expensesList.forEach{
+            Log.w("category expense delete log", it.toString())
+            Log.w("category expense delete log", it.compareDate(date).toString())
             if(it.compareDate(date) == 0) { return it }
+        }
+        return null
+    }
+
+    fun getExpenseByString(dateString: String): Expense? {
+        expensesList.forEach{
+            Log.w("category expense delete log", it.toString())
+            Log.w("category expense delete log", it.compareDateByString(dateString).toString())
+            if(it.compareDateByString(dateString)) { return it }
         }
         return null
     }

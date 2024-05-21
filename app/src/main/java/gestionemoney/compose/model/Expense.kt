@@ -8,18 +8,12 @@ class Expense(private val date: Date = Date(), private val value: Double, privat
      * if date > comparedDate -> return 1
      * if date < comparedDate -> return -1
      */
-    fun confrontExpense(e1: Expense): Int {
-        val result: Int = date.compareTo(e1.date)
-        if(result == 0) { return 0 }
-        if(result > 0) { return 1 }
-        return -1
+    fun compareDate(comparedDate: Date): Int {
+        return date.compareTo(comparedDate)
     }
 
-    fun compareDate(date: Date): Int {
-        val result: Int = date.compareTo(date)
-        if(result == 0) { return 0 }
-        if(result > 0) { return 1 }
-        return -1
+    fun compareDateByString(stringDate: String): Boolean {
+        return date.toString().equals(stringDate)
     }
     fun confrontValue(e1: Expense): Int{
         if(value == e1.value) { return 0 }

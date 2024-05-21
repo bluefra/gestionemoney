@@ -170,24 +170,22 @@ class DBUserConnection private constructor() {
     }
 
     fun deleteExpense(categoryName: String, expenseDate: String) {
+        Log.w("delete expense", expenseDate)
         if (!isConnect()) {
             return
         }
-        if (user!!.getCategory(categoryName) == null) {
-            return
-        }
-        if(user!!.getCategory(categoryName)!!.getExpense(expenseDate) == null) {
-            return
-        }
-        val category: Category = user!!.getCategory(categoryName)!!
-        val expense: Expense = category.getExpense(expenseDate)!!
+        val category: Category = user!!.getCategory(categoryName) ?: return
+        val expense: Expense = category.getExpenseByString(expenseDate) ?: return
+        user!!.getCategory(categoryName)!!.deleteExpense(expense)
         val myRef = database.getReference(dbNode)
             .child(userID!!)
             .child(category.getDBname())
             .child(expense.getDBName())
         myRef.removeValue().addOnSuccessListener {
-            user!!.deleteCategory(categoryName)
             notifyUserObservers(user!!)
+            if(category.getList().isEmpty()) {
+                writeCategoryName(categoryName)
+            }
         }
             .addOnFailureListener {
                 notifyError(it.message.toString())

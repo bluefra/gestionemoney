@@ -1,5 +1,6 @@
 package gestionemoney.compose.newcategory.components
 
+import android.util.Log
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -49,6 +50,7 @@ fun CategoryDelete(
                     onClick = {
                         isButtonVisible = false
                         text = deletingText
+                        Log.w("delete expense conf", UserWrapper.getInstance().toString())
                         DeleteCategory(navController).delete(categoryName)
                     }
                 ) {
