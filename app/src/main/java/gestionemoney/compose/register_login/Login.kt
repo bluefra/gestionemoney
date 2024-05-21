@@ -50,13 +50,16 @@ import gestionemoney.compose.ui.theme.Roboto
 private var email = ""
 private var password = ""
 private var message: Toast? = null
-
+private var verified = false
 @Composable
 fun Login(
     navController: NavController
 ) {
-    if (DBauthentication.getInstance().isSet()) {
-        navController.navigate(Screens.Loading.route)
+    if(!verified) {
+        verified = true
+        if (DBauthentication.getInstance().isSet()) {
+            navController.navigate(Screens.Loading.route)
+        }
     }
     message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
 

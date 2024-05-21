@@ -12,10 +12,14 @@ import gestionemoney.compose.model.Info
 class DBInfoConnection {
     private val database = Firebase.database
     private var info: Info = Info()
-    private val InfoObservers = mutableListOf<InfoChangeObserver>()
+    private val infoObservers = mutableListOf<InfoChangeObserver>()
     private var userID: String? = null
+    private var initiazied: Boolean = false
     init {
-        database.setPersistenceEnabled(true)
+        if(!initiazied) {
+            database.setPersistenceEnabled(true)
+            initiazied = true
+        }
     }
 
     companion object {
@@ -79,21 +83,21 @@ class DBInfoConnection {
     }
 
     fun addInfoObserver(observer: InfoChangeObserver) {
-        InfoObservers.add(observer)
+        infoObservers.add(observer)
     }
 
     fun removeInfoObserver(observer: InfoChangeObserver) {
-        InfoObservers.remove(observer)
+        infoObservers.remove(observer)
     }
 
     private fun notifyInfoObservers(info: Info) {
         InfoWrapper.getInstance().updateInfo(info)
-        InfoObservers.forEach { it.updateInfo(InfoWrapper.getInstance()) }
+        infoObservers.forEach { it.updateInfo(InfoWrapper.getInstance()) }
     }
 
     fun close() {
-        instance = null
         info = Info()
+        userID = null
         InfoWrapper.getInstance().close()
     }
 }
