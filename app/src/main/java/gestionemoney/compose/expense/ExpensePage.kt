@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,14 +13,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -70,9 +78,9 @@ fun ExpensePage(
             ){
                 Button(
                         onClick = { navController.navigate("${Screens.NewExpense.route}/$categoryName")},
-                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orangeLight))
                     ) {
-                    Text(text = "Add Expense")
+                    Text(text = stringResource(id = R.string.new_expense_add))
                 }
             }
         }
@@ -96,9 +104,7 @@ fun ExpensePage(
         }
 
         // Display the list of all the expense of the current category.
-        LazyActivityColumn(
-            expenses = expenses
-        )
+        LazyActivityColumn(expenses = expenses, navController)
     }
 }
 
@@ -106,9 +112,11 @@ fun ExpensePage(
 // Create and display a single Expense item.
 @Composable
 fun ExpenseItem(
-    expense: Expense
+    expense: Expense,
+    navController: NavController
 ){
-    val image = painterResource(R.drawable.dresscat)
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .background(color = colorResource(R.color.orangeLight))
@@ -116,7 +124,9 @@ fun ExpenseItem(
             .padding(start = 20.dp)
             .padding(10.dp),
     ) {
-        Row() {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)) {
             Text(
                 text = expense.getName() ,
                 fontSize = 25.sp ,
@@ -124,6 +134,26 @@ fun ExpenseItem(
                 textAlign = TextAlign.Center ,
                 fontWeight = FontWeight.ExtraBold
             )
+            Button(
+                onClick = ({ showDialog = true }),
+                colors = ButtonDefaults.buttonColors(
+                    colorResource(R.color.orange),
+                    contentColor = Color.Black),
+                modifier = Modifier.padding(start = 80.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.delete_icon),
+                    contentDescription = "delete_category",
+                    modifier = Modifier.size(24.dp))
+            }
+            if (showDialog) {
+                ExpenseDelete(
+                    onDismissRequest = { navController.navigate(Screens.Homepage.route) },
+                    navController,
+                    expenseName = expense.getName(),
+                    expenseDate = formatDate(expense.getDate())
+                )
+            }
         }
         Row() {
             Text(
@@ -148,16 +178,16 @@ fun ExpenseItem(
 @Composable
 fun LazyActivityColumn(
     expenses: List<Expense>?,
-    modifier: Modifier = Modifier
+    navController: NavController
 ){
     LazyColumn() {
             items(expenses ?: emptyList()) { expense ->
                 Card(
                     modifier = Modifier
                         .padding(bottom = 10.dp),
-                    shape = RoundedCornerShape(50.dp)
+                    shape = RoundedCornerShape(10.dp)
                 ) {
-                    ExpenseItem(expense)
+                    ExpenseItem(expense, navController)
                 }
             }
     }

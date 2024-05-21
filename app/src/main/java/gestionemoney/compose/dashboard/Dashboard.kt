@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
@@ -67,7 +68,7 @@ fun Dashboard(
                 modifier = Modifier
                     .padding(bottom = 10.dp)
                     .align(alignment = Alignment.CenterVertically),
-                text = "Analisi delle tue spese",
+                text = stringResource(id = R.string.dashboard_intro),
                 style = MaterialTheme.typography.titleMedium,
                 color = Black
             )

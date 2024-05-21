@@ -1,4 +1,4 @@
-package gestionemoney.compose.newcategory.components
+package gestionemoney.compose.expense
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
@@ -9,8 +9,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
@@ -23,10 +21,11 @@ import gestionemoney.compose.navigation.Screens
 
 
 @Composable
-fun CategoryDelete(
+fun ExpenseDelete(
     onDismissRequest: () -> Unit,
     navController: NavController,
-    categoryName: String
+    expenseName: String,
+    expenseDate: String
 ) {
     var isButtonVisible by remember { mutableStateOf(true) }
     val confirmationText: String = stringResource(id = R.string.delete_category)
@@ -49,7 +48,7 @@ fun CategoryDelete(
                     onClick = {
                         isButtonVisible = false
                         text = deletingText
-                        DeleteCategory(navController).delete(categoryName)
+                        DeleteExpense(navController).delete(expenseName, expenseDate)
                     }
                 ) {
                     Text(text = stringResource(id = R.string.confirmation_string))
@@ -71,10 +70,10 @@ fun CategoryDelete(
 }
 
 
-class DeleteCategory(val navController: NavController): UserChangeObserver {
-    fun delete(categoryName: String) {
+class DeleteExpense(val navController: NavController): UserChangeObserver {
+    fun delete(expenseName: String, expenseDate: String) {
         DBUserConnection.getInstance().addUserObserver(this)
-        DBUserConnection.getInstance().deleteCategory(categoryName)
+        DBUserConnection.getInstance().deleteExpense(expenseName, expenseDate)
     }
     override fun updateUser(user: UserWrapper) {
         DBUserConnection.getInstance().removeUserObserver(this)

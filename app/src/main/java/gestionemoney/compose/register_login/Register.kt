@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +30,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import gestionemoney.compose.R
 import gestionemoney.compose.controller.AuthObserver
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.navigation.Screens
@@ -58,7 +60,7 @@ fun Register(navController: NavController){
             .fillMaxSize()
 
             ) {
-                TopSection("Nome app ..... \n Benvenuto", "Register")
+                TopSection(stringResource(id = R.string.app_name), "Register")
                 Spacer(modifier = Modifier.height(30.dp))
                 Column(
                     modifier = Modifier
@@ -79,12 +81,12 @@ fun Register(navController: NavController){
                         onChange = { password = it })
                     Spacer(modifier = Modifier.height(15.dp))
                     InfoEnter(
-                        label = "Nome",
+                        label = stringResource(id = R.string.name),
                         modifier = Modifier.fillMaxWidth(),
                         onChange = { name = it })
                     Spacer(modifier = Modifier.height(15.dp))
                     InfoEnter(
-                        label = "Cognome",
+                        label  = stringResource(id = R.string.surname),
                         modifier = Modifier.fillMaxWidth(),
                         onChange = { surname = it })
                     Spacer(modifier = Modifier.height(15.dp))

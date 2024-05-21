@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -81,7 +82,7 @@ fun Userpage(
                 ),
                 title = {
                     Text(
-                        "Il mio account",
+                        text = stringResource(id = R.string.my_account),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -107,13 +108,13 @@ fun Userpage(
             )
 
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = "Nome", string2 = "nome da passare")
+            InfoText(string1 = stringResource(id = R.string.name), string2 = "nome da passare")
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = "Cognome", string2 = "Cognome da passare")
+            InfoText(string1 = stringResource(id = R.string.surname), string2 = "Cognome da passare")
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = "Email", string2 = "email da passare")
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = "Data iscrizione", string2 = "data da passare")
+            InfoText(string1 = stringResource(id = R.string.register_date), string2 = "data da passare")
         }
     }
 

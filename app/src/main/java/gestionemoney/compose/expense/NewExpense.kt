@@ -87,7 +87,7 @@ fun NewExpense(
                 onClick = { AddExpense().addExpense(navController) },
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
-                Text(text = "Conferma")
+                Text(text = stringResource(id = R.string.confirmation_string))
             }
 
         }
