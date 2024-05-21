@@ -31,9 +31,9 @@
     <string name="my_account">Il mio account</string>
     <string name="register_date">Data iscrizione</string>
     <string-array name="standard_category">
-        <item>card-market</item>
-        <item>vitto</item>
-        <item>trasporti</item>
+        <item>Alimentari</item>
+        <item>Trasporto</item>
+        <item>Sport</item>
     </string-array>
     <string-array name="standard_category_image">
     <item>dresscat</item>

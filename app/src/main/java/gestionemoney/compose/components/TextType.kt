@@ -37,7 +37,7 @@ fun TitlePageText(string: String){
         modifier = Modifier
             .padding(bottom = 10.dp),
         text = string,
-        fontSize = 27.sp,
+        fontSize = 30.sp,
         style = MaterialTheme.typography.titleMedium,
         color = Black,
 
@@ -50,9 +50,9 @@ fun MediumText(string: String){
         modifier = Modifier
             .padding(bottom = 10.dp),
         text = string,
-        fontSize = 20.sp,
+        fontSize = 25.sp,
         color = Black,
-        style = MaterialTheme.typography.bodyMedium,
+        style = MaterialTheme.typography.bodyLarge,
         fontFamily = Roboto,
         fontWeight = FontWeight.Bold
     )
