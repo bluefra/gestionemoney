@@ -45,6 +45,20 @@ fun TitlePageText(string: String){
 }
 
 @Composable
+fun MediumText(string: String){
+    Text(
+        modifier = Modifier
+            .padding(bottom = 10.dp),
+        text = string,
+        fontSize = 20.sp,
+        color = Black,
+        style = MaterialTheme.typography.bodyMedium,
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Bold
+    )
+}
+
+@Composable
 fun NormalText(string: String){
     Text(
         //modifier = Modifier.padding(bottom = 10.dp),

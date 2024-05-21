@@ -20,6 +20,7 @@
     <string name="new_expense_add">Nuova spesa</string>
     <string name="your_expenses">Le tue spese</string>
     <string name="new_category_add">Crea una nuova categoria</string>
+    <string name="new_category_button">Nuova categoria</string>
     <string name="category_name">Inserisci il nome della categoria</string>
     <string name="no_account_question">Non hai un account?</string>
     <string name="register_now">Registrati ora</string>
