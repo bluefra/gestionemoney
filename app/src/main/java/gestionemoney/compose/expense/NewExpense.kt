@@ -2,9 +2,14 @@ package gestionemoney.compose.expense
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
@@ -14,16 +19,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
-import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
-import gestionemoney.compose.components.CategoryMenu
+import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
@@ -58,8 +61,57 @@ fun NewExpense(
 ) {
     val categorylist = UserWrapper.getInstance().getCategoriesNames()
     val baseOption = category?: AddExpense.standardOption
+    val scrollState = rememberScrollState()
+
     AddExpense.setStandardCategory(stringResource(R.string.standard_category_selection))
     categoryName = category?: categoryName
+
+    Box(modifier = Modifier.fillMaxSize()){
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 90.dp)
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+        ) {
+            // Functions for user input data to create new expense.
+            CategoryMenu(
+                categorylist,
+                baseOption,
+                onChange = { categoryName = it })
+            Spacer(modifier = Modifier.height(15.dp))
+            ExpenseName { expense_name = it }
+            Spacer(modifier = Modifier.height(15.dp))
+            CostOfExpense(onChange = { expense_value = it })
+            Spacer(modifier = Modifier.height(15.dp))
+            DatePicker(
+                defaultDate = AddExpense.currDate,
+                initialDate = AddExpense.initialDate,
+                onDateChanged = { date = it })
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Button(
+                onClick = { AddExpense().addExpense(navController) },
+                colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+            ) {
+                Text(text = stringResource(id = R.string.confirmation_string))
+            }
+        }
+        Button(
+            onClick = { navController.navigate(Screens.Homepage.route) },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+        ) {
+            Text(text = stringResource(id = R.string.back_button))
+        }
+
+    }
+
+    /*
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -92,6 +144,8 @@ fun NewExpense(
 
         }
     }
+
+     */
 }
 
 class AddExpense {

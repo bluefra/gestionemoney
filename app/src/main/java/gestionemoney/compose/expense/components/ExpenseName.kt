@@ -1,5 +1,7 @@
 package gestionemoney.compose.expense.components
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
@@ -18,6 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gestionemoney.compose.R
+import gestionemoney.compose.components.NormalText
+import gestionemoney.compose.components.TextFiledType
 
 @Composable
 fun ExpenseName(onChange: (String) -> Unit = {}) {
@@ -25,14 +29,8 @@ fun ExpenseName(onChange: (String) -> Unit = {}) {
     var text by rememberSaveable { mutableStateOf("") }
     val maxChar : Int = 15
 
-    Text(
-        text = stringResource(id = R.string.insert_expense_name),
-        fontSize = 15.sp ,
-        fontFamily = FontFamily.Monospace ,
-        textAlign = TextAlign.Center ,
-        fontWeight = FontWeight.ExtraBold ,
-        modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
-    )
+    NormalText(string = stringResource(id = R.string.insert_expense_name))
+    Spacer(modifier = Modifier.height(5.dp))
     TextField(
         value = text,
         onValueChange = {
@@ -43,7 +41,7 @@ fun ExpenseName(onChange: (String) -> Unit = {}) {
         },
         keyboardOptions = KeyboardOptions.Default.copy(
         ),
-        label = { Text(text = stringResource(id = R.string.expense_name)) },
+        label = { TextFiledType(string = stringResource(id = R.string.expense_name))},
         singleLine = true
     )
 }

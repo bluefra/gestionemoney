@@ -45,6 +45,7 @@ import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.expense.components.NewExpenseButton
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
@@ -80,7 +81,9 @@ fun ExpensePage(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column (
-                    modifier = Modifier.weight(1f).padding(10.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(10.dp),
                     horizontalAlignment = Alignment.Start
                 ){
                     TitlePageText(string = categoryName)
@@ -88,12 +91,7 @@ fun ExpensePage(
                 Column (
                     horizontalAlignment = Alignment.End
                 ){
-                    Button(
-                        onClick = { navController.navigate("${Screens.NewExpense.route}/$categoryName")},
-                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
-                    ){
-                        Text(text = stringResource(id = R.string.new_expense_add))
-                    }
+                    NewExpenseButton(navController = navController, categoryName = categoryName)
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))

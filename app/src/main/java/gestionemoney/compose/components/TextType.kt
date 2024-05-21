@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -68,4 +69,19 @@ fun NormalText(string: String){
         color = Black,
         fontFamily = Roboto,
     )
+}
+
+@Composable
+fun TextFiledType(string : String){
+    Text(
+        //modifier = Modifier.padding(bottom = 10.dp),
+        text = string,
+        fontSize = 13.sp,
+        style = MaterialTheme.typography.bodySmall,
+        fontFamily = Roboto,
+        color = colorResource(R.color.dark_grey)
+
+    )
+
+
 }

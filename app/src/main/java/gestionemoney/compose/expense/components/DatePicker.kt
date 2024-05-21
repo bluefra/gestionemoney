@@ -8,10 +8,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
+import gestionemoney.compose.components.NormalText
+import gestionemoney.compose.components.TextFiledType
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,9 +31,11 @@ fun DatePicker(
 
     Column {
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
+        NormalText(string = stringResource(id = R.string.insert_data))
+        //Text(text = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
         //Text("Select Date: ${dateFormat.format(date)}")
-        Text(text = stringResource(id = R.string.insert_data))
+        //Text(text = stringResource(id = R.string.insert_data))
+        Spacer(modifier = Modifier.height(5.dp))
         TextField(
             value = text,
             onValueChange = {
@@ -40,7 +45,11 @@ fun DatePicker(
                     date = parsedDate
                     onDateChanged(date)
                 }
-            }
+            },
+            label = {
+                TextFiledType(string = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
+               },
+
         )
         Spacer(modifier = Modifier.height(16.dp))
     }

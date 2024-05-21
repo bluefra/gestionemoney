@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
@@ -17,14 +18,15 @@ import gestionemoney.compose.navigation.Screens
 
 @Composable
 fun NewExpenseButton (
-    navController: NavController
+    navController: NavController,
+    categoryName : String
 ) {
     Button(
-        onClick = { navController.navigate(Screens.NewExpense.route )},
+        onClick = {navController.navigate("${Screens.NewExpense.route}/$categoryName")},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
     ) {
         Text(
-            text = "+" ,
+            text = stringResource(id = R.string.new_expense_add) ,
         )
     }
 }

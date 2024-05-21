@@ -1,6 +1,8 @@
 package gestionemoney.compose.expense.components
 
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,7 +31,7 @@ fun LocationOfExpense() {
         fontWeight = FontWeight.ExtraBold ,
         modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
     )
-
+    Spacer(modifier = Modifier.height(5.dp))
     TextField(
         value = location,
         onValueChange = { location = it },
