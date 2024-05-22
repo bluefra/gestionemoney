@@ -4,7 +4,7 @@
     <string name="pieTitle">Totale:</string>
     <string name="delete_category">Sei sicuro di voler cancellare?</string>
     <string name="deleting">Eliminazione in corso…</string>
-    <string name="category_expense_insert">Categoria in cui inserire la nuova spesa</string>
+    <string name="category_expense_insert">Scegli un\'immagine per la tua categoria</string>
     <string name="back_button">Indietro</string>
     <string name="confirmation_string">Conferma</string>
     <string name="negation_string">Annulla</string>
@@ -12,7 +12,7 @@
     <string name="insert_money_spent">Quanti soldi hai speso?</string>
     <string name="money_type">in euro €:</string>
     <string name="preselected_data">data preselezionata:</string>
-    <string name="insert_data">Inserisci la data dell acquisto(dd/MM/yyyy): </string>
+    <string name="insert_data">Inserisci la data dell\'acquisto(dd/MM/yyyy): </string>
     <string name="insert_expense_name">Inserisci il nome della spesa fatta</string>
     <string name="expense_name">nome prodotto</string>
     <string name="expense_location">Dove hai fatto la spesa?</string>
@@ -20,7 +20,7 @@
     <string name="your_expenses">Le tue spese</string>
     <string name="new_category_add">Crea una nuova categoria</string>
     <string name="new_category_button">Nuova categoria</string>
-    <string name="category_name">Inserisci il nome della categoria</string>
+    <string name="category_name">inserisci il nome della categoria</string>
     <string name="no_account_question">Non hai un account?</string>
     <string name="register_now">Registrati ora</string>
     <string name="name">Nome</string>
@@ -40,6 +40,6 @@
         <item>dresscat</item>
     </string-array>
     <!-- variabili per i controller nella gestione di suffissi e prompt standard per l'utente-->
-    <string name="standard_image_selection">chose an image…</string>
-    <string name="standard_category_selection">chose a category…</string>
+    <string name="standard_image_selection">scegli un\'immagine...</string>
+    <string name="standard_category_selection">scegli una categoria...</string>
 </resources>

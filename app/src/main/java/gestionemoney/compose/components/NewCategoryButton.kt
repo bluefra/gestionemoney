@@ -1,4 +1,4 @@
-package gestionemoney.compose.homepage.components
+package gestionemoney.compose.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

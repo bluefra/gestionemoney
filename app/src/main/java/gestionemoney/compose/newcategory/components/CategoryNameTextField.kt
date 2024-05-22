@@ -1,8 +1,12 @@
 package gestionemoney.compose.newcategory.components
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,26 +22,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gestionemoney.compose.R
+import gestionemoney.compose.components.MediumText
+import gestionemoney.compose.components.TextFiledType
 
 // Composable function to display the new category text field.
 @Composable
 fun NewCategoryNameTextField(onChange: (String) -> Unit = {}) {
     var category by rememberSaveable { mutableStateOf("") }
 
-    Text(
-        text = stringResource(id = R.string.new_category_add),
-        fontSize = 25.sp ,
-        fontFamily = FontFamily.Monospace ,
-        textAlign = TextAlign.Center ,
-        fontWeight = FontWeight.ExtraBold ,
-        modifier = Modifier.padding(start = 10.dp)
-    )
-
-    OutlinedTextField(
+    MediumText(string = stringResource(id = R.string.new_category_add))
+    Spacer(modifier = Modifier.height(5.dp))
+    TextField(
         value = category ,
-        onValueChange = { category = it
-                         onChange(it)} ,
-        label = { Text(text = stringResource(id = R.string.category_name)) } ,
+        onValueChange = {
+            category = it
+            onChange(it)
+        },
+        label = {
+            TextFiledType(string = stringResource(id = R.string.category_name))} ,
     )
 }
 
