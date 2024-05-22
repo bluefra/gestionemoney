@@ -1,6 +1,7 @@
 package gestionemoney.compose.newcategory
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -99,13 +101,16 @@ fun NewCategory(
 
 
 
+
 fun addCategory(navController: NavController, standardImage: String) {
+
     if(newCategory == "" || newCategoryImage == standardImage || newCategoryImage == "") {
         Log.w("NewCategory", "campo vuoto")
         return
     }
     if(UserWrapper.getInstance().getCategory(newCategory) != null) {
         Log.w("NewCategory", "categoria gia esistente")
+
         return
     }
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")

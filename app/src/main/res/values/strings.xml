@@ -30,6 +30,11 @@
     <string name="logout_confirmation">Sei sicuro di voler uscire?</string>
     <string name="my_account">Il mio account</string>
     <string name="register_date">Data iscrizione</string>
+    <string name="setting_info">User setting</string>
+    <string name="category_medie">Numero medio di categorie</string>
+    <string name="expense_medie">Media spese per categorie</string>
+    <string name="length_category">Lunghezza media caratteri categoria</string>
+    <string name="length_expense">Lunghezza media caratteri spese</string>
     <string-array name="standard_category">
         <item>Alimentari</item>
         <item>Trasporto</item>

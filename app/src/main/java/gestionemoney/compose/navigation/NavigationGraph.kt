@@ -18,6 +18,7 @@ import gestionemoney.compose.newcategory.NewCategory
 import gestionemoney.compose.newcategory.NewCategoryNavigation
 import gestionemoney.compose.register_login.Login
 import gestionemoney.compose.register_login.Register
+import gestionemoney.compose.setting_page.SettingPageNavigation
 import gestionemoney.compose.userpage.Userpage
 import gestionemoney.compose.userpage.UserpageNavigation
 
@@ -68,6 +69,10 @@ fun NavigationGraph (
             val name = backStackEntry.arguments?.getString("name")
             val surname = backStackEntry.arguments?.getString("surname")
             CreateLoading(navController, name, surname)
+        }
+
+        composable(route = Screens.SettingPage.route){
+            SettingPageNavigation(navController)
         }
     }
 }

@@ -239,7 +239,7 @@ fun NavigationDrawerBody(
                             coroutineScope.launch {
                                 drawerState.close()
                             }
-                            navController.navigate(Screens.Homepage.route) {
+                            navController.navigate(Screens.SettingPage.route) {
                                 popUpTo(0)
                             }
                         }
