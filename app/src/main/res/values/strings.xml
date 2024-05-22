@@ -25,6 +25,7 @@
     <string name="register_now">Registrati ora</string>
     <string name="name">Nome</string>
     <string name="surname">Cognome</string>
+    <string name="email">Email</string>
     <string name="or">oppure</string>
     <string name="logout_confirmation">Sei sicuro di voler uscire?</string>
     <string name="my_account">Il mio account</string>

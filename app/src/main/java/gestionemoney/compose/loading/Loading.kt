@@ -28,6 +28,9 @@ import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 const val numberOfDots = 7
 val dotSize = 25.dp
@@ -36,9 +39,10 @@ const val duration = numberOfDots * delayUnit
 val spaceBetween = 4.dp
 val connection = LoadDB()
     @Composable
-    fun CreateLoading(navController: NavController) {
+    fun CreateLoading(navController: NavController, name: String?, surname: String?) {
+        Log.w("loading param", "$name $surname")
         val context = LocalContext.current
-        val standard_cat = stringArrayResource(R.array.standard_category)
+        val  standard_cat = stringArrayResource(R.array.standard_category)
         val standard_cat_img = stringArrayResource(R.array.standard_category_image)
         Log.w("check internet", "yes")
         var connectionMade by remember { mutableStateOf(false) }
@@ -47,11 +51,20 @@ val connection = LoadDB()
                 if (!connectionMade && ConnectionCheck().checkForInternet(context)) {
                     Log.w("loading", "connectionMade = true")
                     Log.w("check internet", "yes")
-                    connection.connect(
-                        navController,
-                        standard_cat,
-                        standard_cat_img
-                    )
+                    if (name != null && surname != null) {
+                        Log.w("register loading", "$name $surname")
+                        connection.register(
+                            navController,
+                            standard_cat,
+                            standard_cat_img,
+                            name,
+                            surname
+                        )
+                    } else {
+                        connection.connect(
+                            navController
+                        )
+                    }
                     connectionMade = true
                 } else if (!ConnectionCheck().checkForInternet(context)) {
                     showError = true
@@ -105,12 +118,24 @@ val connection = LoadDB()
      private var standardImage: Array<String>?= null
      private var isUserDBset = false
      private var isInfoDBset = false
+     private  var isRegister = false
+     private var regName: String? = null
+     private var regSurname: String? = null
 
-     fun connect(nav: NavController, sCat: Array<String>, sImg: Array<String>) {
-         Log.w("loading","connecting")
-         navController = nav
+     fun register(nav: NavController, sCat: Array<String>, sImg: Array<String>, name: String, surname: String) {
+        Log.w("loading", "regist")
          standardCategory = sCat
          standardImage = sImg
+         isRegister = true
+         regName = name
+         regSurname = surname
+         Log.w("loading", "setted isRegister $isRegister")
+         connect(nav)
+     }
+
+     fun connect(nav: NavController) {
+         Log.w("loading","connecting")
+         navController = nav
          val uid = DBauthentication.getInstance().getUID()
          if(uid == null) {
              Log.w("loading", "uid = null")
@@ -127,13 +152,15 @@ val connection = LoadDB()
          DBUserConnection.getInstance().connectUser(uid)
          DBInfoConnection.getInstance().connectInfo(uid)
      }
-
      override fun updateUser(user: UserWrapper) {
          Log.w("loading", "userUpdated")
          DBUserConnection.getInstance().removeUserObserver(this)
-         if(standardCategory != null && standardImage != null) {
-             if(user.createCategories(standardCategory!!, standardImage!!)) {
-                 DBUserConnection.getInstance().writeUser()
+         if(isRegister) {
+             Log.w("loading", "adding category")
+             if (standardCategory != null && standardImage != null) {
+                 if (user.createCategories(standardCategory!!, standardImage!!)) {
+                     DBUserConnection.getInstance().writeUser()
+                 }
              }
          }
          isUserDBset = true
@@ -147,17 +174,14 @@ val connection = LoadDB()
      override fun updateInfo(info: InfoWrapper) {
          Log.w("loading","updatedInfo")
          DBInfoConnection.getInstance().removeInfoObserver(this)
-         DBInfoConnection.getInstance().writeSingleInfo("categoryNumber", UserWrapper.getInstance().getCategoryNumber().toString())
-         DBInfoConnection.getInstance().writeSingleInfo("expenseTotNumber", UserWrapper.getInstance().getTotalExpenseNumber().toString())
-         DBInfoConnection.getInstance().writeSingleInfo("expenseAvgNumber", UserWrapper.getInstance().getAvgExpenseNumber().toString())
-         if(info.getHashMap().isEmpty()) {
+         Log.w("loading", "isRegister $isRegister")
+         if(isRegister) {
+             Log.w("loading", "adding info")
              val map: HashMap<String, String> = HashMap()
-             map["nome"] = "matteo"
-             map["cognome"] = "campagnaro"
-             DBInfoConnection.getInstance().writeMultipleInfo(map)
-             map.remove("nome")
-             map.remove("cognome")
-             map["codiceFiscale"] = "CMPMTT02P03F241O"
+             map["name"] = regName!!
+             map["surname"] = regSurname!!
+             map["subscriptionDate"] = SimpleDateFormat("EEEE dd/MM/yyyy", Locale.getDefault()).format(Date())
+             Log.w("loading", "info ${map}")
              DBInfoConnection.getInstance().writeMultipleInfo(map)
          }
          isInfoDBset = true

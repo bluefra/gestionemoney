@@ -48,20 +48,26 @@ private var message: Toast? = null
 @Composable
 fun Register(navController: NavController){
     message = makeText(LocalContext.current,"", Toast.LENGTH_SHORT)
-
+    /*
+    var auth = Firebase.auth
+    var email by remember { mutableStateOf(false) }
+    var password by remember { mutableStateOf("") }
+*/
     val scrollState = rememberScrollState()
 
     Surface {
         Column(modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(scrollState)
+
             ) {
                 TopSection(stringResource(id = R.string.app_name), "Register")
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 30.dp)
+                        .verticalScroll(scrollState),
+
                 ) {
 
                     EmailEnter(
@@ -87,6 +93,7 @@ fun Register(navController: NavController){
                     RegisterButton(navController = navController)
 
                 }
+
         }
     }
 
