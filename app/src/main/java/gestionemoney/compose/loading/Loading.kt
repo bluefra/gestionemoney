@@ -28,6 +28,9 @@ import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 const val numberOfDots = 7
 val dotSize = 25.dp
@@ -177,6 +180,7 @@ val connection = LoadDB()
              val map: HashMap<String, String> = HashMap()
              map["name"] = regName!!
              map["surname"] = regSurname!!
+             map["subscriptionDate"] = SimpleDateFormat("EEEE dd/MM/yyyy", Locale.getDefault()).format(Date())
              Log.w("loading", "info ${map}")
              DBInfoConnection.getInstance().writeMultipleInfo(map)
          }

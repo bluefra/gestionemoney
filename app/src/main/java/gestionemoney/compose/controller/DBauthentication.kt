@@ -33,6 +33,14 @@ class DBauthentication {
         }
         return data["uid"]
     }
+
+    fun getEmail(): String? {
+        if(!isSet) {
+            return null
+        }
+        return data["email"]
+    }
+
     fun addObserver(observer: AuthObserver) {
         observers.add(observer)
     }
