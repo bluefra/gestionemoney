@@ -124,7 +124,8 @@ class DBRegister(val navController: NavController): AuthObserver {
     override fun onSuccess(data: HashMap<String, String?>) {
         DBauthentication.getInstance().removeObserver(this)
         connecting = false
-        navController.navigate(Screens.Loading.route)
+        Log.w("register", Screens.Loading.route + "?name=$name&surname=$surname")
+        navController.navigate(Screens.Loading.route + "?name=$name&surname=$surname")
     }
 
 }
