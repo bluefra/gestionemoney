@@ -69,14 +69,14 @@ fun Login(
     Surface {
         Column(modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(scrollState)
             ) {
-                TopSection(stringResource(id = R.string.app_name), "\nLogin")
+                TopSection(stringResource(id = R.string.app_name), "Login")
                 Spacer(modifier = Modifier.height(36.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 30.dp)
-                        .verticalScroll(scrollState)
                 ) {
                         EmailEnter(
                             label = "Email",
@@ -94,9 +94,7 @@ fun Login(
                         Spacer(modifier = Modifier.height(20.dp))
 
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(fraction = 0.8f),
+                           modifier = Modifier.fillMaxSize()
                         ) {
                             Text(
                                 text = buildAnnotatedString {
@@ -111,6 +109,7 @@ fun Login(
                                         append(text = stringResource(id = R.string.no_account_question))
                                     }
                                 })
+                            Spacer(modifier = Modifier.width(8.dp))
                             TextButton(onClick = { navController.navigate(Screens.Register.route)}) {
                                 Text(text = buildAnnotatedString {
                                     withStyle(

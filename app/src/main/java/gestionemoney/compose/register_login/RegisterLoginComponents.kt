@@ -3,7 +3,9 @@ package gestionemoney.compose.register_login
 import android.icu.number.NumberFormatter.TrailingZeroDisplay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -46,6 +49,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
+import gestionemoney.compose.components.AppNameText
+import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.ui.theme.Black
 import gestionemoney.compose.ui.theme.LemonYellon
@@ -70,31 +75,18 @@ fun TopSection(text1 : String, text2: String){
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )
+        Column(
+            modifier = Modifier
+                .padding(top = 90.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+        ){
+            AppNameText(string = text1)
+            Spacer(modifier = Modifier.height(100.dp))
+            TitlePageText(string = text2)
 
-        Text(
-            modifier = Modifier
-                .padding(top = 20.dp)
-                .fillMaxWidth()
-                .align(alignment = Alignment.TopStart),
-            text = text1,
-            style = MaterialTheme.typography.titleMedium,
-            color = Black,
-        )
-        Text(
-            modifier = Modifier
-                .padding(top = 100.dp)
-                .align(alignment = Alignment.Center),
-            text = text2,
-            style = MaterialTheme.typography.headlineLarge,
-            color = Black
-        )
+        }
     }
-}
-
-@Preview
-@Composable
-fun Preview(){
-    TopSection(text1 = "ciao1", text2 = "ciao2")
 }
 
 
@@ -102,16 +94,16 @@ fun Preview(){
 fun RegisterButton(
     navController: NavController
 ){
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height((40.dp)),
-            onClick = { DBRegister(navController).evaluateRegister()},
-            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
-            shape = RoundedCornerShape(size = 4.dp)
-        ){
-            Text(text = "Register", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
-        }
+    Button(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height((40.dp)),
+        onClick = { DBRegister(navController).evaluateRegister()},
+        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
+        shape = RoundedCornerShape(size = 4.dp)
+    ){
+        Text(text = "Register", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
+    }
 }
 
 @Composable
