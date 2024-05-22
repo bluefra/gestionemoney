@@ -68,11 +68,6 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                     DropdownMenuItem(
                         text = {
                             TextFiledType(string = category)
-                            /*
-                            Text(
-                                text = category,
-                                color = colorResource(R.color.dark_grey)
-                            ) */
                             },
                         onClick = {
                             selectedCategory = category

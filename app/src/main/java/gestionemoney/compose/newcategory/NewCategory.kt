@@ -1,9 +1,15 @@
 package gestionemoney.compose.newcategory
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
@@ -23,6 +29,8 @@ import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.expense.AddExpense
+
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
@@ -46,24 +54,24 @@ fun NewCategory(
     navController: NavController
 ) {
     val standardImage = stringResource(id = R.string.standard_image_selection)
-    Column(
-        modifier = Modifier.padding((10.dp))
-    ) {
+    val scrollState = rememberScrollState()
 
-        // Back button at the top of the screen.
-        BackButton(navController)
-
+    Box(modifier = Modifier.fillMaxSize()){
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 15.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CategoryMenu(categoryList = getDrawableResources(),
-                         standardOption = standardImage,
-                         onChange = { newCategoryImage = it + imageSuffix})
+                .padding(top = 150.dp)
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top,
+            ){
             // Call to new category text field
             NewCategoryNameTextField(onChange = { newCategory = it})
+            Spacer(modifier = Modifier.height(15.dp))
+
+            CategoryMenu(categoryList = getDrawableResources(),
+                    standardOption = standardImage,
+                    onChange = { newCategoryImage = it + imageSuffix})
 
             // Database connection need to be implemented (save on db).
             // Currently point to the homepage.
@@ -75,8 +83,21 @@ fun NewCategory(
                 Text(text = stringResource(id = R.string.confirmation_string))
             }
         }
+        Button(
+            onClick = {navController.navigate(Screens.Homepage.route)  },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+        ) {
+            Text(text = stringResource(id = R.string.back_button))
+        }
+
     }
 }
+
+
+
 
 fun addCategory(navController: NavController, standardImage: String) {
     if(newCategory == "" || newCategoryImage == standardImage || newCategoryImage == "") {
