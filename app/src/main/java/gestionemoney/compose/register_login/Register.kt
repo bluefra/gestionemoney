@@ -48,11 +48,6 @@ private var message: Toast? = null
 @Composable
 fun Register(navController: NavController){
     message = makeText(LocalContext.current,"", Toast.LENGTH_SHORT)
-    /*
-    var auth = Firebase.auth
-    var email by remember { mutableStateOf(false) }
-    var password by remember { mutableStateOf("") }
-*/
     val scrollState = rememberScrollState()
 
     Surface {
@@ -106,6 +101,11 @@ class DBRegister(val navController: NavController): AuthObserver {
             return
         }
         if(email == "" || password == "") {
+            Log.w("register","inserire email e password")
+            return
+        }
+        if (name == "" && surname == "") {
+            Log.w("register","inserire nome e cognome")
             return
         }
         Log.w("test", email)
@@ -126,7 +126,8 @@ class DBRegister(val navController: NavController): AuthObserver {
     override fun onSuccess(data: HashMap<String, String?>) {
         DBauthentication.getInstance().removeObserver(this)
         connecting = false
-        navController.navigate(Screens.Loading.route)
+        Log.w("register",Screens.Loading.route + "?name=$name&surname=$surname" )
+        navController.navigate(Screens.Loading.route + "?name=$name&surname=$surname")
     }
 
 }

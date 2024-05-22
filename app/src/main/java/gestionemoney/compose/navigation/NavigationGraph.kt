@@ -56,7 +56,7 @@ fun NavigationGraph (
         }
         composable(route = Screens.NewExpense.route + "/{categoryName}") {backStackEntry ->
             val categoryName = backStackEntry.arguments?.getString("categoryName")
-                NewExpenseNavigation(navController, categoryName)
+            NewExpenseNavigation(navController, categoryName)
         }
         composable(route = Screens.Register.route) {
             Register(navController)
@@ -64,8 +64,10 @@ fun NavigationGraph (
         composable(route = Screens.Login.route) {
             Login(navController)
         }
-        composable(route = Screens.Loading.route) {
-            CreateLoading(navController)
+        composable(route = Screens.Loading.route + "?name={name}&surname={surname}") {backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name")
+            val surname = backStackEntry.arguments?.getString("surname")
+            CreateLoading(navController, name, surname)
         }
     }
 }
