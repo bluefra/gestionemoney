@@ -58,7 +58,7 @@ fun Register(navController: NavController){
     Surface {
         Column(modifier = Modifier
             .fillMaxSize()
-
+            .verticalScroll(scrollState)
             ) {
                 TopSection(stringResource(id = R.string.app_name), "Register")
                 Spacer(modifier = Modifier.height(30.dp))
@@ -66,8 +66,6 @@ fun Register(navController: NavController){
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 30.dp)
-                        .verticalScroll(scrollState),
-
                 ) {
 
                     EmailEnter(
