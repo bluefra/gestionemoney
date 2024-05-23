@@ -100,6 +100,21 @@ val connection = LoadDB()
             offsets.add(animateOffsetWithDelay(delay = i * delayUnit))
         }
 
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ){
+            offsets.forEach {
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ){
+                    Dot(it.value, colorResource(R.color.orangeLight))
+                    Spacer(Modifier.width(spaceBetween))
+                }
+
+            }
+        }
+        /*
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
@@ -110,6 +125,12 @@ val connection = LoadDB()
                 Spacer(Modifier.width(spaceBetween))
             }
         }
+
+         */
+
+
+
+
     }
 
  class LoadDB: UserChangeObserver, InfoChangeObserver{
