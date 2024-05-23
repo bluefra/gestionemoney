@@ -40,12 +40,12 @@
     <string-array name="standard_category">
         <item>Alimentari</item>
         <item>Trasporto</item>
-        <item>Sport</item>
+        <item>Viaggi</item>
     </string-array>
     <string-array name="standard_category_image">
-        <item>dresscat</item>
-        <item>dresscat</item>
-        <item>dresscat</item>
+        <item>supermarketcat</item>
+        <item>transportcat</item>
+        <item>holidaycat</item>
     </string-array>
     <!-- variabili per i controller nella gestione di suffissi e prompt standard per l'utente-->
     <string name="standard_image_selection">scegli un\'immagine...</string>
