@@ -14,10 +14,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,7 +64,6 @@ fun Register(navController: NavController){
             .verticalScroll(scrollState)
             ) {
                 TopSection(stringResource(id = R.string.app_name), "Register")
-                Spacer(modifier = Modifier.height(30.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -91,6 +92,42 @@ fun Register(navController: NavController){
                         onChange = { surname = it })
                     Spacer(modifier = Modifier.height(15.dp))
                     RegisterButton(navController = navController)
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Row(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        Text(
+                            text = buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF94A3B8),
+                                        fontSize = 14.sp,
+                                        fontFamily = Roboto,
+                                        fontWeight = FontWeight.Normal
+                                    )
+                                ) {
+                                    append(text = stringResource(id = R.string.account_question))
+                                }
+                            })
+                        Spacer(modifier = Modifier.width(8.dp))
+                        TextButton(onClick = { navController.navigate(Screens.Login.route)}) {
+                            Text(text = buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color(0xFF000000),
+                                        fontSize = 14.sp,
+                                        fontFamily = Roboto,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                ) {
+                                    append(" ")
+                                    append(text = stringResource(id = R.string.login_now))
+                                }
+                            })
+
+                        }
+
+                    }
 
                     Row(
                         modifier = Modifier.padding(top = 15.dp)

@@ -4,7 +4,7 @@
     <string name="pieTitle">Totale:</string>
     <string name="delete_category">Sei sicuro di voler cancellare?</string>
     <string name="deleting">Eliminazione in corso…</string>
-    <string name="category_expense_insert">Scegli un\'immagine per la tua categoria</string>
+    <string name="category_expense_insert">Scegli un\'immagine...</string>
     <string name="back_button">Indietro</string>
     <string name="confirmation_string">Conferma</string>
     <string name="negation_string">Annulla</string>
@@ -22,7 +22,9 @@
     <string name="new_category_button">Nuova categoria</string>
     <string name="category_name">inserisci il nome della categoria</string>
     <string name="no_account_question">Non hai un account?</string>
+    <string name="account_question">Hai già un acount?</string>
     <string name="register_now">Registrati ora</string>
+    <string name="login_now">Inserisci le tue credenziali</string>
     <string name="name">Nome</string>
     <string name="surname">Cognome</string>
     <string name="email">Email</string>
@@ -38,12 +40,12 @@
     <string-array name="standard_category">
         <item>Alimentari</item>
         <item>Trasporto</item>
-        <item>Sport</item>
+        <item>Viaggi</item>
     </string-array>
     <string-array name="standard_category_image">
-        <item>dresscat</item>
-        <item>dresscat</item>
-        <item>dresscat</item>
+        <item>supermarketcat</item>
+        <item>transportcat</item>
+        <item>holidaycat</item>
     </string-array>
     <!-- variabili per i controller nella gestione di suffissi e prompt standard per l'utente-->
     <string name="standard_image_selection">scegli un\'immagine...</string>
