@@ -1,6 +1,7 @@
 package gestionemoney.compose.model
 
 import android.util.Log
+import androidx.compose.ui.text.toUpperCase
 import java.util.Date
 
 
@@ -11,10 +12,10 @@ class Category (private val name: String, private var imageURI: String = ""){
         expensesList.add(expense)
     }
     fun compareName(c1: Category): Int {
-        return name.compareTo(c1.name)
+        return name.uppercase().compareTo(c1.name.uppercase())
     }
     fun compareName(comparedName: String): Int {
-        return name.compareTo(comparedName)
+        return name.uppercase().compareTo(comparedName.uppercase())
     }
 
     fun orderByValue(order: ORDER): List<Expense> {
