@@ -25,6 +25,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
@@ -105,26 +106,34 @@ fun SettingPage(navController: NavController){
                     .size(150.dp)
                     .clip(CircleShape)
             )
-
-
+            Column{
+                NormalText(string = stringResource(id = R.string.category_privacy))
+                SwitchSelection()
+                Spacer(modifier = Modifier.height(35.dp))
+                NormalText(string = stringResource(id = R.string.expense_privacy))
+                SwitchSelection()
+            }
         }
     }
 
 }
 
 
-
-/*
 @Composable
-fun SwitchWithIconExample() {
+fun SwitchSelection() {
     var checked by remember { mutableStateOf(true) }
 
-    
     Switch(
         checked = checked,
         onCheckedChange = {
             checked = it
         },
+        colors = SwitchDefaults.colors(
+            checkedThumbColor = colorResource(id = R.color.orange),
+            checkedTrackColor = colorResource(id = R.color.orangeLight),
+            uncheckedThumbColor = colorResource(id = R.color.orange),
+            uncheckedTrackColor = colorResource(id = R.color.orangeLight),
+        ),
         thumbContent = if (checked) {
             {
                 Icon(
@@ -136,7 +145,8 @@ fun SwitchWithIconExample() {
         } else {
             null
         }
-    )
-}
 
- */
+    )
+
+
+}

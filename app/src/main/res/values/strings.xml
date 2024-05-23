@@ -41,7 +41,7 @@
     <string name="privacy">Licenze e privacy</string>
     <string-array name="standard_category">
         <item>Alimentari</item>
-        <item>Trasporto</item>
+        <item>Trasporti</item>
         <item>Viaggi</item>
     </string-array>
     <string-array name="standard_category_image">
