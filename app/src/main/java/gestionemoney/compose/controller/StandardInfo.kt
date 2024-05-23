@@ -41,7 +41,7 @@ class StandardInfo {
             }
             val map: HashMap<String, String> = HashMap()
             map[avgCategoryChar] = UserWrapper.getInstance().getCategoryAvgCharacter().toString()
-            map[lastCatUpdate] = Date().toString()
+            map[lastCatUpdate] = ""
             if(getExpensePermission()) {
                 map[avgExpenseChar] = UserWrapper.getInstance().getExpenseAvgCharacter().toString()
                 map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
@@ -58,7 +58,7 @@ class StandardInfo {
             map[avgExpenseChar] = UserWrapper.getInstance().getExpenseAvgCharacter().toString()
             map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
             map[avgExpenseVal] = UserWrapper.getInstance().getAvgExpenseValue().toString()
-            map[lastExpUpdate] = Date().toString()
+            map[lastExpUpdate] = ""
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 

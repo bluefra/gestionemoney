@@ -140,12 +140,17 @@ fun InfoText(string1: String, string2 : String) {
                 .background(Color.Transparent)
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
-        ){
+        ) {
             NormalText(string = string1)
         }
+    }
+    Row(
+        horizontalArrangement = Arrangement.Absolute.Right,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Box(
             modifier = Modifier
-                .size(width = 90.dp, height = 50.dp)
+                .size(width = 300.dp, height = 50.dp)
                 .background(colorResource(R.color.orangeUltraLight))
                 .padding(16.dp),
 
