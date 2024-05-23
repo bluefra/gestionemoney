@@ -93,41 +93,6 @@ fun Register(navController: NavController){
                     Spacer(modifier = Modifier.height(15.dp))
                     RegisterButton(navController = navController)
                     Spacer(modifier = Modifier.height(20.dp))
-                    Row(
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        Text(
-                            text = buildAnnotatedString {
-                                withStyle(
-                                    style = SpanStyle(
-                                        color = Color(0xFF94A3B8),
-                                        fontSize = 14.sp,
-                                        fontFamily = Roboto,
-                                        fontWeight = FontWeight.Normal
-                                    )
-                                ) {
-                                    append(text = stringResource(id = R.string.account_question))
-                                }
-                            })
-                        Spacer(modifier = Modifier.width(8.dp))
-                        TextButton(onClick = { navController.navigate(Screens.Login.route)}) {
-                            Text(text = buildAnnotatedString {
-                                withStyle(
-                                    style = SpanStyle(
-                                        color = Color(0xFF000000),
-                                        fontSize = 14.sp,
-                                        fontFamily = Roboto,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                ) {
-                                    append(" ")
-                                    append(text = stringResource(id = R.string.login_now))
-                                }
-                            })
-
-                        }
-
-                    }
 
                     Row(
                         modifier = Modifier.padding(top = 15.dp)
