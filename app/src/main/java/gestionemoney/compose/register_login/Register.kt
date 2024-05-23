@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.makeText
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -65,7 +66,8 @@ fun Register(navController: NavController){
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 30.dp)
+                        .padding(horizontal = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
                     EmailEnter(
@@ -90,6 +92,27 @@ fun Register(navController: NavController){
                     Spacer(modifier = Modifier.height(15.dp))
                     RegisterButton(navController = navController)
 
+                    Row(
+                        modifier = Modifier.padding(top = 15.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.have_account_sign_in) ,
+                            color = Color(0xFF94A3B8) ,
+                            fontSize = 14.sp ,
+                            fontFamily = Roboto ,
+                            fontWeight = FontWeight.Normal
+                        )
+                        Text(
+                            text = stringResource(R.string.do_login_page) ,
+                            color = Color(0xFF000000) ,
+                            fontSize = 14.sp ,
+                            fontFamily = Roboto ,
+                            fontWeight = FontWeight.Bold ,
+                            modifier = Modifier
+                                .clickable { navController.navigate(Screens.Login.route) }
+                                .padding(start = 5.dp , bottom = 20.dp)
+                        )
+                    }
                 }
 
         }

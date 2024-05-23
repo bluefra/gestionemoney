@@ -48,4 +48,6 @@
     <!-- variabili per i controller nella gestione di suffissi e prompt standard per l'utente-->
     <string name="standard_image_selection">scegli un\'immagine...</string>
     <string name="standard_category_selection">scegli una categoria...</string>
+    <string name="have_account_sign_in">Hai già un account?</string>
+    <string name="do_login_page">Fai il log in</string>
 </resources>
