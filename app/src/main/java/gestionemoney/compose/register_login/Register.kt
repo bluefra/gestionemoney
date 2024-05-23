@@ -105,7 +105,7 @@ fun Register(navController: NavController){
                             fontWeight = FontWeight.Normal
                         )
                         Text(
-                            text = stringResource(R.string.do_login_page) ,
+                            text = stringResource(R.string.login_now) ,
                             color = Color(0xFF000000) ,
                             fontSize = 14.sp ,
                             fontFamily = Roboto ,

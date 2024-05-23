@@ -22,9 +22,8 @@
     <string name="new_category_button">Nuova categoria</string>
     <string name="category_name">inserisci il nome della categoria</string>
     <string name="no_account_question">Non hai un account?</string>
-    <string name="account_question">Hai già un acount?</string>
     <string name="register_now">Registrati ora</string>
-    <string name="login_now">Inserisci le tue credenziali</string>
+    <string name="login_now">Accedi ora</string>
     <string name="name">Nome</string>
     <string name="surname">Cognome</string>
     <string name="email">Email</string>
@@ -54,5 +53,4 @@
     <string name="standard_image_selection">scegli un\'immagine...</string>
     <string name="standard_category_selection">scegli una categoria...</string>
     <string name="have_account_sign_in">Hai già un account?</string>
-    <string name="do_login_page">Fai il log in</string>
 </resources>
