@@ -3,6 +3,7 @@ package gestionemoney.compose.register_login
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -76,7 +77,8 @@ fun Login(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 30.dp)
+                        .padding(horizontal = 30.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                         EmailEnter(
                             label = "Email",
@@ -93,43 +95,25 @@ fun Login(
                         TextWithDivider()
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        Row(
-                           modifier = Modifier.fillMaxSize()
-                        ) {
-                            Text(
-                                text = buildAnnotatedString {
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = Color(0xFF94A3B8),
-                                            fontSize = 14.sp,
-                                            fontFamily = Roboto,
-                                            fontWeight = FontWeight.Normal
-                                        )
-                                    ) {
-                                        append(text = stringResource(id = R.string.no_account_question))
-                                    }
-                                })
-                            Spacer(modifier = Modifier.width(8.dp))
-                            TextButton(onClick = { navController.navigate(Screens.Register.route)}) {
-                                Text(text = buildAnnotatedString {
-                                    withStyle(
-                                        style = SpanStyle(
-                                            color = Color(0xFF000000),
-                                            fontSize = 14.sp,
-                                            fontFamily = Roboto,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    ) {
-                                        append(" ")
-                                        append(text = stringResource(id = R.string.register_now))
-                                    }
-                                })
-
-                            }
-
+                        Row() {
+                                Text(
+                                    text = stringResource(id = R.string.no_account_question) ,
+                                    color = Color(0xFF94A3B8) ,
+                                    fontSize = 14.sp ,
+                                    fontFamily = Roboto ,
+                                    fontWeight = FontWeight.Normal
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.register_now) ,
+                                    color = Color(0xFF000000) ,
+                                    fontSize = 14.sp ,
+                                    fontFamily = Roboto ,
+                                    fontWeight = FontWeight.Bold ,
+                                    modifier = Modifier
+                                        .clickable { navController.navigate(Screens.Register.route) }
+                                        .padding(start = 5.dp, bottom = 20.dp)
+                                )
                         }
-
-
                 }
 
         }
