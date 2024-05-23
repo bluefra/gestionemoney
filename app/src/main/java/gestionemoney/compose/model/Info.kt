@@ -15,6 +15,15 @@ class Info {
         }
     }
 
+    fun removeInfo(key: String): Boolean {
+        return if(info.contains(key)) {
+            info.remove(key)
+            true
+        } else {
+            false
+        }
+    }
+
     fun getHashMap(): HashMap<String, Any> {
         return info as HashMap<String, Any>
     }

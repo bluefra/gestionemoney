@@ -25,6 +25,7 @@ import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.InfoChangeObserver
 import gestionemoney.compose.controller.InfoWrapper
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
@@ -197,13 +198,8 @@ val connection = LoadDB()
          DBInfoConnection.getInstance().removeInfoObserver(this)
          Log.w("loading", "isRegister $isRegister")
          if(isRegister) {
+             StandardInfo.writeStandardInfo(regName!!, regSurname!!)
              Log.w("loading", "adding info")
-             val map: HashMap<String, String> = HashMap()
-             map["name"] = regName!!
-             map["surname"] = regSurname!!
-             map["subscriptionDate"] = SimpleDateFormat("EEEE dd/MM/yyyy", Locale.getDefault()).format(Date())
-             Log.w("loading", "info ${map}")
-             DBInfoConnection.getInstance().writeMultipleInfo(map)
          }
          isInfoDBset = true
          navigate()

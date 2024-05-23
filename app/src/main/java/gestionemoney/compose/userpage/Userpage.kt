@@ -57,6 +57,7 @@ import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.controller.InfoWrapper
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.expense.ExpenseItem
 import gestionemoney.compose.homepage.Homepage
 
@@ -119,13 +120,13 @@ fun Userpage(
             )
 
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.name), string2 = InfoWrapper.getInstance().getInfo("name"))
+            InfoText(string1 = stringResource(id = R.string.name), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.nameInfo))
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.surname), string2 = InfoWrapper.getInstance().getInfo("surname"))
+            InfoText(string1 = stringResource(id = R.string.surname), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.surnameInfo))
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.email), string2 = DBauthentication.getInstance().getEmail() ?: "")
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.register_date), string2 = InfoWrapper.getInstance().getInfo("subscriptionDate"))
+            InfoText(string1 = stringResource(id = R.string.register_date), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.subscriptionInfo))
         }
     }
 

@@ -38,6 +38,9 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.controller.InfoWrapper
+import gestionemoney.compose.controller.StandardInfo
+import gestionemoney.compose.controller.StandardInfo.Companion.getDateDifferenceFromNow
 
 
 @Composable
@@ -95,15 +98,27 @@ fun StatisticPage(
                     .size(150.dp)
                     .clip(CircleShape)
             )
-
+            val avgCatChar = InfoWrapper.getInstance().getInfo(StandardInfo.avgCategoryChar)
+            val avgExp = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseVal)
+            val avgExpChar = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseChar)
+            val lastCat = InfoWrapper.getInstance().getInfo(StandardInfo.lastCatUpdate)
+            val lastExp = InfoWrapper.getInstance().getInfo(StandardInfo.lastExpUpdate)
+            val lastCatTime = getDateDifferenceFromNow(lastCat)
+            val lastExpTime =getDateDifferenceFromNow(lastExp)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.category_medie), string2 = "ciao")
+            InfoText(string1 = stringResource(id = R.string.length_category), string2 = avgCatChar)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.length_category), string2 = "ciao")
+            InfoText(string1 = stringResource(id = R.string.length_expense), string2 = avgExpChar)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.expense_medie), string2 = "ciao")
+            InfoText(string1 = stringResource(id = R.string.expense_medie), string2 = avgExp)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.length_expense), string2 = "ciao")
+            InfoText(string1 = stringResource(id = R.string.last_category), string2 = lastCat)
+            Spacer(modifier = Modifier.height(35.dp))
+            InfoText(string1 = stringResource(id = R.string.last_expense), string2 = lastExp)
+            Spacer(modifier = Modifier.height(35.dp))
+            InfoText(string1 = stringResource(id = R.string.last_category_time), string2 = lastCatTime)
+            Spacer(modifier = Modifier.height(35.dp))
+            InfoText(string1 = stringResource(id = R.string.last_expense_time), string2 = lastExpTime)
         }
     }
 
@@ -138,4 +153,3 @@ fun InfoText(string1: String, string2 : String) {
 
     }
 }
-

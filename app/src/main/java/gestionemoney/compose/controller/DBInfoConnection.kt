@@ -72,6 +72,14 @@ class DBInfoConnection {
         myRef.child(userID!!).updateChildren(map)
     }
 
+    fun removeSingleInfo(key: String) {
+        if(!isConnect()) { return }
+        val myRef = database.getReference(dbNode)
+        if(info.removeInfo(key)) {
+            myRef.child(userID!!).child(key).removeValue()
+        }
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun writeMultipleInfo(map: HashMap<String, String>) {
         val myRef = database.getReference(dbNode)

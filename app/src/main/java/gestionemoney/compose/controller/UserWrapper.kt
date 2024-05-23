@@ -116,6 +116,20 @@ class UserWrapper private constructor(){
         return user!!.getList().size
     }
 
+    fun getAvgExpenseValue(): Double {
+        if(!isSet()) { return 0.0 }
+        var totalChar = 0.0
+        val categoryList = user!!.getList()
+        var expenseNumber = 0
+        categoryList.forEach{ cat ->
+            cat.getList().forEach { exp ->
+                totalChar += exp.getValue()
+                expenseNumber++
+            }
+        }
+        return totalChar / expenseNumber
+    }
+
     fun getTotalExpenseNumber(): Int {
         if(!isSet()) { return 0 }
         var tot = 0
@@ -124,7 +138,33 @@ class UserWrapper private constructor(){
         }
         return tot
     }
-
+    /*
+    restituisce il numero medio di caratteri utilizzati per categoria
+     */
+    fun getCategoryAvgCharacter(): Double {
+        if(!isSet()) { return 0.0 }
+        var totalChar = 0.0
+        user!!.getList().forEach{
+            totalChar += it.getName().length
+        }
+        return totalChar / user!!.getList().size
+    }
+    /*
+    restituisce il numero medio di caratteri utilizzati per spesa
+     */
+    fun getExpenseAvgCharacter(): Double {
+        if(!isSet()) { return 0.0 }
+        var totalChar = 0.0
+        val categoryList = user!!.getList()
+        var expenseNumber = 0
+        categoryList.forEach{ cat ->
+            cat.getList().forEach { exp ->
+                totalChar += exp.getName().length
+                expenseNumber++
+            }
+        }
+        return totalChar / expenseNumber
+    }
     fun getAvgExpenseNumber(): Int {
         if(!isSet()) { return 0 }
         var tot = 0
