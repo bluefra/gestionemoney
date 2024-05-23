@@ -53,7 +53,7 @@ fun ExpenseDelete(
                         text = deletingText
                         Log.w("delete expense", UserWrapper.getInstance().toString())
                         DBUserConnection.getInstance().deleteExpense(categoryName, expenseDate)
-                        StandardInfo.expenseUpdate()
+                        StandardInfo.expenseUpdate(true)
                         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
                     }
                 ) {

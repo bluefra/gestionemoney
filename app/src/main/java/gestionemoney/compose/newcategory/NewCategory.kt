@@ -118,7 +118,7 @@ fun addCategory(navController: NavController, standardImage: String) {
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")
     UserWrapper.getInstance().addCategory(newCategory, newCategoryImage)
     DBUserConnection.getInstance().writeCategoryName(newCategory)
-    StandardInfo.categoryUpdate()
+    StandardInfo.categoryUpdate(true)
     navController.navigate(Screens.Homepage.route)
 }
 

@@ -135,7 +135,7 @@ class AddExpense {
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
         Log.w("adding expense", UserWrapper.getInstance().toString())
         DBUserConnection.getInstance().writeLastExpense(categoryName)
-        StandardInfo.expenseUpdate()
+        StandardInfo.expenseUpdate(true)
         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
     }
 

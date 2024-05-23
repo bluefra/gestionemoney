@@ -81,7 +81,7 @@ class DeleteCategory(val navController: NavController): UserChangeObserver {
     }
     override fun updateUser(user: UserWrapper) {
         DBUserConnection.getInstance().removeUserObserver(this)
-        StandardInfo.categoryUpdate()
+        StandardInfo.categoryUpdate(true)
         navController.navigate(Screens.Homepage.route)
     }
 
