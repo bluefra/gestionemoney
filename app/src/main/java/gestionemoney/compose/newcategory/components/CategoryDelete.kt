@@ -18,6 +18,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
@@ -80,6 +81,7 @@ class DeleteCategory(val navController: NavController): UserChangeObserver {
     }
     override fun updateUser(user: UserWrapper) {
         DBUserConnection.getInstance().removeUserObserver(this)
+        StandardInfo.categoryUpdate()
         navController.navigate(Screens.Homepage.route)
     }
 

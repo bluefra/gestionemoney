@@ -50,6 +50,7 @@ import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.controller.InfoWrapper
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.statistic_page.InfoText
 import gestionemoney.compose.statistic_page.StatisticPage
@@ -107,11 +108,13 @@ fun SettingPage(navController: NavController){
                     .clip(CircleShape)
             )
             Column{
+                val catVal = StandardInfo.getCategoryPermission()
+                val expVal = StandardInfo.getExpensePermission()
                 NormalText(string = stringResource(id = R.string.category_privacy))
-                SwitchSelection()
+                SwitchSelection(onChange = { StandardInfo.setCategoryPermission(it) }, catVal)
                 Spacer(modifier = Modifier.height(35.dp))
                 NormalText(string = stringResource(id = R.string.expense_privacy))
-                SwitchSelection()
+                SwitchSelection(onChange = {StandardInfo.setExpensePermission(it)}, expVal)
             }
         }
     }
@@ -120,13 +123,14 @@ fun SettingPage(navController: NavController){
 
 
 @Composable
-fun SwitchSelection() {
-    var checked by remember { mutableStateOf(true) }
+fun SwitchSelection(onChange: (Boolean) -> Unit = {}, default: Boolean) {
+    var checked by remember { mutableStateOf(default) }
 
     Switch(
         checked = checked,
         onCheckedChange = {
             checked = it
+            onChange(it)
         },
         colors = SwitchDefaults.colors(
             checkedThumbColor = colorResource(id = R.color.orange),

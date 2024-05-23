@@ -83,11 +83,18 @@ class UserWrapper private constructor(){
     }
 
 
-    fun getOrderedList(order: Category.ORDER): List<Category> {
+    fun getOrderedListByName(order: Category.ORDER): List<Category> {
         if(!isSet()) {
             return listOf()
         }
         return user!!.orderByName(order)
+    }
+
+    fun getOrderedListByValue(order: Category.ORDER): List<Category> {
+        if(!isSet()) {
+            return listOf()
+        }
+        return user!!.orderByValue(order)
     }
 
     fun getCategoriesNames(): List<String> {
@@ -120,14 +127,13 @@ class UserWrapper private constructor(){
         if(!isSet()) { return 0.0 }
         var totalChar = 0.0
         val categoryList = user!!.getList()
-        var expenseNumber = 0
         categoryList.forEach{ cat ->
             cat.getList().forEach { exp ->
                 totalChar += exp.getValue()
-                expenseNumber++
             }
+
         }
-        return totalChar / expenseNumber
+        return totalChar / categoryList.size
     }
 
     fun getTotalExpenseNumber(): Int {
@@ -165,14 +171,13 @@ class UserWrapper private constructor(){
         }
         return totalChar / expenseNumber
     }
-    fun getAvgExpenseNumber(): Int {
-        if(!isSet()) { return 0 }
+    fun getAvgExpenseNumber(): Double {
+        if(!isSet()) { return 0.0 }
         var tot = 0
         user!!.getList().forEach {
             tot += it.getList().size
         }
-        return round(tot.toDouble() / user!!.getList().size).toInt()
-        TODO("control and fix the AVG output")
+        return tot.toDouble() / user!!.getList().size
     }
 
     override fun toString(): String {

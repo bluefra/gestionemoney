@@ -35,11 +35,41 @@ class StandardInfo {
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 
+        fun categoryUpdate() {
+            if(!getCategoryPermission()) {
+                return
+            }
+            val map: HashMap<String, String> = HashMap()
+            map[avgCategoryChar] = UserWrapper.getInstance().getCategoryAvgCharacter().toString()
+            map[lastCatUpdate] = Date().toString()
+            if(getExpensePermission()) {
+                map[avgExpenseChar] = UserWrapper.getInstance().getExpenseAvgCharacter().toString()
+                map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
+                map[avgExpenseVal] = UserWrapper.getInstance().getAvgExpenseValue().toString()
+            }
+            DBInfoConnection.getInstance().writeMultipleInfo(map)
+        }
+
+        fun expenseUpdate() {
+            if(!getExpensePermission()) {
+                return
+            }
+            val map: HashMap<String, String> = HashMap()
+            map[avgExpenseChar] = UserWrapper.getInstance().getExpenseAvgCharacter().toString()
+            map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
+            map[avgExpenseVal] = UserWrapper.getInstance().getAvgExpenseValue().toString()
+            map[lastExpUpdate] = Date().toString()
+            DBInfoConnection.getInstance().writeMultipleInfo(map)
+        }
+
         fun setCategoryPermission(value: Boolean) {
             if(value) {
                 DBInfoConnection.getInstance().writeSingleInfo(catecoryPermission, "true")
+                categoryUpdate()
+            } else {
+                DBInfoConnection.getInstance().writeSingleInfo(catecoryPermission, "false")
+                removeCategoryPermission()
             }
-            DBInfoConnection.getInstance().writeSingleInfo(catecoryPermission, "false")
         }
 
         fun getCategoryPermission(): Boolean {
@@ -49,12 +79,25 @@ class StandardInfo {
         fun setExpensePermission(value: Boolean) {
             if(value) {
                 DBInfoConnection.getInstance().writeSingleInfo(expensePermission, "true")
+                expenseUpdate()
+            } else {
+                DBInfoConnection.getInstance().writeSingleInfo(expensePermission, "false")
+                removeExpensePermission()
             }
-            DBInfoConnection.getInstance().writeSingleInfo(expensePermission, "false")
         }
 
         fun getExpensePermission(): Boolean {
             return InfoWrapper.getInstance().getInfo(expensePermission) == "true"
+        }
+        fun removeCategoryPermission() {
+            DBInfoConnection.getInstance().removeSingleInfo(avgCategoryChar)
+            DBInfoConnection.getInstance().removeSingleInfo(lastCatUpdate)
+        }
+        fun removeExpensePermission() {
+            DBInfoConnection.getInstance().removeSingleInfo(avgExpenseChar)
+            DBInfoConnection.getInstance().removeSingleInfo(avgExpenseNumber)
+            DBInfoConnection.getInstance().removeSingleInfo(avgExpenseVal)
+            DBInfoConnection.getInstance().removeSingleInfo(lastExpUpdate)
         }
 
         fun formatDate(date: Date): String {

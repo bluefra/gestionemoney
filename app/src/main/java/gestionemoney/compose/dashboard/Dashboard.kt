@@ -96,9 +96,9 @@ fun Dashboard(
 }
 
 fun categoryPie(): Map<String, Float> {
-    val categoryList: List<Category>? = UserWrapper.getInstance().getCategoryList()
+    val categoryList: List<Category> = UserWrapper.getInstance().getOrderedListByValue(Category.ORDER.DEC)
     val result: MutableMap<String, Float> = mutableMapOf()
-    categoryList?.forEach{
+    categoryList.forEach{
         result[it.getName()] = it.GetTotalExpences().toFloat()
     }
     return result

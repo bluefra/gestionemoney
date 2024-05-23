@@ -29,7 +29,9 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
+import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.AddExpense
 
@@ -116,6 +118,7 @@ fun addCategory(navController: NavController, standardImage: String) {
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")
     UserWrapper.getInstance().addCategory(newCategory, newCategoryImage)
     DBUserConnection.getInstance().writeCategoryName(newCategory)
+    StandardInfo.categoryUpdate()
     navController.navigate(Screens.Homepage.route)
 }
 

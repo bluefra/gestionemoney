@@ -17,6 +17,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.navigation.Screens
@@ -52,6 +53,7 @@ fun ExpenseDelete(
                         text = deletingText
                         Log.w("delete expense", UserWrapper.getInstance().toString())
                         DBUserConnection.getInstance().deleteExpense(categoryName, expenseDate)
+                        StandardInfo.expenseUpdate()
                         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
                     }
                 ) {

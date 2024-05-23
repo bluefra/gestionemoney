@@ -63,7 +63,7 @@ fun Homepage(
     navController: NavController
 ) {
     // Mapping the categorylist to the Category data class. (database implementation)
-    val categorynames = UserWrapper.getInstance().getOrderedList(Category.ORDER.ASC)
+    val categorynames = UserWrapper.getInstance().getOrderedListByName(Category.ORDER.ASC)
     Log.w("homepage1", categorynames.toString())
 
     Column(

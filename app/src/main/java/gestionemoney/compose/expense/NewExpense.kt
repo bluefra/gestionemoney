@@ -28,6 +28,7 @@ import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
+import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
 import gestionemoney.compose.expense.components.ExpenseName
@@ -134,6 +135,7 @@ class AddExpense {
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
         Log.w("adding expense", UserWrapper.getInstance().toString())
         DBUserConnection.getInstance().writeLastExpense(categoryName)
+        StandardInfo.expenseUpdate()
         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
     }
 

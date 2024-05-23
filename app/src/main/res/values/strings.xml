@@ -38,8 +38,9 @@
     <string name="length_expense">Lunghezza media caratteri spese</string>
     <string name="last_category">Ultima categoria aggiornata</string>
     <string name="last_expense">Ultima spesa aggiornata</string>
-    <string name="last_category_time">Tempo dall\'ultima categoria</string>
-    <string name="last_expense_time">Tempo dall\'ultima spesa</string>
+    <string name="last_category_time">Tempo di aggiornamento dall\'ultima categoria</string>
+    <string name="last_expense_time">Tempo di aggiornamento dall\'ultima spesa</string>
+    <string name="avg_expense_number">Numero medio di spese per categoria</string>
     <string name="category_privacy">Consenti l\'analisi delle tue categorie a fini statistici?</string>
     <string name="expense_privacy">Consenti l\'analisi delle tue spese a fini statistici?</string>
     <string name="privacy">Licenze e privacy</string>
