@@ -81,15 +81,24 @@ fun Userpage(
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = colorResource(R.color.orangeLight),
-                    titleContentColor = Color.Black,
-                ),
-                title = {
+            Card(
+                modifier=Modifier.padding(10.dp),
+                shape= RoundedCornerShape(100.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ){
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = colorResource(R.color.orangeLight),
+                        titleContentColor = Color.Black,
+                    ),
+                    title = {
                         TitlePageText(string = stringResource(id = R.string.my_account))
-                },
-            )
+                    },
+                )
+
+            }
+
+
         },
     ) { innerPadding ->
         Column(

@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerState
@@ -58,13 +59,7 @@ fun AppToolbar(
 
     CenterAlignedTopAppBar(
         title = {
-            Text(
-                text = stringResource(id = R.string.app_name),
-                fontSize = 45.sp,
-                fontFamily = FontFamily.Cursive,
-                fontStyle = FontStyle.Italic,
-                fontWeight = FontWeight.ExtraBold
-            )
+            AppNameText(string = stringResource(id = R.string.app_name))
         },
         navigationIcon = {
             IconButton(onClick = {
@@ -157,7 +152,9 @@ fun NavigationDrawerBody(
             NavigationDrawerHeader()
             //Body
             Column(
-                modifier = Modifier.weight(1f).verticalScroll(scrollState)
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(scrollState)
             ) {
                 Row(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
@@ -231,7 +228,7 @@ fun NavigationDrawerBody(
                         selected = false ,
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Settings ,
+                                painter = painterResource(id = R.drawable.admin_panel_settings) ,
                                 contentDescription = null
                             )
                         } ,
@@ -246,7 +243,30 @@ fun NavigationDrawerBody(
                     )
                 }
                 Row(
-                    modifier = Modifier.padding(top = 220.dp)
+                    modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
+                ) {
+                    NavigationDrawerItem(
+                        label = { Text(text = "Statistics") } ,
+                        selected = false ,
+                        icon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.query_stats) ,
+                                contentDescription = null
+                            )
+                        } ,
+                        onClick = {
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                            navController.navigate(Screens.StatisticPage.route) {
+                                popUpTo(0)
+                            }
+                        }
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.padding(top = 155.dp)
                 ) {
                     Logout(onDismissRequest = { navController.navigate(Screens.Homepage.route) }, navController = navController)
                 }

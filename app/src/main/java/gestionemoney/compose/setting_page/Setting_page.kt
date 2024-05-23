@@ -1,5 +1,6 @@
 package gestionemoney.compose.setting_page
 
+import android.widget.Switch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,15 +14,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +49,9 @@ import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.controller.InfoWrapper
+import gestionemoney.compose.navigation.Screens
+import gestionemoney.compose.statistic_page.InfoText
+import gestionemoney.compose.statistic_page.StatisticPage
 
 @Composable
 fun SettingPageNavigation(
@@ -49,25 +64,29 @@ fun SettingPageNavigation(
     )
 }
 
-// Composable function to display the user page.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingPage(
-    navController: NavController
-) {
+fun SettingPage(navController: NavController){
     val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = colorResource(R.color.orangeLight),
-                    titleContentColor = Color.Black,
-                ),
-                title = {
-                    TitlePageText(string = stringResource(id = R.string.setting_info))
-                },
-            )
+            Card(
+                modifier= Modifier.padding(10.dp),
+                shape= RoundedCornerShape(100.dp),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ){
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = colorResource(R.color.orangeLight),
+                        titleContentColor = Color.Black,
+                    ),
+                    title = {
+                        TitlePageText(string = stringResource(id = R.string.privacy))
+                    },
+                )
+
+            }
         },
     ) { innerPadding ->
         Column(
@@ -80,53 +99,44 @@ fun SettingPage(
 
         ) {
             Image(
-                painter = painterResource(id = R.drawable.query_stats),
+                painter = painterResource(id = R.drawable.admin_panel_settings),
                 contentDescription = "Round Image",
                 modifier = Modifier
                     .size(150.dp)
                     .clip(CircleShape)
             )
 
-            Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.category_medie), string2 = "ciao")
-            Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.length_category), string2 = "ciao")
-            Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.expense_medie), string2 = "ciao")
-            Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.length_expense), string2 = "ciao")
+
         }
     }
 
 }
 
+
+
+/*
 @Composable
-fun InfoText(string1: String, string2 : String) {
-    Row(
-        horizontalArrangement = Arrangement.Absolute.Left,
-        verticalAlignment = Alignment.CenterVertically,
+fun SwitchWithIconExample() {
+    var checked by remember { mutableStateOf(true) }
 
-        ) {
-        Box(
-            modifier = Modifier
-                .size(width = 280.dp, height = 50.dp)
-                .background(Color.Transparent)
-                .padding(16.dp),
-            contentAlignment = Alignment.CenterStart
-        ){
-            NormalText(string = string1)
+    
+    Switch(
+        checked = checked,
+        onCheckedChange = {
+            checked = it
+        },
+        thumbContent = if (checked) {
+            {
+                Icon(
+                    imageVector = Icons.Filled.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(SwitchDefaults.IconSize),
+                )
+            }
+        } else {
+            null
         }
-        Box(
-            modifier = Modifier
-                .size(width = 90.dp, height = 50.dp)
-                .background(colorResource(R.color.orangeUltraLight))
-                .padding(16.dp),
-
-            contentAlignment = Alignment.CenterStart
-        ) {
-            NormalText(string = string2)
-        }
-
-    }
+    )
 }
 
+ */

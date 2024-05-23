@@ -108,44 +108,7 @@ fun NewExpense(
         ) {
             Text(text = stringResource(id = R.string.back_button))
         }
-
     }
-
-    /*
-    Column(
-        modifier = Modifier
-            .padding(10.dp)
-    ) {
-
-        // Back button function.
-        BackButton(navController)
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-
-            // Functions for user input data to create new expense.
-            CategoryMenu(
-                categorylist,
-                baseOption,
-                onChange = { categoryName = it})
-            ExpenseName { expense_name = it }
-            CostOfExpense(onChange = { expense_value = it })
-            DatePicker(defaultDate = AddExpense.currDate,initialDate = AddExpense.initialDate, onDateChanged = { date = it })
-
-            Button(
-                onClick = { AddExpense().addExpense(navController) },
-                colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
-            ) {
-                Text(text = stringResource(id = R.string.confirmation_string))
-            }
-
-        }
-    }
-
-     */
 }
 
 class AddExpense {

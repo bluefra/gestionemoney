@@ -82,12 +82,12 @@ fun Login(
                             label = "Email",
                             modifier = Modifier.fillMaxWidth(),
                             onChange = { email = it })
-                        Spacer(modifier = Modifier.height(35.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
                         PasswordEnter(
                             label = "Password",
                             modifier = Modifier.fillMaxWidth(),
                             onChange = { password = it })
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(35.dp))
                         LoginButton(navController)
                         Spacer(modifier = Modifier.height(35.dp))
                         TextWithDivider()

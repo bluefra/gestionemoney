@@ -19,6 +19,7 @@ import gestionemoney.compose.newcategory.NewCategoryNavigation
 import gestionemoney.compose.register_login.Login
 import gestionemoney.compose.register_login.Register
 import gestionemoney.compose.setting_page.SettingPageNavigation
+import gestionemoney.compose.statistic_page.StatisticPageNavigation
 import gestionemoney.compose.userpage.Userpage
 import gestionemoney.compose.userpage.UserpageNavigation
 
@@ -74,5 +75,10 @@ fun NavigationGraph (
         composable(route = Screens.SettingPage.route){
             SettingPageNavigation(navController)
         }
+
+        composable(route = Screens.StatisticPage.route){
+            StatisticPageNavigation(navController)
+        }
+
     }
 }
