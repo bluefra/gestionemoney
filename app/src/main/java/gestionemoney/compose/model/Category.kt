@@ -68,11 +68,10 @@ class Category (private val name: String, private var imageURI: String = ""){
     }
 
     fun getExpense(dateString: String): Expense? {
-        val date = Date(dateString)
         expensesList.forEach{
             Log.w("category expense delete log", it.toString())
-            Log.w("category expense delete log", it.compareDate(date).toString())
-            if(it.compareDate(date) == 0) { return it }
+            Log.w("category expense delete log", it.compareDateByString(dateString).toString())
+            if(it.compareDateByString(dateString)) { return it }
         }
         return null
     }

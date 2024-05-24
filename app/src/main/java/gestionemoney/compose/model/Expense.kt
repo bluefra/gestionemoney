@@ -13,7 +13,7 @@ class Expense(private val date: Date = Date(), private val value: Double, privat
     }
 
     fun compareDateByString(stringDate: String): Boolean {
-        return date.toString().equals(stringDate)
+        return DateAdapter().getStringDate(date) == stringDate
     }
     fun confrontValue(e1: Expense): Int{
         if(value == e1.value) { return 0 }
@@ -21,15 +21,8 @@ class Expense(private val date: Date = Date(), private val value: Double, privat
         return -1
     }
 
-    fun confrontDate(date: Date) {
-
-    }
     fun getValue(): Double {
         return value
-    }
-
-    fun getStringDate(): String {
-        return  date.toString()
     }
 
     fun getDate(): Date {
@@ -46,14 +39,14 @@ class Expense(private val date: Date = Date(), private val value: Double, privat
     }
 
     fun getDBName(): String {
-        return date.toString() + DBtoken + name;
+        return DateAdapter().getStringDate(date) + DBtoken + name;
     }
     companion object {
         const val DBtoken: String = "_"
 
         fun loadExpenseFromDB(name: String, value: Double): Expense {
             val results = name.split(DBtoken)
-            return Expense(Date(results[0]), value, results[1])
+            return Expense(DateAdapter().buildDate(results[0]), value, results[1])
         }
     }
 }

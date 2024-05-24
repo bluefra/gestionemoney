@@ -1,5 +1,6 @@
 package gestionemoney.compose.expense.components
 
+import android.util.Log
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TextFiledType
+import gestionemoney.compose.model.DateAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,9 +42,9 @@ fun DatePicker(
             value = text,
             onValueChange = {
                 text = it
-                val parsedDate = parseDate(text.text, initialDate)
-                if (parsedDate != null) {
-                    date = parsedDate
+                val parsed = parseDate(text.text, initialDate)
+                if (parsed != null) {
+                    date = parsed
                     onDateChanged(date)
                 }
             },
@@ -76,6 +78,7 @@ fun parseDate(text: String, minDate: Date): Date? {
  * aggiunge ora, minuti e secondi attuali alla data passata
  */
 fun setTime(date: Date): Date {
+    Log.w("date conversion", DateAdapter().getStringDate(date))
     // Creazione dell'oggetto Calendar
     val calendarNow = Calendar.getInstance()
     val calendarDate = Calendar.getInstance()
@@ -86,12 +89,12 @@ fun setTime(date: Date): Date {
     val currentHour = calendarNow.get(Calendar.HOUR_OF_DAY)
     val currentMinute = calendarNow.get(Calendar.MINUTE)
     val currentSecond = calendarNow.get(Calendar.SECOND)
-
+    val currentMilli = calendarNow.get(Calendar.MILLISECOND)
     // Impostazione dell'ora corrente sull'oggetto Date
     calendarDate.set(Calendar.HOUR_OF_DAY, currentHour)
     calendarDate.set(Calendar.MINUTE, currentMinute)
     calendarDate.set(Calendar.SECOND, currentSecond)
-
+    calendarDate.set(Calendar.MILLISECOND, currentMilli)
     // Aggiornamento dell'oggetto Date
     return calendarDate.time
 }

@@ -46,6 +46,7 @@ import gestionemoney.compose.components.NewExpenseButton
 import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
@@ -155,7 +156,7 @@ fun ExpenseItem(
                    ExpenseDelete(
                        navController,
                        categoryName,
-                       expenseDate = expense.getDate().toString(),
+                       expenseDate = DateAdapter().getStringDate(expense.getDate()),
                        onButtonVisibilityChange = { isVisible -> showDialog = isVisible }
                    )
                }

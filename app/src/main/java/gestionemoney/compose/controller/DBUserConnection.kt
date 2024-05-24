@@ -141,10 +141,12 @@ class DBUserConnection private constructor() {
             .child(userID!!)
             .child(category.getDBname())
         val lastExpense = category.lastExpenseHashMap() ?: return
+        Log.w("adding", lastExpense.toString())
         myRef.updateChildren(lastExpense).addOnSuccessListener {
             notifyUserObservers(user!!)
         }
             .addOnFailureListener {
+                Log.w("adding error", it.message.toString())
                 notifyError(it.message.toString())
             }
     }
@@ -168,6 +170,7 @@ class DBUserConnection private constructor() {
                 notifyError(it.message.toString())
             }
     }
+
 
     fun deleteExpense(categoryName: String, expenseDate: String) {
         Log.w("delete expense", expenseDate)

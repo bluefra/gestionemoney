@@ -16,7 +16,11 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -32,6 +36,7 @@ import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
 import gestionemoney.compose.expense.components.ExpenseName
+import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.Expense
 import gestionemoney.compose.navigation.Screens
 import java.util.Calendar
@@ -42,7 +47,6 @@ private var categoryName = ""
 private var expense_name: String = ""
 private var expense_value: String = ""
 private var date = Date()
-
 @Composable
 fun NewExpenseNavigation(
     navController: NavController,
@@ -60,10 +64,10 @@ fun NewExpense(
     navController: NavController,
     category: String?
 ) {
+    date = Date()
     val categorylist = UserWrapper.getInstance().getCategoriesNames()
     val baseOption = category?: AddExpense.standardOption
     val scrollState = rememberScrollState()
-
     AddExpense.setStandardCategory(stringResource(R.string.standard_category_selection))
     categoryName = category?: categoryName
 
@@ -126,14 +130,16 @@ class AddExpense {
         return !name.contains(Expense.DBtoken)
     }
     fun addExpense(navController: NavController) {
+        Log.w("date value", DateAdapter().getStringDate(date))
         if(!verifyExpense()) {
+            Log.w("New expense", "error")
             return
         }
         val expense = Expense(date, getCost(expense_value))
         expense.setName(expense_name)
-        Log.w("adding expense", UserWrapper.getInstance().toString())
+        //Log.w("adding expense", UserWrapper.getInstance().toString())
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
-        Log.w("adding expense", UserWrapper.getInstance().toString())
+       // Log.w("adding expense", UserWrapper.getInstance().toString())
         DBUserConnection.getInstance().writeLastExpense(categoryName)
         StandardInfo.expenseUpdate(true)
         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
