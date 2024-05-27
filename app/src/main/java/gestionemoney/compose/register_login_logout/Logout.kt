@@ -1,7 +1,9 @@
 package gestionemoney.compose.register_login_logout
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.AlertDialog
@@ -40,6 +42,7 @@ fun Logout(
     var showDialog by rememberSaveable { mutableStateOf(false) }
 
     NavigationDrawerItem(
+        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
         label = { Text(text = "Logout") } ,
         selected = false ,
         icon = {

@@ -1,6 +1,7 @@
 package gestionemoney.compose.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -160,6 +162,7 @@ fun NavigationDrawerBody(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
                 ) {
                     NavigationDrawerItem(
+                        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
                         label = { Text(text = "Homepage") } ,
                         selected = false ,
                         icon = {
@@ -175,13 +178,14 @@ fun NavigationDrawerBody(
                             navController.navigate(Screens.Homepage.route) {
                                 popUpTo(0)
                             }
-                        }
+                        },
                     )
                 }
                 Row(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
                 ) {
                     NavigationDrawerItem(
+                        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
                         label = { Text(text = "Dashboard") } ,
                         selected = false ,
                         icon = {
@@ -202,6 +206,7 @@ fun NavigationDrawerBody(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
                 ) {
                     NavigationDrawerItem(
+                        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
                         label = { Text(text = "Userpage") } ,
                         selected = false ,
                         icon = {
@@ -224,6 +229,7 @@ fun NavigationDrawerBody(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
                 ) {
                     NavigationDrawerItem(
+                        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
                         label = { Text(text = "Setting") } ,
                         selected = false ,
                         icon = {
@@ -246,6 +252,7 @@ fun NavigationDrawerBody(
                     modifier = Modifier.padding(top = 10.dp , bottom = 10.dp)
                 ) {
                     NavigationDrawerItem(
+                        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
                         label = { Text(text = "Statistics") } ,
                         selected = false ,
                         icon = {
