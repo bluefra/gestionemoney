@@ -1,6 +1,7 @@
 package gestionemoney.compose.expense
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +14,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -72,10 +79,24 @@ fun ExpensePage(
     // Mapping the expenselist to the Expense data class. (database implementation)
     val expenses = UserWrapper.getInstance().getCategory(categoryName)?.getList()
 
-    Box(modifier = Modifier.fillMaxSize()){
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier = Modifier.padding(10.dp),
+                onClick = { navController.navigate("${Screens.NewExpense.route}/$categoryName") },
+                containerColor = colorResource(id = R.color.orange)
+            ) {
+                Icon(Icons.Filled.Add, stringResource(id = R.string.new_expense_add))
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
+        modifier = Modifier.fillMaxSize()
+    ){
+        innerPaddings ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(innerPaddings)
                 .padding(10.dp)
         ) {
             Row(
@@ -92,23 +113,23 @@ fun ExpensePage(
                 Column (
                     horizontalAlignment = Alignment.End
                 ){
-                    NewExpenseButton(navController = navController, categoryName = categoryName)
+                    //NewExpenseButton(navController = navController, categoryName = categoryName)
+                    Button(
+                        onClick = { navController.navigate(Screens.Homepage.route) } ,
+                        colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
+                    ) {
+                        //Text(text = stringResource(id = R.string.back_button))
+                        Icon(imageVector = Icons.Default.ArrowBack , contentDescription = stringResource(id = R.string.back_button), tint = Color.Black)
+                    }
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            //Spacer(modifier = Modifier.height(10.dp))
 
             // Display the list of all the expense of the current category.
             LazyActivityColumn(expenses = expenses, categoryName ,navController)
+
         }
-        Button(
-            onClick = { navController.navigate(Screens.Homepage.route) },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
-        ) {
-            Text(text = stringResource(id = R.string.back_button))
-        }
+
     }
 }
 

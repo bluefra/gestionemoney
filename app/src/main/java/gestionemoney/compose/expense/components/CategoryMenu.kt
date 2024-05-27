@@ -1,9 +1,12 @@
 package gestionemoney.compose.expense.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DividerDefaults.color
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,12 +14,14 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -41,13 +46,16 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedCategory by rememberSaveable { mutableStateOf(standardOption) }
 
-    Row{
         // Composable native function.
         ExposedDropdownMenuBox(
             expanded = expanded ,
             onExpandedChange = {
                 expanded = !expanded
-            }
+            },
+            modifier = Modifier
+                //.background(colorResource(id = R.color.orangeLight))
+                .border(2.dp, colorResource(id = R.color.orange), shape = RoundedCornerShape(20))
+
         ) {
             TextField(
                 value = selectedCategory ,
@@ -57,12 +65,28 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                 },
                 enabled = false,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) } ,
-                modifier = Modifier.menuAnchor()
+                modifier = Modifier
+                    .menuAnchor()
+                    //.background(colorResource(id = R.color.orangeLight))
+                ,
+                colors =  TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    unfocusedTextColor = Color.Black,
+                    focusedTextColor = Color.Black,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                    focusedTrailingIconColor = Color.Transparent,
+                    unfocusedTrailingIconColor = Color.Transparent,
+                    disabledTrailingIconColor = Color.Transparent,
+                )
             )
             //Composable native function.
             ExposedDropdownMenu(
                 expanded = expanded ,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(colorResource(id = R.color.orangeLight))
             ) {
                 categoryList.forEach { category ->
                     DropdownMenuItem(
@@ -78,5 +102,4 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                 }
             }
         }
-    }
 }

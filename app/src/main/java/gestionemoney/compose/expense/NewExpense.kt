@@ -10,9 +10,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
@@ -23,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -95,23 +99,24 @@ fun NewExpense(
                 defaultDate = AddExpense.currDate,
                 initialDate = AddExpense.initialDate,
                 onDateChanged = { date = it })
-            Spacer(modifier = Modifier.height(15.dp))
+            //Spacer(modifier = Modifier.height(15.dp))
 
             Button(
                 onClick = { AddExpense().addExpense(navController) },
                 colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
             ) {
-                Text(text = stringResource(id = R.string.confirmation_string))
+                Text(text = stringResource(id = R.string.confirmation_string), color = Color.Black)
             }
         }
         Button(
             onClick = { navController.navigate(Screens.Homepage.route) },
             modifier = Modifier
-                .align(Alignment.BottomEnd)
+                .align(Alignment.BottomStart)
                 .padding(16.dp),
             colors = ButtonDefaults.buttonColors(colorResource(R.color.orange))
         ) {
-            Text(text = stringResource(id = R.string.back_button))
+            //Text(text = stringResource(id = R.string.back_button))
+            Icon(imageVector = Icons.Default.ArrowBack , contentDescription = stringResource(id = R.string.back_button), tint = Color.Black)
         }
     }
 }

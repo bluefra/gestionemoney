@@ -92,8 +92,8 @@ fun Register(navController: NavController){
                         onChange = { surname = it })
                     Spacer(modifier = Modifier.height(15.dp))
                     RegisterButton(navController = navController)
-                    Spacer(modifier = Modifier.height(20.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
+                    TextWithDivider()
                     Row(
                         modifier = Modifier.padding(top = 15.dp)
                     ) {

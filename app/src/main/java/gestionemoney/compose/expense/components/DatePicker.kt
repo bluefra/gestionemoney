@@ -2,13 +2,17 @@ package gestionemoney.compose.expense.components
 
 import android.util.Log
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -32,13 +36,14 @@ fun DatePicker(
     val dateFormat = rememberSaveable { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
 
     Column {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(15.dp))
         NormalText(string = stringResource(id = R.string.insert_data))
         //Text(text = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
         //Text("Select Date: ${dateFormat.format(date)}")
         //Text(text = stringResource(id = R.string.insert_data))
         Spacer(modifier = Modifier.height(5.dp))
         TextField(
+            modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(20)),
             value = text,
             onValueChange = {
                 text = it
@@ -51,9 +56,17 @@ fun DatePicker(
             label = {
                 TextFiledType(string = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
                },
-
+            colors =  TextFieldDefaults.colors(
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White,
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
+            )
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(5.dp))
     }
 }
 

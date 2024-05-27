@@ -2,6 +2,7 @@ package gestionemoney.compose.statistic_page
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,11 +33,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.NormalText
+import gestionemoney.compose.components.TextFiledType
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
@@ -137,34 +140,39 @@ fun StatisticPage(
 @Composable
 fun InfoText(string1: String, string2 : String) {
     Row(
-        horizontalArrangement = Arrangement.Absolute.Left,
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-
         ) {
         Box(
             modifier = Modifier
                 .size(width = 280.dp , height = 50.dp)
                 .background(Color.Transparent)
                 .padding(16.dp),
-            contentAlignment = Alignment.CenterStart
+            contentAlignment = Alignment.Center
         ) {
             NormalText(string = string1)
         }
     }
     Row(
-        horizontalArrangement = Arrangement.Absolute.Right,
+        modifier = Modifier
+            .size(width = 300.dp , height = 50.dp)
+            .background(Color.White)
+            .border(
+                2.dp ,
+                color = colorResource(id = R.color.orange) ,
+                shape = RoundedCornerShape(50)
+            ),
+        horizontalArrangement = Arrangement.Absolute.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Box(
-            modifier = Modifier
-                .size(width = 300.dp , height = 50.dp)
-                .background(colorResource(R.color.orangeUltraLight))
-                .padding(16.dp),
+        NormalText(string = string2)
+    }
+}
 
-            contentAlignment = Alignment.CenterStart
-        ) {
-            NormalText(string = string2)
-        }
-
+@Preview (showBackground = true)
+@Composable
+fun pippi (){
+    Column() {
+        InfoText(string1 = "ciao" , string2 = "prova")
     }
 }

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,12 +18,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +41,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.VerticalAlignmentLine
@@ -36,7 +49,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.MediumText
 import gestionemoney.compose.components.NavigationDrawer
@@ -58,6 +74,15 @@ fun HomeNavigation(
     )
 }
 
+@Preview
+@Composable
+fun prova () {
+    var navController: NavHostController
+    navController = rememberNavController()
+    Homepage(navController = navController)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(
     navController: NavController
@@ -66,33 +91,80 @@ fun Homepage(
     val categorynames = UserWrapper.getInstance().getOrderedListByName(Category.ORDER.ASC)
     Log.w("homepage1", categorynames.toString())
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp)
+    Scaffold (
+        topBar = {
+            Card(
+                modifier= Modifier.padding(10.dp),
+                shape= RoundedCornerShape(100.dp) ,
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ){
+                CenterAlignedTopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = colorResource(R.color.orangeLight),
+                        titleContentColor = Color.Black,
+                    ),
+                    title = {
+                        Row(
+                        ) {
+                            TitlePageText(string = stringResource(id = R.string.your_expenses))
+                            Image(
+                                painter = painterResource(id = R.drawable.home_24dp_fill0_wght400_grad_25_opsz24),
+                                contentDescription = "Round Image",
+                                modifier = Modifier
+                                    .padding(start = 5.dp)
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
+                    },
+                )
+
+            }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier = Modifier.padding(10.dp),
+                onClick = { navController.navigate(Screens.NewCategory.route) },
+                containerColor = colorResource(id = R.color.orange)
+            ) {
+                Icon(Icons.Filled.Add, stringResource(id = R.string.new_category_button))
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End
     ) {
-        // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
-        Row(
-            verticalAlignment = Alignment.CenterVertically
+        innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+                .padding(innerPadding)
         ) {
-            Column(
-                modifier = Modifier.weight(1f).padding(10.dp),
-                horizontalAlignment = Alignment.Start
+            // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
+            /*
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                TitlePageText(string = stringResource(id = R.string.your_expenses))
-            }
-            Column(
-                horizontalAlignment = Alignment.End,
-            ) {
-                NewCategoryButton(navController)
-            }
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(10.dp) ,
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    //TitlePageText(string = stringResource(id = R.string.your_expenses))
+                }
+                Column(
+                    horizontalAlignment = Alignment.End ,
+                ) {
+                    //NewCategoryButton(navController)
+                }
+            } */
+            //Spacer(modifier = Modifier.height(10.dp))
+            // RecyclerView(in compose) to view the category list
+            LazyCategoryColumn(
+                categories = categorynames ,
+                navController = navController
+            )
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        // RecyclerView(in compose) to view the category list
-        LazyCategoryColumn(
-            categories = categorynames,
-            navController = navController
-        )
     }
 }
 

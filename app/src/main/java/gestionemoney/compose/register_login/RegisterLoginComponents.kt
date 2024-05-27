@@ -2,6 +2,7 @@ package gestionemoney.compose.register_login
 
 import android.icu.number.NumberFormatter.TrailingZeroDisplay
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -69,7 +70,7 @@ fun TopSection(text1 : String, text2: String){
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.4f)
+                .fillMaxHeight(fraction = 0.2f)
             ,
             painter = painterResource(id = R.drawable.shape),
             contentDescription = null,
@@ -97,12 +98,12 @@ fun RegisterButton(
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .height((40.dp)),
+            .height((55.dp)),
         onClick = { DBRegister(navController).evaluateRegister()},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
-        shape = RoundedCornerShape(size = 4.dp)
+        shape = RoundedCornerShape(size = 50.dp)
     ){
-        Text(text = "Register", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
+        Text(text = "Register", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium), color = Color.Black)
     }
 }
 
@@ -113,12 +114,12 @@ fun LoginButton(
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .height((40.dp)),
+            .height((55.dp)),
         onClick = { DBLogin(navController).evaluateLogin()},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
-        shape = RoundedCornerShape(size = 4.dp)
+        shape = RoundedCornerShape(size = 50.dp)
     ){
-        Text(text = "Login", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium))
+        Text(text = "Login", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Medium), color = Color.Black)
     }
 }
 
@@ -132,17 +133,24 @@ fun EmailEnter(
     var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
-        modifier = modifier,
+        modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
         value = text,
         onValueChange = {text = it
             onChange(it)},
         label = { 
                 Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
-        colors = TextFieldDefaults.colors(Black),
-
-
+        colors =  TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            unfocusedTextColor = Color.Black,
+            focusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        )
     )
+
 }
 
 @Composable
@@ -154,16 +162,23 @@ fun InfoEnter(
     var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
-        modifier = modifier,
+        modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
         value = text,
         onValueChange = {text = it
             onChange(it)},
         label = {
             Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
-        colors = TextFieldDefaults.colors(Black),
-
+        colors =  TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            unfocusedTextColor = Color.Black,
+            focusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
         )
+    )
 }
 
 
@@ -176,7 +191,7 @@ fun PasswordEnter(
     var text by rememberSaveable { mutableStateOf("")}
 
     TextField(
-        modifier = modifier,
+        modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
         value = text,
         onValueChange = {text = it
             onChange(it)},
@@ -184,7 +199,15 @@ fun PasswordEnter(
             Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
         visualTransformation = PasswordVisualTransformation(),
-        colors = TextFieldDefaults.colors(Black),
+        colors =  TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            unfocusedTextColor = Color.Black,
+            focusedTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        )
 
     )
 }
