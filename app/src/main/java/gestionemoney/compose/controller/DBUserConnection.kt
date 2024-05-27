@@ -59,6 +59,7 @@ class DBUserConnection private constructor() {
             override fun onCancelled(error: DatabaseError) {
                 notifyError(error.message)
                 WriteLog.getInstance().writeTime("user_connection_err", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeError("user_connection_err_message", error.message) //FIREBASE LOG
             }
         })
     }
@@ -164,10 +165,12 @@ class DBUserConnection private constructor() {
             .child(category.getDBname())
         myRef.removeValue().addOnSuccessListener {
             user!!.deleteCategory(categoryName)
+            WriteLog.getInstance().writeBasicLog("expense_deleted")
             notifyUserObservers(user!!)
         }
             .addOnFailureListener {
                 notifyError(it.message.toString())
+                WriteLog.getInstance().writeError("expense_deleted_error", it.message.toString())
             }
     }
 

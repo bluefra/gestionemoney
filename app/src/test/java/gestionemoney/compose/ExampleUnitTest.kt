@@ -1,5 +1,7 @@
 package gestionemoney.compose
 
+import gestionemoney.compose.model.DateAdapter
+import gestionemoney.compose.model.weekDay
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -10,8 +12,9 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4 , 2 + 2)
+    fun DateAdapter_weekDay() {
+        assertEquals(1,weekDay())
     }
 }

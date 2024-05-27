@@ -1,5 +1,6 @@
 package gestionemoney.compose.controller
 
+import gestionemoney.compose.model.DateAdapter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -23,15 +24,15 @@ class StandardInfo {
             val map: HashMap<String, String> = HashMap()
             map[nameInfo] = name
             map[surnameInfo] = surname
-            map[subscriptionInfo] = formatDate(Date())
+            map[subscriptionInfo] = DateAdapter().getStringDate(Date())
             map[catecoryPermission] = "true"
             map[expensePermission] = "true"
             map[avgCategoryChar] = UserWrapper.getInstance().getCategoryAvgCharacter().toString()
             map[avgExpenseChar] = UserWrapper.getInstance().getExpenseAvgCharacter().toString()
             map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
             map[avgExpenseVal] = UserWrapper.getInstance().getAvgExpenseValue().toString()
-            map[lastCatUpdate] = Date().toString()
-            map[lastExpUpdate] = Date().toString()
+            map[lastCatUpdate] = DateAdapter().getStringDate(Date())
+            map[lastExpUpdate] = DateAdapter().getStringDate(Date())
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 
@@ -42,7 +43,7 @@ class StandardInfo {
             val map: HashMap<String, String> = HashMap()
             map[avgCategoryChar] = UserWrapper.getInstance().getCategoryAvgCharacter().toString()
             if(updateDate) {
-                map[lastCatUpdate] = Date().toString()
+                map[lastCatUpdate] = DateAdapter().getStringDate(Date())
             } else {
                 map[lastCatUpdate] = ""
             }
@@ -63,7 +64,7 @@ class StandardInfo {
             map[avgExpenseNumber] = UserWrapper.getInstance().getAvgExpenseNumber().toString()
             map[avgExpenseVal] = UserWrapper.getInstance().getAvgExpenseValue().toString()
             if(updateDate) {
-                map[lastExpUpdate] = Date().toString()
+                map[lastExpUpdate] = DateAdapter().getStringDate(Date())
             } else {
                 map[lastExpUpdate] = ""
             }
@@ -106,33 +107,6 @@ class StandardInfo {
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseNumber)
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseVal)
             DBInfoConnection.getInstance().removeSingleInfo(lastExpUpdate)
-        }
-
-        fun formatDate(date: Date): String {
-            return SimpleDateFormat("EEEE dd/MM/yyyy", Locale.getDefault()).format(date)
-        }
-
-        fun getDateDifferenceFromNow(date: Date): String {
-            val diffInMillies = Date().time - date.time
-            val diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(diffInMillies)
-            val diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillies)
-            val diffInHours = TimeUnit.MILLISECONDS.toHours(diffInMillies)
-            val diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillies)
-            return String.format(
-                Locale.getDefault(),
-                "%d giorni, %d ore, %d minuti, %d secondi",
-                diffInDays,
-                diffInHours % 24,
-                diffInMinutes % 60,
-                diffInSeconds % 60
-            )
-        }
-
-        fun getDateDifferenceFromNow(date: String): String {
-            if(date == "") {
-                return date
-            }
-            return getDateDifferenceFromNow(Date(date))
         }
     }
 }

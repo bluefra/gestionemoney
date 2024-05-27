@@ -34,15 +34,20 @@ class DBInfoConnection {
 
     fun connectInfo(uid: String) {
         userID = uid
+        val timer = Timer()
+        timer.startTimer()
         val myRef = database.getReference(dbNode).child(uid)
         Log.w("info", "connecting")
         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("info", "readed")
                 readInfoData(dataSnapshot)
+                WriteLog.getInstance().writeTime("info_connection_succ", timer.endTimer()) //FIREBASE LOG
             }
 
             override fun onCancelled(error: DatabaseError) {
+                WriteLog.getInstance().writeTime("info_connection_err", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeError("info_connection_err_message", error.message) //FIREBASE LOG
             }
 
         })

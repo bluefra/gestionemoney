@@ -61,6 +61,8 @@ import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.expense.ExpenseItem
 import gestionemoney.compose.homepage.Homepage
+import gestionemoney.compose.model.DateAdapter
+import gestionemoney.compose.model.formatReadingDate
 
 @Composable
 fun UserpageNavigation(
@@ -124,6 +126,7 @@ fun Userpage(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
+            val stringSubscriptionDate = InfoWrapper.getInstance().getInfo(StandardInfo.subscriptionInfo)
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.name), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.nameInfo))
             Spacer(modifier = Modifier.height(35.dp))
@@ -131,7 +134,7 @@ fun Userpage(
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.email), string2 = DBauthentication.getInstance().getEmail() ?: "")
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.register_date), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.subscriptionInfo))
+            InfoText(string1 = stringResource(id = R.string.register_date), string2 = formatReadingDate(DateAdapter().buildDate(stringSubscriptionDate)))
         }
     }
 

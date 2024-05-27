@@ -37,11 +37,14 @@ import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.StandardInfo
+import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.expense.components.CostOfExpense
 import gestionemoney.compose.expense.components.DatePicker
 import gestionemoney.compose.expense.components.ExpenseName
 import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.Expense
+import gestionemoney.compose.model.getDateDifferenceFromNowDay
+import gestionemoney.compose.model.weekDay
 import gestionemoney.compose.navigation.Screens
 import java.util.Calendar
 
@@ -137,15 +140,16 @@ class AddExpense {
     fun addExpense(navController: NavController) {
         Log.w("date value", DateAdapter().getStringDate(date))
         if(!verifyExpense()) {
-            Log.w("New expense", "error")
+            WriteLog.getInstance().writeError("newExpense-error", "expense name contains DB tokens")
+            Log.w("New expense", "error")//add a toast here
             return
         }
         val expense = Expense(date, getCost(expense_value))
         expense.setName(expense_name)
-        //Log.w("adding expense", UserWrapper.getInstance().toString())
+        WriteLog.getInstance().writeValue("lastAddedExpense",getDateDifferenceFromNowDay(Date()),"day")
         UserWrapper.getInstance().getCategory(categoryName)?.addExpenses(expense)
-       // Log.w("adding expense", UserWrapper.getInstance().toString())
         DBUserConnection.getInstance().writeLastExpense(categoryName)
+        WriteLog.getInstance().writeValue("newExpense_weekDay", weekDay().toDouble(), "day")
         StandardInfo.expenseUpdate(true)
         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
     }
@@ -153,11 +157,13 @@ class AddExpense {
     private fun verifyExpense(): Boolean {
         if(categoryName == standardOption) {
             Log.w("NewExpenses","chose a category")
+            WriteLog.getInstance().writeError("newExpense-error", "categoryName == standardOption")
             return false
         }
         val cost = getCost(expense_value)
         if(cost == 0.0) {
             Log.w("NewExpenses", "insert a valid expense")
+            WriteLog.getInstance().writeError("newExpense-error", "cost == 0.0")
             return false
         }
         return verifyIntegrity(expense_name)

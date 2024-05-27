@@ -27,19 +27,31 @@ class WriteLog {
         firebaseAnalytics.setUserId(uid)
     }
 
-    private fun write(eventType: String, key: String, message: String) {
+    fun writeTime(eventType: String, time: Double) {
+        if (!isConnect()) {return}
+        Log.w("log", "$eventType $time")
+        writeValue(eventType, time, "ms")
+    }
+
+    fun writeError(eventType: String, error: String) {
         if (!isConnect()) {return}
         firebaseAnalytics.logEvent(eventType) {
-            param(key, message)
+            param("error-message", error)
         }
     }
 
-    fun writeTime(eventType: String, time: Long) {
+    fun writeValue(eventType: String, value: Double, measureUnit: String) {
         if (!isConnect()) {return}
-        val formattedNumber = String.format("%.2f", time.toDouble())
-        Log.w("log", "$eventType $formattedNumber")
         firebaseAnalytics.logEvent(eventType) {
-            param(FirebaseAnalytics.Param.VALUE, formattedNumber)
+            param(FirebaseAnalytics.Param.VALUE, value)
+            param("measure-unit", measureUnit)
+            param("userID", userID!!)
+        }
+    }
+
+    fun writeBasicLog(eventType: String) {
+        if (!isConnect()) {return}
+        firebaseAnalytics.logEvent(eventType) {
             param("userID", userID!!)
         }
     }
@@ -55,11 +67,11 @@ class Timer() {
         timer = Instant.now()
     }
 
-    fun endTimer(): Long {
+    fun endTimer(): Double {
         return if(timer == null) {
-            0
+            0.0
         } else {
-            Duration.between(timer, Instant.now()).toMillis()
+            Duration.between(timer, Instant.now()).toMillis().toDouble()
         }
     }
 }
