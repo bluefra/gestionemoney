@@ -8,7 +8,7 @@
     <string name="back_button">Indietro</string>
     <string name="confirmation_string">Conferma</string>
     <string name="negation_string">Annulla</string>
-    <string name="dashboard_intro">Analisi delle tue spese</string>
+    <string name="dashboard_intro">Analisi spese</string>
     <string name="insert_money_spent">Quanti soldi hai speso?</string>
     <string name="money_type">in euro €:</string>
     <string name="preselected_data">data preselezionata:</string>

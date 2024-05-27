@@ -84,7 +84,19 @@ fun SettingPage(navController: NavController){
                         titleContentColor = Color.Black,
                     ),
                     title = {
-                        TitlePageText(string = stringResource(id = R.string.privacy))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            TitlePageText(string = stringResource(id = R.string.privacy))
+                            Image(
+                                painter = painterResource(id = R.drawable.admin_panel_settings_24dp_fill0_wght400_grad0_opsz24),
+                                contentDescription = "Round Image",
+                                modifier = Modifier
+                                    .padding(start = 5.dp)
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
                     },
                 )
 
@@ -94,19 +106,14 @@ fun SettingPage(navController: NavController){
         Column(
             modifier = Modifier
                 .padding(innerPadding)
+                .padding(top = 20.dp)
                 .fillMaxSize()
                 .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.admin_panel_settings),
-                contentDescription = "Round Image",
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape)
-            )
+
             Column{
                 val catVal = StandardInfo.getCategoryPermission()
                 val expVal = StandardInfo.getExpensePermission()

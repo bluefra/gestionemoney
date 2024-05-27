@@ -75,7 +75,19 @@ fun StatisticPage(
                         titleContentColor = Color.Black,
                     ),
                     title = {
-                        TitlePageText(string = stringResource(id = R.string.statistics_info))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            TitlePageText(string = stringResource(id = R.string.statistics_info))
+                            Image(
+                                painter = painterResource(id = R.drawable.query_stats_24dp_fill0_wght400_grad0_opsz24),
+                                contentDescription = "Round Image",
+                                modifier = Modifier
+                                    .padding(start = 5.dp)
+                                    .clip(CircleShape)
+                                    .size(40.dp)
+                            )
+                        }
                     },
                 )
 
@@ -85,19 +97,14 @@ fun StatisticPage(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
+                .padding(bottom = 20.dp)
                 .fillMaxSize()
                 .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.query_stats),
-                contentDescription = "Round Image",
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape)
-            )
+
             val avgCatChar = InfoWrapper.getInstance().getInfo(StandardInfo.avgCategoryChar)
             val avgExpChar = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseChar)
             val avgExp = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseVal)
@@ -136,7 +143,7 @@ fun InfoText(string1: String, string2 : String) {
         ) {
         Box(
             modifier = Modifier
-                .size(width = 280.dp, height = 50.dp)
+                .size(width = 280.dp , height = 50.dp)
                 .background(Color.Transparent)
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
@@ -150,7 +157,7 @@ fun InfoText(string1: String, string2 : String) {
     ) {
         Box(
             modifier = Modifier
-                .size(width = 300.dp, height = 50.dp)
+                .size(width = 300.dp , height = 50.dp)
                 .background(colorResource(R.color.orangeUltraLight))
                 .padding(16.dp),
 

@@ -93,7 +93,19 @@ fun Userpage(
                         titleContentColor = Color.Black,
                     ),
                     title = {
-                        TitlePageText(string = stringResource(id = R.string.my_account))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            TitlePageText(string = stringResource(id = R.string.my_account))
+                            Image(
+                                painter = painterResource(id = R.drawable.account_circle_24dp_fill0_wght400_grad0_opsz24),
+                                contentDescription = "Round Image",
+                                modifier = Modifier
+                                    .padding(start = 5.dp)
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                            )
+                        }
                     },
                 )
 
@@ -111,14 +123,6 @@ fun Userpage(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.account_circle),
-                contentDescription = "Round Image",
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape)
-            )
-
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.name), string2 = InfoWrapper.getInstance().getInfo(StandardInfo.nameInfo))
             Spacer(modifier = Modifier.height(35.dp))
@@ -141,7 +145,7 @@ fun InfoText(string1: String, string2 : String) {
     ) {
         Box(
             modifier = Modifier
-                .size(width = 150.dp, height = 50.dp)
+                .size(width = 150.dp , height = 50.dp)
                 .background(Color.Transparent)
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
@@ -150,7 +154,7 @@ fun InfoText(string1: String, string2 : String) {
         }
         Box(
             modifier = Modifier
-                .size(width = 200.dp, height = 50.dp)
+                .size(width = 200.dp , height = 50.dp)
                 .background(colorResource(R.color.orangeUltraLight))
                 .padding(16.dp),
 
