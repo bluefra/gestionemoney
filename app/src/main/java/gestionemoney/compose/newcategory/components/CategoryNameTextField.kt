@@ -41,7 +41,7 @@ fun NewCategoryNameTextField(onChange: (String) -> Unit = {}) {
     MediumText(string = stringResource(id = R.string.new_category_add))
     Spacer(modifier = Modifier.height(5.dp))
     TextField(
-        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(20)),
+        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
         value = category ,
         onValueChange = {
             category = it

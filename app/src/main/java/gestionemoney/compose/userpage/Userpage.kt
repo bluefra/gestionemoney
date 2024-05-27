@@ -2,6 +2,7 @@ package gestionemoney.compose.userpage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -154,11 +155,14 @@ fun InfoText(string1: String, string2 : String) {
         }
         Box(
             modifier = Modifier
-                .size(width = 200.dp , height = 50.dp)
-                .background(colorResource(R.color.orangeUltraLight))
-                .padding(16.dp),
-
-            contentAlignment = Alignment.CenterStart
+                .size(width = 300.dp , height = 50.dp)
+                .background(Color.White)
+                .border(
+                    2.dp ,
+                    color = colorResource(id = R.color.orange) ,
+                    shape = RoundedCornerShape(50)
+                ),
+            contentAlignment = Alignment.Center
         ) {
             NormalText(string = string2)
         }

@@ -54,7 +54,7 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
             },
             modifier = Modifier
                 //.background(colorResource(id = R.color.orangeLight))
-                .border(2.dp, colorResource(id = R.color.orange), shape = RoundedCornerShape(20))
+                .border(2.dp, colorResource(id = R.color.orange), shape = RoundedCornerShape(50))
 
         ) {
             TextField(

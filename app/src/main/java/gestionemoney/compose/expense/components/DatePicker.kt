@@ -43,7 +43,7 @@ fun DatePicker(
         //Text(text = stringResource(id = R.string.insert_data))
         Spacer(modifier = Modifier.height(5.dp))
         TextField(
-            modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(20)),
+            modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
             value = text,
             onValueChange = {
                 text = it

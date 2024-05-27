@@ -37,7 +37,7 @@ fun ExpenseName(onChange: (String) -> Unit = {}) {
     NormalText(string = stringResource(id = R.string.insert_expense_name))
     Spacer(modifier = Modifier.height(5.dp))
     TextField(
-        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange) , shape = RoundedCornerShape(20)),
+        modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange) , shape = RoundedCornerShape(50)),
         value = text,
         onValueChange = {
             if (it.length <= maxChar) {

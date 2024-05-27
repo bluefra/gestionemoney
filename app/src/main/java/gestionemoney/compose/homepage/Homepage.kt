@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -123,9 +124,12 @@ fun Homepage(
         },
         floatingActionButton = {
             FloatingActionButton(
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier
+                    .padding(10.dp)
+                    .border(3.dp , color = colorResource(id = R.color.orange) , shape = RoundedCornerShape(50)),
                 onClick = { navController.navigate(Screens.NewCategory.route) },
-                containerColor = colorResource(id = R.color.orange)
+                containerColor = colorResource(id = R.color.orangeLight),
+                shape = RoundedCornerShape(50)
             ) {
                 Icon(Icons.Filled.Add, stringResource(id = R.string.new_category_button))
             }
