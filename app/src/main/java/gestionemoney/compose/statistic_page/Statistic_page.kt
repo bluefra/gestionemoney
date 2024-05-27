@@ -114,10 +114,20 @@ fun StatisticPage(
             val avgExpChar = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseChar)
             val avgExp = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseVal)
             val avgExpNumber = InfoWrapper.getInstance().getInfo(StandardInfo.avgExpenseNumber)
-            val lastCatUpdate = DateAdapter().buildDate(InfoWrapper.getInstance().getInfo(StandardInfo.lastCatUpdate))
-            val lastExpUpdate = DateAdapter().buildDate(InfoWrapper.getInstance().getInfo(StandardInfo.lastExpUpdate))
-            val lastCatTime = getDateDifferenceFromNow(lastCatUpdate)
-            val lastExpTime =getDateDifferenceFromNow(lastExpUpdate)
+            var readDate: String = InfoWrapper.getInstance().getInfo(StandardInfo.lastCatUpdate)
+            var lastCatUpdate = ""
+            var lastCatTime = ""
+            if(readDate != "") {
+                lastCatTime = getDateDifferenceFromNow(DateAdapter().buildDate(readDate))
+                lastCatUpdate = formatReadingDate(DateAdapter().buildDate(readDate))
+            }
+            readDate = InfoWrapper.getInstance().getInfo(StandardInfo.lastExpUpdate)
+            var lastExpUpdate = ""
+            var lastExpTime = ""
+            if(readDate != "") {
+                lastExpTime =getDateDifferenceFromNow(DateAdapter().buildDate(readDate))
+                lastExpUpdate = getDateDifferenceFromNow(DateAdapter().buildDate(readDate))
+            }
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.length_category), string2 = avgCatChar)
             Spacer(modifier = Modifier.height(35.dp))
@@ -127,9 +137,9 @@ fun StatisticPage(
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.avg_expense_number), string2 = avgExpNumber)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.last_category), string2 = formatReadingDate(lastCatUpdate))
+            InfoText(string1 = stringResource(id = R.string.last_category), string2 = lastCatUpdate)
             Spacer(modifier = Modifier.height(35.dp))
-            InfoText(string1 = stringResource(id = R.string.last_expense), string2 = formatReadingDate(lastExpUpdate))
+            InfoText(string1 = stringResource(id = R.string.last_expense), string2 = lastExpUpdate)
             Spacer(modifier = Modifier.height(35.dp))
             InfoText(string1 = stringResource(id = R.string.last_category_time), string2 = lastCatTime)
             Spacer(modifier = Modifier.height(35.dp))

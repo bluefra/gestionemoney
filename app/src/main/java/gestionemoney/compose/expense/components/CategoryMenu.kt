@@ -66,10 +66,12 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                 enabled = false,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) } ,
                 modifier = Modifier
+                    .background(Color.Transparent)
                     .menuAnchor()
-                    //.background(colorResource(id = R.color.orangeLight))
+               //     .background(colorResource(id = R.color.orangeLight))
                 ,
                 colors =  TextFieldDefaults.colors(
+                    disabledContainerColor = Color.Transparent,
                     focusedContainerColor = Color.White,
                     unfocusedContainerColor = Color.White,
                     unfocusedTextColor = Color.Black,
