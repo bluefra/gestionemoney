@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,14 +37,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -124,6 +129,7 @@ fun LoginButton(
 }
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun EmailEnter(
     modifier: Modifier = Modifier,
@@ -131,6 +137,8 @@ fun EmailEnter(
     onChange: (String) -> Unit = {}
 ){
     var text by rememberSaveable { mutableStateOf("")}
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     TextField(
         modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
@@ -140,6 +148,12 @@ fun EmailEnter(
         label = { 
                 Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {keyboardController?.hide()}
+        ),
         colors =  TextFieldDefaults.colors(
             focusedContainerColor = Color.White,
             unfocusedContainerColor = Color.White,
@@ -153,6 +167,7 @@ fun EmailEnter(
 
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun InfoEnter(
     modifier: Modifier = Modifier,
@@ -160,6 +175,7 @@ fun InfoEnter(
     onChange: (String) -> Unit = {}
 ){
     var text by rememberSaveable { mutableStateOf("")}
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     TextField(
         modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
@@ -169,6 +185,12 @@ fun InfoEnter(
         label = {
             Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {keyboardController?.hide()}
+        ),
         colors =  TextFieldDefaults.colors(
             focusedContainerColor = Color.White,
             unfocusedContainerColor = Color.White,
@@ -182,6 +204,7 @@ fun InfoEnter(
 }
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun PasswordEnter(
     modifier: Modifier = Modifier,
@@ -189,6 +212,8 @@ fun PasswordEnter(
     onChange: (String) -> Unit = {}){
 
     var text by rememberSaveable { mutableStateOf("")}
+    val keyboardController = LocalSoftwareKeyboardController.current
+
 
     TextField(
         modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
@@ -198,6 +223,12 @@ fun PasswordEnter(
         label = {
             Text(text = label, style = MaterialTheme.typography.labelMedium, color = Black)
         },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {keyboardController?.hide()}
+        ),
         visualTransformation = PasswordVisualTransformation(),
         colors =  TextFieldDefaults.colors(
             focusedContainerColor = Color.White,
