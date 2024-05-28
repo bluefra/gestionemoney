@@ -167,8 +167,8 @@ fun addCategory(navController: NavController, standardImage: String) {
         return
     }
     if(UserWrapper.getInstance().getCategory(newCategory) != null) {
-        Log.w("NewCategory", "categoria gia esistente")
-        message?.setText("CAtegoria già presente")
+        Log.w("NewCategory", "categoria già esistente")
+        message?.setText("Categoria già presente")
         message?.show()
         return
     }
