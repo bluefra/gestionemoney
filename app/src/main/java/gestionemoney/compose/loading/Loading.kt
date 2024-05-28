@@ -26,8 +26,10 @@ import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.InfoChangeObserver
 import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
+import gestionemoney.compose.controller.Timer
 import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.navigation.Screens
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -52,6 +54,7 @@ val connection = LoadDB()
                 if (!connectionMade && ConnectionCheck().checkForInternet(context)) {
                     Log.w("loading", "connectionMade = true")
                     Log.w("check internet", "yes")
+                    WriteLog.getInstance().writeError("LOAD", "missing internet connection")
                     if (name != null && surname != null) {
                         Log.w("register loading", "$name $surname")
                         connection.register(
@@ -143,9 +146,10 @@ val connection = LoadDB()
      private  var isRegister = false
      private var regName: String? = null
      private var regSurname: String? = null
-
+    private val timer = Timer()
      fun register(nav: NavController, sCat: Array<String>, sImg: Array<String>, name: String, surname: String) {
         Log.w("loading", "regist")
+         timer.startTimer()
          standardCategory = sCat
          standardImage = sImg
          isRegister = true
@@ -157,6 +161,7 @@ val connection = LoadDB()
 
      fun connect(nav: NavController) {
          Log.w("loading","connecting")
+         timer.startTimer()
          navController = nav
          val uid = DBauthentication.getInstance().getUID()
          if(uid == null) {
@@ -209,6 +214,7 @@ val connection = LoadDB()
          Log.w("loading","chiamato")
          if(isUserDBset && isInfoDBset) {
              Log.w("loading","navigate")
+             WriteLog.getInstance().writeTime("LOAD_time", timer.endTimer())
              navController?.navigate((Screens.Homepage.route)){
                  popUpTo(0){
                      inclusive = false

@@ -42,12 +42,12 @@ class DBInfoConnection {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("info", "readed")
                 readInfoData(dataSnapshot)
-                WriteLog.getInstance().writeTime("info_connection_succ", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeTime("DBI_connection_succ", timer.endTimer()) //FIREBASE LOG
             }
 
             override fun onCancelled(error: DatabaseError) {
-                WriteLog.getInstance().writeTime("info_connection_err", timer.endTimer()) //FIREBASE LOG
-                WriteLog.getInstance().writeError("info_connection_err_message", error.message) //FIREBASE LOG
+                WriteLog.getInstance().writeTime("DBI_connection_err", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeError("DBI_connection_err_message", error.message) //FIREBASE LOG
             }
 
         })

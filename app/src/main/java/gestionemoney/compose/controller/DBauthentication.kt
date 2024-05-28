@@ -64,11 +64,11 @@ class DBauthentication {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     saveData()
-                    WriteLog.getInstance().writeTime("auth_succ", timer.endTimer())
+                    WriteLog.getInstance().writeTime("DBA_login_succ", timer.endTimer())
                 } else {
                     notifyFailObservers(task.exception.toString())
-                    WriteLog.getInstance().writeTime("auth_error", timer.endTimer())
-                    WriteLog.getInstance().writeError("auth-error_message", task.exception.toString())
+                    WriteLog.getInstance().writeTime("DBA_login_error", timer.endTimer())
+                    WriteLog.getInstance().writeError("DBA_login_message", task.exception.toString())
                 }
             }
     }
@@ -84,7 +84,7 @@ class DBauthentication {
             notifySuccessObservers(data)
         } else {
             notifyFailObservers("data persi")
-            WriteLog.getInstance().writeError("missing-auth-data", "user == null on saveData")
+            WriteLog.getInstance().writeError("DBA_missing_data", "user == null on saveData")
         }
     }
     fun register(email: String, password: String) {
@@ -96,11 +96,11 @@ class DBauthentication {
                 if (task.isSuccessful) {
                     Log.w("auth", "success")
                     saveData()
-                    WriteLog.getInstance().writeTime("register_succ", timer.endTimer())
+                    WriteLog.getInstance().writeTime("DBA_register_succ", timer.endTimer())
                 } else {
                     notifyFailObservers(task.exception.toString())
-                    WriteLog.getInstance().writeTime("register_erorr", timer.endTimer())
-                    WriteLog.getInstance().writeError("register_error_message", task.exception.toString())
+                    WriteLog.getInstance().writeTime("DBA_register_erorr", timer.endTimer())
+                    WriteLog.getInstance().writeError("DBA_register_error_message", task.exception.toString())
                 }
             }
     }

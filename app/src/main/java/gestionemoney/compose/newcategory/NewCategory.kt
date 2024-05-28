@@ -36,9 +36,14 @@ import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBUserConnection
+import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserWrapper
+import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.expense.AddExpense
+import gestionemoney.compose.model.DateAdapter
+import gestionemoney.compose.model.getDateDifferenceFromNowDay
+import gestionemoney.compose.model.weekDay
 
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
@@ -124,6 +129,12 @@ fun addCategory(navController: NavController, standardImage: String) {
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")
     UserWrapper.getInstance().addCategory(newCategory, newCategoryImage)
     DBUserConnection.getInstance().writeCategoryName(newCategory)
+    val lastCategory = InfoWrapper.getInstance().getInfo(StandardInfo.lastCatUpdate)
+    if(lastCategory != "") {
+        WriteLog.getInstance()
+            .writeValue("NCAT_lastAddedCategory", getDateDifferenceFromNowDay(DateAdapter().buildDate(lastCategory)), "day")
+    }
+    WriteLog.getInstance().writeValue("NCAT_newCategory_weekDay", weekDay().toDouble(), "day")
     StandardInfo.categoryUpdate(true)
     navController.navigate(Screens.Homepage.route)
 }

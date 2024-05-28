@@ -180,11 +180,3 @@ fun InfoText(string1: String, string2 : String) {
         NormalText(string = string2)
     }
 }
-
-@Preview (showBackground = true)
-@Composable
-fun pippi (){
-    Column() {
-        InfoText(string1 = "ciao" , string2 = "prova")
-    }
-}

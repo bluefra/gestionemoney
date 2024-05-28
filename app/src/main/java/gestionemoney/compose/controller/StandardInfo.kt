@@ -99,10 +99,12 @@ class StandardInfo {
             return InfoWrapper.getInstance().getInfo(expensePermission) == "true"
         }
         fun removeCategoryPermission() {
+            WriteLog.getInstance().writeBasicLog("STDI_remove_cat_permission")
             DBInfoConnection.getInstance().removeSingleInfo(avgCategoryChar)
             DBInfoConnection.getInstance().removeSingleInfo(lastCatUpdate)
         }
         fun removeExpensePermission() {
+            WriteLog.getInstance().writeBasicLog("STDI_remove_exp_permission")
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseChar)
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseNumber)
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseVal)

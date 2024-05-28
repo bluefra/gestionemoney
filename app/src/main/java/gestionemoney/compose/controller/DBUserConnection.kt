@@ -53,13 +53,13 @@ class DBUserConnection private constructor() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 Log.w("db", "readed")
                 readUserData(dataSnapshot)
-                WriteLog.getInstance().writeTime("user_connection_succ", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeTime("DBU_connection_succ", timer.endTimer()) //FIREBASE LOG
             }
 
             override fun onCancelled(error: DatabaseError) {
                 notifyError(error.message)
-                WriteLog.getInstance().writeTime("user_connection_err", timer.endTimer()) //FIREBASE LOG
-                WriteLog.getInstance().writeError("user_connection_err_message", error.message) //FIREBASE LOG
+                WriteLog.getInstance().writeTime("DBU_connection_err", timer.endTimer()) //FIREBASE LOG
+                WriteLog.getInstance().writeError("DBU_connection_err_message", error.message) //FIREBASE LOG
             }
         })
     }
@@ -165,12 +165,12 @@ class DBUserConnection private constructor() {
             .child(category.getDBname())
         myRef.removeValue().addOnSuccessListener {
             user!!.deleteCategory(categoryName)
-            WriteLog.getInstance().writeBasicLog("expense_deleted")
+            WriteLog.getInstance().writeBasicLog("DBU_expense_deleted")
             notifyUserObservers(user!!)
         }
             .addOnFailureListener {
                 notifyError(it.message.toString())
-                WriteLog.getInstance().writeError("expense_deleted_error", it.message.toString())
+                WriteLog.getInstance().writeError("DBU_expense_deleted_error", it.message.toString())
             }
     }
 

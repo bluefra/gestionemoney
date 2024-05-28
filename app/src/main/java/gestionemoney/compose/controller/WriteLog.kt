@@ -35,6 +35,7 @@ class WriteLog {
 
     fun writeError(eventType: String, error: String) {
         if (!isConnect()) {return}
+        Log.w("Logs", "$eventType $error")
         firebaseAnalytics.logEvent(eventType) {
             param("error-message", error)
         }
@@ -42,6 +43,7 @@ class WriteLog {
 
     fun writeValue(eventType: String, value: Double, measureUnit: String) {
         if (!isConnect()) {return}
+        Log.w("Logs", "$eventType $value $measureUnit")
         firebaseAnalytics.logEvent(eventType) {
             param(FirebaseAnalytics.Param.VALUE, value)
             param("measure-unit", measureUnit)
@@ -51,7 +53,16 @@ class WriteLog {
 
     fun writeBasicLog(eventType: String) {
         if (!isConnect()) {return}
+        Log.w("Logs", "$eventType")
         firebaseAnalytics.logEvent(eventType) {
+            param("userID", userID!!)
+        }
+    }
+
+    fun writeMessage(eventType: String, msg: String) {
+        if (!isConnect()) {return}
+        firebaseAnalytics.logEvent(eventType) {
+            param("message", msg)
             param("userID", userID!!)
         }
     }
