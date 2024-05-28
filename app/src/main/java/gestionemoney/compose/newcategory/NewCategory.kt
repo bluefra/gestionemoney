@@ -57,9 +57,12 @@ import gestionemoney.compose.model.weekDay
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
+
 private var newCategory = ""
 private var newCategoryImage = ""
 private const val imageSuffix = "cat"
+private var message: Toast? = null
+
 @Composable
 fun NewCategoryNavigation(
     navController: NavController
@@ -85,6 +88,7 @@ fun NewCategory(
 ) {
     val standardImage = stringResource(id = R.string.standard_image_selection)
     val scrollState = rememberScrollState()
+    message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
 
     Box(modifier = Modifier.fillMaxSize()){
         Row (
@@ -154,18 +158,18 @@ fun NewCategory(
 }
 
 
-
-
-
 fun addCategory(navController: NavController, standardImage: String) {
 
     if(newCategory == "" || newCategoryImage == standardImage || newCategoryImage == "") {
         Log.w("NewCategory", "campo vuoto")
+        message?.setText("Inserisci il nome della categoria")
+        message?.show()
         return
     }
     if(UserWrapper.getInstance().getCategory(newCategory) != null) {
         Log.w("NewCategory", "categoria gia esistente")
-
+        message?.setText("CAtegoria già presente")
+        message?.show()
         return
     }
     Log.w("NewCategory", "adding $newCategory $newCategoryImage")
