@@ -21,6 +21,8 @@
 • differenza in giorni dall'ultima categoria aggiunta.</br>
 • tempo medio fra una spesa e l'altra.</br>
 • tempo medio fra una categoria e l'altra.</br>
+• disattivazione permessi di raccolta dati statistici sulla raccolta di dati
+  statistici.</br>
 ## Logs su DB
 sotto permesso dell'utente è possibile raccogliere dati per:
 ### valutazione delle scelte progettuali
