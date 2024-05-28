@@ -126,9 +126,13 @@ class DBRegister(val navController: NavController): AuthObserver {
     private var connecting = false
     fun evaluateRegister() {
         if(connecting) {
+            message?.setText("Account già registrato")
+            message?.show()
             return
         }
         if(email == "" || password == "") {
+            message?.setText("Email o password non corrette")
+            message?.show()
             return
         }
         Log.w("test", email)
@@ -140,7 +144,7 @@ class DBRegister(val navController: NavController): AuthObserver {
 
     override fun onFail(error: String) {
         DBauthentication.getInstance().removeObserver(this)
-        message?.setText(error)
+        message?.setText("Registrazione fallita")
         message?.show()
         Log.w("error", error)
         connecting = false

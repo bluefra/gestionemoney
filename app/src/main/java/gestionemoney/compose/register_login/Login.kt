@@ -53,6 +53,7 @@ private var email = ""
 private var password = ""
 private var message: Toast? = null
 private var verified = false
+
 @Composable
 fun Login(
     navController: NavController
@@ -138,7 +139,7 @@ class DBLogin(val navController: NavController): AuthObserver {
 
     override fun onFail(error: String) {
         DBauthentication.getInstance().removeObserver(this)
-        message?.setText(error)
+        message?.setText("Credenziali inserite errate")
         message?.show()
         Log.w("error", error)
         connecting = false
