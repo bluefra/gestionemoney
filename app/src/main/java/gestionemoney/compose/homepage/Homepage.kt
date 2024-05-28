@@ -2,18 +2,22 @@ package gestionemoney.compose.homepage
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,17 +27,23 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.getValue
@@ -50,7 +60,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -58,11 +70,14 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.MediumText
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.NewCategoryButton
+import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.CategoryDelete
+import gestionemoney.compose.ui.theme.Black
+import gestionemoney.compose.ui.theme.Roboto
 
 @Composable
 fun HomeNavigation(
@@ -73,14 +88,6 @@ fun HomeNavigation(
     NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
         { Homepage(navController = navController)}
     )
-}
-
-@Preview
-@Composable
-fun prova () {
-    var navController: NavHostController
-    navController = rememberNavController()
-    Homepage(navController = navController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -94,47 +101,45 @@ fun Homepage(
 
     Scaffold (
         topBar = {
-            Card(
-                modifier= Modifier.padding(10.dp),
-                shape= RoundedCornerShape(100.dp) ,
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
-            ){
-                CenterAlignedTopAppBar(
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = colorResource(R.color.orangeLight),
-                        titleContentColor = Color.Black,
-                    ),
-                    title = {
-                        Row(
+            CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.White,
+                    titleContentColor = Color.Black,
+                ),
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = stringResource(id = R.string.your_expenses) ,
+                            fontSize = 25.sp ,
+                            color = Black ,
+                            style = MaterialTheme.typography.bodyLarge ,
+                            fontFamily = Roboto ,
+                            fontWeight = FontWeight.Bold
+                        )
+                        ElevatedButton(
+                            onClick = { navController.navigate(Screens.NewCategory.route) } ,
+                            modifier = Modifier
+                                .size(50.dp),
+                            shape = CircleShape ,
+                            border = BorderStroke(
+                                3.dp ,
+                                colorResource(id = R.color.orange)
+                            ),
+                            elevation = ButtonDefaults.buttonElevation(defaultElevation = 3.dp) ,
+                            contentPadding = PaddingValues(0.dp),
+                            colors = ButtonDefaults.elevatedButtonColors(
+                                contentColor = Color.Black ,
+                                containerColor = colorResource(id = R.color.orangeLight))
                         ) {
-                            TitlePageText(string = stringResource(id = R.string.your_expenses))
-                            Image(
-                                painter = painterResource(id = R.drawable.home_24dp_fill0_wght400_grad_25_opsz24),
-                                contentDescription = "Round Image",
-                                modifier = Modifier
-                                    .padding(start = 5.dp)
-                                    .size(40.dp)
-                                    .clip(CircleShape)
-                            )
+                            Icon(Icons.Default.Add , contentDescription = null)
                         }
-                    },
+                    }
+                },
                 )
-
-            }
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .border(3.dp , color = colorResource(id = R.color.orange) , shape = RoundedCornerShape(50)),
-                onClick = { navController.navigate(Screens.NewCategory.route) },
-                containerColor = colorResource(id = R.color.orangeLight),
-                shape = RoundedCornerShape(50)
-            ) {
-                Icon(Icons.Filled.Add, stringResource(id = R.string.new_category_button))
-            }
-        },
-        floatingActionButtonPosition = FabPosition.End
     ) {
         innerPadding ->
         Column(
@@ -143,26 +148,6 @@ fun Homepage(
                 .padding(10.dp)
                 .padding(innerPadding)
         ) {
-            // Homepage navigation bar at the top of the screen. Include 2 buttons: UserPage and Dashboard
-            /*
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(10.dp) ,
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    //TitlePageText(string = stringResource(id = R.string.your_expenses))
-                }
-                Column(
-                    horizontalAlignment = Alignment.End ,
-                ) {
-                    //NewCategoryButton(navController)
-                }
-            } */
-            //Spacer(modifier = Modifier.height(10.dp))
             // RecyclerView(in compose) to view the category list
             LazyCategoryColumn(
                 categories = categorynames ,
@@ -172,8 +157,8 @@ fun Homepage(
     }
 }
 
-
 // Composable function to display a single Category Item
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("DiscouragedApi")
 @Composable
 fun CategoryItem(
@@ -195,74 +180,66 @@ fun CategoryItem(
     val image = painterResource(context.resources.getIdentifier(imageName, "drawable", context.packageName))
 
     Column(
-        modifier = Modifier
-            .background(color = colorResource(R.color.orangeLight))
     ) {
-        Row{
-            Column(
+            Row(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(10.dp),
-                horizontalAlignment = Alignment.Start
+                    .padding(10.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                MediumText(string = name)
-            }
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(10.dp),
-                horizontalAlignment = Alignment.End,
-            ) {
-                Button(
-                    onClick = ({ showDialog = true }),
-                    colors = ButtonDefaults.buttonColors(
-                        colorResource(R.color.orange),
-                        contentColor = Color.Black),
-                    modifier = Modifier.padding(start = 80.dp)
+                Column(
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.delete_icon),
-                        contentDescription = "delete_category",
-                        modifier = Modifier.size(24.dp))
+                    Button(
+                        onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") },
+                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
+                    ) {
+                        Image(
+                            painter = image,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                        )
+                    }
                 }
-                if (showDialog) {
-                    CategoryDelete(
-                        onDismissRequest = { navController.navigate(Screens.Homepage.route) },
-                        navController,
-                        categoryName = name
-                    )
-                }
-            }
-        }
-        Row{
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(10.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Button(
-                    onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") },
-                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
+                Column(
+                    modifier = Modifier.weight(2f)
                 ) {
-                    Image(
-                        painter = image,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(50.dp)
+                    Text(
+                        text = name,
+                        fontSize = 18.sp,
+                        color = Black,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontFamily = Roboto,
+                        fontWeight = FontWeight.Bold
                     )
+                    //MediumText(string = "$totalExpences €")
+                    Text(
+                        text = "€ $totalExpences",
+                        fontSize = 20.sp,
+                        color = Black,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontFamily = Roboto,
+                        fontWeight = FontWeight.Bold
+                    )
+
                 }
+                Column(
+                ){
+                    Row {
+                        Button(
+                            onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") } ,
+                            colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.KeyboardArrowRight ,
+                                contentDescription = null ,
+                                tint = Color.Black
+                            )
+                        }
+                    }
+                }
+
             }
-            Column (
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(10.dp),
-                horizontalAlignment = Alignment.Start
-            ){
-                MediumText(string = "$totalExpences €")
-            }
-        }
     }
 }
 
@@ -278,6 +255,8 @@ fun LazyCategoryColumn(
             Card(
                 onClick = { navController.navigate("${Screens.ExpensePage.route}/${category.getName()}") },
                 modifier = Modifier.padding(bottom = 10.dp),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.orangeLight))
             ) {
                 Log.w("homepage2", category.getName())
                 CategoryItem(
