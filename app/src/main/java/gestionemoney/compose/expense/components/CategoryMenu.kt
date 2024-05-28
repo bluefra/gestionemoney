@@ -5,6 +5,8 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -16,10 +18,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NormalText
@@ -32,13 +37,15 @@ fun CategoryMenu(categoryList: List<String>, standardOption: String, onChange: (
     DropdownCategoryMenu(categoryList, standardOption, onChange)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedCategory by rememberSaveable { mutableStateOf(standardOption) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
-        // Composable native function.
+
+    // Composable native function.
         ExposedDropdownMenuBox(
             expanded = expanded ,
             onExpandedChange = {
@@ -61,6 +68,12 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                     .background(Color.Transparent)
                     .menuAnchor()
                 ,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {keyboardController?.hide()}
+                ),
                 colors =  TextFieldDefaults.colors(
                     disabledContainerColor = Color.Transparent,
                     focusedContainerColor = Color.White,

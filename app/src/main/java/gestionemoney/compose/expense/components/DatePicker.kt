@@ -5,16 +5,21 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
@@ -24,6 +29,7 @@ import gestionemoney.compose.model.DateAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DatePicker(
     defaultDate: Date,
@@ -32,6 +38,7 @@ fun DatePicker(
 ) {
     var date by rememberSaveable { mutableStateOf(defaultDate) }
     var text by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val dateFormat = rememberSaveable { SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()) }
 
@@ -56,6 +63,12 @@ fun DatePicker(
             label = {
                 TextFiledType(string = stringResource(id = R.string.preselected_data) + " ${dateFormat.format(date)}")
                },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {keyboardController?.hide()}
+            ),
             colors =  TextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
