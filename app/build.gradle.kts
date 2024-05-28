@@ -5,6 +5,8 @@ plugins {
     id ("dagger.hilt.android.plugin")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 
 
 }
@@ -88,6 +90,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-perf")
 }
 
 kapt {
