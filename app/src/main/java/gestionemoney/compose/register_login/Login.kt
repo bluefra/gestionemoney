@@ -1,5 +1,6 @@
 package gestionemoney.compose.register_login
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -42,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.res.TypedArrayUtils.getString
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.AuthObserver
@@ -53,6 +55,7 @@ private var email = ""
 private var password = ""
 private var message: Toast? = null
 private var verified = false
+
 
 @Composable
 fun Login(
@@ -128,6 +131,8 @@ class DBLogin(val navController: NavController): AuthObserver {
             return
         }
         if (email == "" || password == "") {
+            message?.setText("Credenziali inserite errate")
+            message?.show()
             return
         }
         Log.w("test", email)
@@ -136,6 +141,7 @@ class DBLogin(val navController: NavController): AuthObserver {
         DBauthentication.getInstance().addObserver(this)
         DBauthentication.getInstance().login(email, password)
     }
+
 
     override fun onFail(error: String) {
         DBauthentication.getInstance().removeObserver(this)
