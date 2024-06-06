@@ -5,22 +5,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import gestionemoney.compose.dashboard.Dashboard
 import gestionemoney.compose.dashboard.DashboardNavigation
 import gestionemoney.compose.expense.ExpenseNavigation
-import gestionemoney.compose.expense.ExpensePage
-import gestionemoney.compose.expense.NewExpense
 import gestionemoney.compose.expense.NewExpenseNavigation
 import gestionemoney.compose.homepage.HomeNavigation
-import gestionemoney.compose.homepage.Homepage
 import gestionemoney.compose.loading.CreateLoading
-import gestionemoney.compose.newcategory.NewCategory
 import gestionemoney.compose.newcategory.NewCategoryNavigation
 import gestionemoney.compose.register_login.Login
 import gestionemoney.compose.register_login.Register
 import gestionemoney.compose.setting_page.SettingPageNavigation
 import gestionemoney.compose.statistic_page.StatisticPageNavigation
-import gestionemoney.compose.userpage.Userpage
 import gestionemoney.compose.userpage.UserpageNavigation
 
 // Composable function used by the navController to change the displayed page.

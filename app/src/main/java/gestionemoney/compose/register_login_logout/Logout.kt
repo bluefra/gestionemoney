@@ -1,14 +1,8 @@
 package gestionemoney.compose.register_login_logout
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Text
@@ -16,11 +10,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,8 +23,7 @@ import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.navigation.Screens
-import kotlinx.coroutines.launch
-import kotlin.system.exitProcess
+
 
 @Composable
 fun Logout(
@@ -75,7 +66,6 @@ fun Logout(
                                 inclusive = true
                             }
                         }
-
                     }
                 ) {
                     Text(text = stringResource(id = R.string.confirmation_string))
@@ -92,8 +82,5 @@ fun Logout(
                 }
             }
         )
-
     }
-
-
 }

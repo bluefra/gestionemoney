@@ -10,7 +10,6 @@ import com.google.firebase.database.database
 import com.google.firebase.database.getValue
 import gestionemoney.compose.model.Category
 import gestionemoney.compose.model.Expense
-import gestionemoney.compose.model.Info
 import gestionemoney.compose.model.User
 
 

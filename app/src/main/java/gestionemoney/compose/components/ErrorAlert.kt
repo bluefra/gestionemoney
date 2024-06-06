@@ -15,6 +15,9 @@ import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.DBauthentication
 import gestionemoney.compose.navigation.Screens
 
+//
+// Function that gives an alert on the screen when an error comes
+//
 @Composable
 fun ErrorAlert(
     navController: NavController,
@@ -32,16 +35,16 @@ fun ErrorAlert(
             navController.navigate(Screens.Login.route)
         },
         confirmButton = {
-                TextButton(
-                    onClick = {
-                        DBauthentication.getInstance().logOut()
-                        DBUserConnection.getInstance().close()
-                        DBInfoConnection.getInstance().close()
-                        navController.navigate(Screens.Login.route)
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.confirmation_string))
+            TextButton(
+                onClick = {
+                    DBauthentication.getInstance().logOut()
+                    DBUserConnection.getInstance().close()
+                    DBInfoConnection.getInstance().close()
+                    navController.navigate(Screens.Login.route)
                 }
+            ) {
+                Text(text = stringResource(id = R.string.confirmation_string))
             }
+        }
     )
 }

@@ -1,10 +1,7 @@
 package gestionemoney.compose.setting_page
 
-import android.widget.Switch
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,12 +45,7 @@ import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.components.NormalText
 import gestionemoney.compose.components.TitlePageText
-import gestionemoney.compose.controller.DBauthentication
-import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
-import gestionemoney.compose.navigation.Screens
-import gestionemoney.compose.statistic_page.InfoText
-import gestionemoney.compose.statistic_page.StatisticPage
 
 @Composable
 fun SettingPageNavigation(
@@ -65,7 +57,6 @@ fun SettingPageNavigation(
         { SettingPage(navController = navController) }
     )
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingPage(navController: NavController){
@@ -127,7 +118,6 @@ fun SettingPage(navController: NavController){
     }
 
 }
-
 
 @Composable
 fun SwitchSelection(onChange: (Boolean) -> Unit = {}, default: Boolean) {

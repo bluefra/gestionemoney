@@ -32,7 +32,7 @@ import gestionemoney.compose.components.TextFiledType
 
 @Composable
 fun CategoryMenu(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}){
-    NormalText(string = stringResource(id = R.string.category_expense_insert))
+    NormalText(string = stringResource(id = R.string.standard_image_selection))
     Spacer(modifier = Modifier.height(5.dp))
     DropdownCategoryMenu(categoryList, standardOption, onChange)
 }

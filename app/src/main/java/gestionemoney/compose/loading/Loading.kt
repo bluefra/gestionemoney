@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringArrayResource
@@ -31,9 +30,6 @@ import gestionemoney.compose.controller.UserChangeObserver
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.navigation.Screens
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 const val numberOfDots = 7
 val dotSize = 25.dp
@@ -118,23 +114,6 @@ val connection = LoadDB()
 
             }
         }
-        /*
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(top = maxOffset.dp)
-        ) {
-            offsets.forEach {
-                Dot(it.value, colorResource(R.color.orangeLight))
-                Spacer(Modifier.width(spaceBetween))
-            }
-        }
-
-         */
-
-
-
-
     }
 
  class LoadDB: UserChangeObserver, InfoChangeObserver{

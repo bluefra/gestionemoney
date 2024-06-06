@@ -18,8 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,11 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
@@ -49,6 +43,9 @@ import gestionemoney.compose.register_login_logout.Logout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+//
+//Composable function for the App Tool Bar
+//
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppToolbar(
@@ -78,6 +75,7 @@ fun AppToolbar(
     )
 }
 
+//composable function that generates the navigation drawer for entire app
 @Composable
 fun NavigationDrawer(
     drawerState: DrawerState,
@@ -105,7 +103,6 @@ fun NavigationDrawer(
                     )
                 }
             ){ paddingValues ->
-
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
@@ -120,6 +117,7 @@ fun NavigationDrawer(
     )
 }
 
+//Composable function for UI of the header of the navigation drawer
 @Composable
 fun NavigationDrawerHeader(){
     Row(
@@ -133,6 +131,7 @@ fun NavigationDrawerHeader(){
     }
 }
 
+//Composable function for the UI of the body of the navigation drawer
 @Composable
 fun NavigationDrawerBody(
     drawerState: DrawerState,

@@ -14,7 +14,6 @@ class Info {
             ""
         }
     }
-
     fun removeInfo(key: String): Boolean {
         return if(info.contains(key)) {
             info.remove(key)

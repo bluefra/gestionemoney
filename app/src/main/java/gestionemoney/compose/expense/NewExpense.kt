@@ -1,9 +1,9 @@
 package gestionemoney.compose.expense
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,22 +18,17 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,7 +51,6 @@ import gestionemoney.compose.model.Expense
 import gestionemoney.compose.model.getDateDifferenceFromNowDay
 import gestionemoney.compose.model.weekDay
 import gestionemoney.compose.navigation.Screens
-import gestionemoney.compose.newcategory.addCategory
 import java.util.Calendar
 
 import java.util.Date
@@ -65,6 +59,8 @@ private var categoryName = ""
 private var expense_name: String = ""
 private var expense_value: String = ""
 private var date = Date()
+private var message: Toast? = null
+
 @Composable
 fun NewExpenseNavigation(
     navController: NavController,
@@ -95,6 +91,8 @@ fun NewExpense(
     val scrollState = rememberScrollState()
     AddExpense.setStandardCategory(stringResource(R.string.standard_category_selection))
     categoryName = category?: categoryName
+    message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
+
 
     Column(
         modifier = Modifier.fillMaxSize(),

@@ -1,9 +1,6 @@
 package gestionemoney.compose.model
 
 import android.util.Log
-import androidx.compose.ui.text.toUpperCase
-import java.util.Date
-
 
 class Category (private val name: String, private var imageURI: String = ""){
     private var expensesList: MutableList<Expense> = mutableListOf()

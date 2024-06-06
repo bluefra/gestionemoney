@@ -19,13 +19,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -35,25 +32,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import gestionemoney.compose.R
-import gestionemoney.compose.components.BackButton
 import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
-import gestionemoney.compose.controller.DBInfoConnection
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.controller.WriteLog
-import gestionemoney.compose.expense.AddExpense
 import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.getDateDifferenceFromNowDay
 import gestionemoney.compose.model.weekDay
-
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.newcategory.components.NewCategoryNameTextField
 
@@ -72,14 +63,6 @@ fun NewCategoryNavigation(
     NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
         { NewCategory(navController = navController) }
     )
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun popo() {
-    val navController : NavController = rememberNavController()
-    NewCategory(navController = navController)
 }
 
 @Composable
