@@ -43,8 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
-import gestionemoney.compose.components.NormalText
-import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.ui.theme.NormalText
+import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.controller.StandardInfo
 
 @Composable
@@ -53,13 +53,12 @@ fun SettingPageNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { SettingPage(navController = navController) }
-    )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { SettingPage() }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingPage(navController: NavController){
+fun SettingPage(){
     val scrollState = rememberScrollState()
 
     Scaffold(

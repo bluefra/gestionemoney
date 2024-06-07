@@ -20,8 +20,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
-import gestionemoney.compose.components.NormalText
-import gestionemoney.compose.components.TextFiledType
+import gestionemoney.compose.ui.theme.NormalText
+import gestionemoney.compose.ui.theme.TextFiledType
 import gestionemoney.compose.model.DateAdapter
 import java.text.SimpleDateFormat
 import java.util.*

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -23,11 +22,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
-import gestionemoney.compose.components.MediumText
-import gestionemoney.compose.components.TextFiledType
+import gestionemoney.compose.ui.theme.MediumText
+import gestionemoney.compose.ui.theme.TextFiledType
 
 // Composable function to display the new category text field.
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NewCategoryNameTextField(onChange: (String) -> Unit = {}) {
     var category by rememberSaveable { mutableStateOf("") }
@@ -43,7 +42,8 @@ fun NewCategoryNameTextField(onChange: (String) -> Unit = {}) {
             onChange(it)
         },
         label = {
-            TextFiledType(string = stringResource(id = R.string.category_name))} ,
+            TextFiledType(string = stringResource(id = R.string.category_name))
+        } ,
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Done
         ),

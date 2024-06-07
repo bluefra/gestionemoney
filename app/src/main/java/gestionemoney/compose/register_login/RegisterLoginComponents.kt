@@ -44,16 +44,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
-import gestionemoney.compose.components.AppNameText
-import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.ui.theme.AppNameText
+import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.ui.theme.Black
 
+//Composable function for the initial interface
 @Composable
 fun TopSection(text1 : String, text2: String){
-
-    var text: String by rememberSaveable {
-        mutableStateOf("")
-    }
 
     Box(
         contentAlignment = Alignment.TopCenter,
@@ -76,7 +73,6 @@ fun TopSection(text1 : String, text2: String){
             AppNameText(string = text1)
             Spacer(modifier = Modifier.height(100.dp))
             TitlePageText(string = text2)
-
         }
     }
 }
@@ -86,11 +82,16 @@ fun TopSection(text1 : String, text2: String){
 fun RegisterButton(
     navController: NavController
 ){
+    //Error messages
+    val errorAlreadyExixstingAccount = stringResource(id = R.string.already_existing_category)
+    val errorTooShortPass = stringResource(id = R.string.too_short_password)
+    val errorIncorrectFormat = stringResource(id = R.string.incorrect_pass_format)
+
     Button(
         modifier = Modifier
             .fillMaxWidth()
             .height((55.dp)),
-        onClick = { DBRegister(navController).evaluateRegister()},
+        onClick = { DBRegister(navController).evaluateRegister(errorAlreadyExixstingAccount, errorTooShortPass, errorIncorrectFormat)},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
         shape = RoundedCornerShape(size = 50.dp)
     ){
@@ -102,11 +103,13 @@ fun RegisterButton(
 fun LoginButton(
     navController: NavController
 ){
+    //error message
+    val errorIncorrectCredential = stringResource(id = R.string.incorrect_credentials)
     Button(
         modifier = Modifier
             .fillMaxWidth()
             .height((55.dp)),
-        onClick = { DBLogin(navController).evaluateLogin()},
+        onClick = { DBLogin(navController).evaluateLogin(errorIncorrectCredential)},
         colors = ButtonDefaults.buttonColors(colorResource(R.color.orange)),
         shape = RoundedCornerShape(size = 50.dp)
     ){
@@ -124,7 +127,6 @@ fun EmailEnter(
 ){
     var text by rememberSaveable { mutableStateOf("")}
     val keyboardController = LocalSoftwareKeyboardController.current
-
 
     TextField(
         modifier = modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
@@ -226,6 +228,8 @@ fun PasswordEnter(
     )
 }
 
+
+// composable function used in the initial UI as an option divider
 @Composable
 fun TextWithDivider() {
     Row(

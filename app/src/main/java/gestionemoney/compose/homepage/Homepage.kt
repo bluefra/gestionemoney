@@ -35,11 +35,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -64,9 +60,8 @@ fun HomeNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { Homepage(navController = navController)}
-    )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { Homepage(navController = navController) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -146,7 +141,6 @@ fun CategoryItem(
     navController: NavController
 ){
     val context = LocalContext.current
-    var showDialog by rememberSaveable { mutableStateOf(false) }
 
     var imageName: String = imageUri?: stringResource(R.string.standard_image)
     if(imageName == "") {
@@ -157,16 +151,14 @@ fun CategoryItem(
     // Ottieni l'ID dell'immagine utilizzando il nome dell'immagine come stringa
     val image = painterResource(context.resources.getIdentifier(imageName, "drawable", context.packageName))
 
-    Column(
-    ) {
+    Column{
             Row(
                 modifier = Modifier
                     .padding(10.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(
-                ) {
+                Column{
                     Button(
                         onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") },
                         colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orangeLight))
@@ -201,8 +193,7 @@ fun CategoryItem(
                     )
 
                 }
-                Column(
-                ){
+                Column{
                     Row {
                         Button(
                             onClick = { navController.navigate("${Screens.ExpensePage.route}/$name") } ,

@@ -1,24 +1,13 @@
 package gestionemoney.compose.ui.theme
 
-import androidx.compose.material3.Typography
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import gestionemoney.compose.R
 
-val Inter = FontFamily(
-    listOf(
-        Font(resId = R.font.inter_medium, weight = FontWeight.Medium)
-    )
-)
 
-val Rubik = FontFamily(
-    listOf(
-        Font(resId = R.font.rubik_bold, weight = FontWeight.Bold)
-    )
-)
+val Black = Color(0xFF000000)
 
 val Roboto = FontFamily(
     listOf(
@@ -26,37 +15,4 @@ val Roboto = FontFamily(
         Font(resId = R.font.roboto_regular, weight = FontWeight.Normal),
         Font(resId = R.font.roboto_bold, weight = FontWeight.ExtraBold)
     )
-)
-
-// Set of Material typography styles to start with
-val Typography = Typography(
-    headlineLarge = TextStyle(
-        fontFamily = Roboto ,
-        fontWeight = FontWeight.ExtraBold ,
-        fontSize = 32.sp ,
-        lineHeight = 24.sp ,
-        letterSpacing = 0.5.sp
-    ),
-    headlineMedium= TextStyle(
-        fontFamily = Rubik ,
-        fontWeight = FontWeight.Bold ,
-        fontSize = 24.sp ,
-        lineHeight = 24.sp ,
-        letterSpacing = 0.5.sp
-    ),
-    titleMedium = TextStyle(
-        fontFamily = Inter ,
-        fontWeight = FontWeight.Medium ,
-        fontSize = 14.sp ,
-        lineHeight = 24.sp ,
-        letterSpacing = 0.5.sp
-    ),
-    labelMedium = TextStyle(
-        fontFamily = Roboto ,
-        fontWeight = FontWeight.Normal ,
-        fontSize = 14.sp ,
-        lineHeight = 24.sp ,
-        letterSpacing = 0.5.sp
-    ),
-
 )

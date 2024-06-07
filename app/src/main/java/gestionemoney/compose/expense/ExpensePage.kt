@@ -63,9 +63,8 @@ fun ExpenseNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { ExpensePage(navController = navController, categoryName)}
-    )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { ExpensePage(navController = navController, categoryName) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -219,8 +218,7 @@ fun ExpenseItem(
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(
-            ) {
+            Column{
                 Text(
                     text = expense.getName() ,
                     fontSize = 18.sp ,
@@ -252,8 +250,7 @@ fun ExpenseItem(
                     fontWeight = FontWeight.Bold
                 )
             }
-            Column(
-            ) {
+            Column{
                 //Delete Expense Button
                 Button(
                     onClick = ({ showDialog = true }) ,
@@ -291,7 +288,7 @@ fun LazyActivityColumn(
     categoryName: String,
     navController: NavController
 ){
-    LazyColumn() {
+    LazyColumn{
             items(expenses ?: emptyList()) { expense ->
                 Card(
                     modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp),

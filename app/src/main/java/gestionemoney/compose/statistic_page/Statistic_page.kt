@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
-import gestionemoney.compose.components.NormalText
-import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.ui.theme.NormalText
+import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.model.DateAdapter
@@ -52,17 +52,14 @@ fun StatisticPageNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { StatisticPage(navController = navController) }
-    )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { StatisticPage() }
 }
 
-// Composable function to display the user page.
+// Composable function to display the user page UI.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StatisticPage(
-    navController: NavController
-) {
+fun StatisticPage() {
     val scrollState = rememberScrollState()
 
     Scaffold(

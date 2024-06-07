@@ -40,6 +40,7 @@ import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.register_login_logout.Logout
+import gestionemoney.compose.ui.theme.AppNameText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -52,7 +53,7 @@ fun AppToolbar(
     navigationIconClicked : () -> Unit
 ){
 
-    var colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+    val colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
         containerColor = colorResource(id = R.color.orangeLight)
     )
 

@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
 import gestionemoney.compose.components.NavigationDrawer
-import gestionemoney.compose.components.TitlePageText
+import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.model.Category
 

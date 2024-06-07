@@ -20,7 +20,7 @@
     <string name="your_expenses">Le tue spese</string>
     <string name="new_category_add">Crea una nuova categoria</string>
     <string name="new_category_button">Nuova categoria</string>
-    <string name="category_name">inserisci il nome della categoria</string>
+    <string name="category_name">Inserisci il nome della categoria</string>
     <string name="no_account_question">Non hai un account?</string>
     <string name="register_now">Registrati ora</string>
     <string name="login_now">Accedi ora</string>
@@ -38,8 +38,8 @@
     <string name="length_expense">Lunghezza media caratteri spese</string>
     <string name="last_category">Ultima categoria aggiornata</string>
     <string name="last_expense">Ultima spesa aggiornata</string>
-    <string name="last_category_time">Tempo di aggiornamento dall\'ultima categoria</string>
-    <string name="last_expense_time">Tempo di aggiornamento dall\'ultima spesa</string>
+    <string name="last_category_time">Aggiornamento dell\'ultima categoria</string>
+    <string name="last_expense_time">Aggiornamento dell\'ultima spesa</string>
     <string name="avg_expense_number">Numero medio di spese per categoria</string>
     <string name="category_privacy">Consenti l\'analisi delle tue categorie a fini statistici?</string>
     <string name="expense_privacy">Consenti l\'analisi delle tue spese a fini statistici?</string>
@@ -49,6 +49,8 @@
         <item>Trasporti</item>
         <item>Viaggi</item>
     </string-array>
+
+    <!-- categorie di default -->
     <string-array name="standard_category_image">
         <item>supermarketcat</item>
         <item>transportcat</item>
@@ -59,4 +61,14 @@
     <string name="standard_category_selection">scegli una categoria...</string>
     <string name="have_account_sign_in">Hai già un account?</string>
 
+    <!-- error messages -->
+    <string name="already_existing_category">Categoria già presente</string>
+    <string name="missing_category_name">Inserisci il nome della categoria</string>
+    <string name="incorrect_credentials">Credenziali inserite errate</string>
+    <string name="already_existing_account">Account già registrato</string>
+    <string name="too_short_password">La password deve essere di almeno 6 caratteri</string>
+    <string name="incorrect_pass_format">Formato email o/e pasword errato</string>
+    <string name="missing_price">Inserisci i soldi spesi</string>
+    <string name="presence_db_token">Carattere speciale inserito non consentito</string>
+    
 </resources>

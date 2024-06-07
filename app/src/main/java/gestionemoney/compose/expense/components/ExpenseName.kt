@@ -22,15 +22,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
-import gestionemoney.compose.components.NormalText
-import gestionemoney.compose.components.TextFiledType
+import gestionemoney.compose.ui.theme.NormalText
+import gestionemoney.compose.ui.theme.TextFiledType
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ExpenseName(onChange: (String) -> Unit = {}) {
 
     var text by rememberSaveable { mutableStateOf("") }
-    val maxChar : Int = 15
+    val maxChar = 15
     val keyboardController = LocalSoftwareKeyboardController.current
 
 
@@ -51,7 +51,7 @@ fun ExpenseName(onChange: (String) -> Unit = {}) {
         keyboardActions = KeyboardActions(
             onDone = {keyboardController?.hide()}
         ),
-        label = { TextFiledType(string = stringResource(id = R.string.expense_name))},
+        label = { TextFiledType(string = stringResource(id = R.string.expense_name)) },
         singleLine = true,
         colors =  TextFieldDefaults.colors(
             focusedContainerColor = Color.White,

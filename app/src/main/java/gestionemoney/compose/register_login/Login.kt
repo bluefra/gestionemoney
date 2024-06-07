@@ -46,6 +46,7 @@ fun Login(
             navController.navigate(Screens.Loading.route)
         }
     }
+
     message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
     val scrollState = rememberScrollState()
 
@@ -77,24 +78,24 @@ fun Login(
                         TextWithDivider()
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        Row() {
-                                Text(
-                                    text = stringResource(id = R.string.no_account_question) ,
-                                    color = Color(0xFF94A3B8) ,
-                                    fontSize = 14.sp ,
-                                    fontFamily = Roboto ,
-                                    fontWeight = FontWeight.Normal
-                                )
-                                Text(
-                                    text = stringResource(id = R.string.register_now) ,
-                                    color = Color(0xFF000000) ,
-                                    fontSize = 14.sp ,
-                                    fontFamily = Roboto ,
-                                    fontWeight = FontWeight.Bold ,
-                                    modifier = Modifier
-                                        .clickable { navController.navigate(Screens.Register.route) }
-                                        .padding(start = 5.dp, bottom = 20.dp)
-                                )
+                        Row{
+                            Text(
+                                text = stringResource(id = R.string.no_account_question) ,
+                                color = Color(0xFF94A3B8) ,
+                                fontSize = 14.sp ,
+                                fontFamily = Roboto ,
+                                fontWeight = FontWeight.Normal
+                            )
+                            Text(
+                                text = stringResource(id = R.string.register_now) ,
+                                color = Color(0xFF000000) ,
+                                fontSize = 14.sp ,
+                                fontFamily = Roboto ,
+                                fontWeight = FontWeight.Bold ,
+                                modifier = Modifier
+                                    .clickable { navController.navigate(Screens.Register.route) }
+                                    .padding(start = 5.dp, bottom = 20.dp)
+                            )
                         }
                 }
 
@@ -104,12 +105,12 @@ fun Login(
 
 class DBLogin(val navController: NavController): AuthObserver {
     private var connecting = false
-    fun evaluateLogin() {
+    fun evaluateLogin(error: String) {
         if (connecting) {
             return
         }
         if (email == "" || password == "") {
-            message?.setText("Credenziali inserite errate")
+            message?.setText(error)
             message?.show()
             return
         }

@@ -1,4 +1,4 @@
-package gestionemoney.compose.components
+package gestionemoney.compose.ui.theme
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -12,13 +12,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import gestionemoney.compose.R
-import gestionemoney.compose.ui.theme.Black
-import gestionemoney.compose.ui.theme.Roboto
 
 
-//
-//Class with all the compasable function used in the texts on the app
-//
+/**
+ * composable functions that specify the characteristics of all text fonts used in the application
+ */
 
 @Composable
 fun AppNameText(string: String){
@@ -81,6 +79,4 @@ fun TextFiledType(string : String){
         color = colorResource(R.color.dark_grey)
 
     )
-
-
 }

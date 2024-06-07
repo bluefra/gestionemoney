@@ -31,10 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import gestionemoney.compose.R
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.UserWrapper
@@ -68,16 +66,8 @@ fun NewExpenseNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { NewExpense(navController = navController, category)}
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun popo() {
-    val navController : NavController = rememberNavController()
-    NewExpense(navController = navController , category = "Pippo" )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { NewExpense(navController = navController, category) }
 }
 
 @Composable
@@ -91,7 +81,11 @@ fun NewExpense(
     val scrollState = rememberScrollState()
     AddExpense.setStandardCategory(stringResource(R.string.standard_category_selection))
     categoryName = category?: categoryName
+
+    //error messages
     message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
+    val errorMissingPrice = stringResource(id = R.string.missing_price)
+    val errorPresenceDBToken = stringResource(id = R.string.presence_db_token)
 
 
     Column(
@@ -141,12 +135,11 @@ fun NewExpense(
                 defaultDate = AddExpense.currDate,
                 initialDate = AddExpense.initialDate,
                 onDateChanged = { date = it })
-            //Spacer(modifier = Modifier.height(15.dp))
             Row(
                 modifier = Modifier.padding(top = 10.dp)
             ) {
                 ElevatedButton(
-                    onClick = { AddExpense().addExpense(navController) } ,
+                    onClick = { AddExpense().addExpense(navController, errorMissingPrice, errorPresenceDBToken) } ,
                     modifier = Modifier
                         .size(45.dp) ,
                     shape = CircleShape ,
@@ -181,11 +174,13 @@ class AddExpense {
     private fun verifyIntegrity(name: String): Boolean {
         return !name.contains(Expense.DBtoken)
     }
-    fun addExpense(navController: NavController) {
+    fun addExpense(navController: NavController, error1: String, error2: String) {
         Log.w("date value", DateAdapter().getStringDate(date))
-        if(!verifyExpense()) {
+        if(!verifyExpense(error1)) {
             WriteLog.getInstance().writeError("NEXP_newExpense_error", "expense name contains DB tokens")
             Log.w("New expense", "error")//add a toast here
+            message?.setText(error2)
+            message?.show()
             return
         }
         val expense = Expense(date, getCost(expense_value))
@@ -202,7 +197,7 @@ class AddExpense {
         navController.navigate("${Screens.ExpensePage.route}/$categoryName")
     }
 
-    private fun verifyExpense(): Boolean {
+    private fun verifyExpense(error1 : String): Boolean {
         if(categoryName == standardOption) {
             Log.w("NewExpenses","chose a category")
             WriteLog.getInstance().writeError("NEXP_newExpense-error", "categoryName == standardOption")
@@ -211,6 +206,8 @@ class AddExpense {
         val cost = getCost(expense_value)
         if(cost == 0.0) {
             Log.w("NewExpenses", "insert a valid expense")
+            message?.setText(error1)
+            message?.show()
             WriteLog.getInstance().writeError("NEXP_newExpense-error", "cost == 0.0")
             return false
         }

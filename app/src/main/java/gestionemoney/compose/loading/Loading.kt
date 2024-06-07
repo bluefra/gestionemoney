@@ -41,8 +41,8 @@ val connection = LoadDB()
     fun CreateLoading(navController: NavController, name: String?, surname: String?) {
         Log.w("loading param", "$name $surname")
         val context = LocalContext.current
-        val  standard_cat = stringArrayResource(R.array.standard_category)
-        val standard_cat_img = stringArrayResource(R.array.standard_category_image)
+        val  standardCat = stringArrayResource(R.array.standard_category)
+        val standardCatImg = stringArrayResource(R.array.standard_category_image)
         Log.w("check internet", "yes")
         var connectionMade by remember { mutableStateOf(false) }
         var showError by remember { mutableStateOf(false)}
@@ -55,8 +55,8 @@ val connection = LoadDB()
                         Log.w("register loading", "$name $surname")
                         connection.register(
                             navController,
-                            standard_cat,
-                            standard_cat_img,
+                            standardCat,
+                            standardCatImg,
                             name,
                             surname
                         )

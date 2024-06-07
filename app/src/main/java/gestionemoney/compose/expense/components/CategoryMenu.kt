@@ -27,12 +27,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import gestionemoney.compose.R
-import gestionemoney.compose.components.NormalText
-import gestionemoney.compose.components.TextFiledType
+import gestionemoney.compose.ui.theme.NormalText
+import gestionemoney.compose.ui.theme.TextFiledType
 
 @Composable
 fun CategoryMenu(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}){
-    NormalText(string = stringResource(id = R.string.standard_image_selection))
+    NormalText(string = stringResource(id = R.string.category_expense_insert))
     Spacer(modifier = Modifier.height(5.dp))
     DropdownCategoryMenu(categoryList, standardOption, onChange)
 }
@@ -44,7 +44,6 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
     var selectedCategory by rememberSaveable { mutableStateOf(standardOption) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-
     // Composable native function.
         ExposedDropdownMenuBox(
             expanded = expanded ,
@@ -52,7 +51,6 @@ fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onC
                 expanded = !expanded
             },
             modifier = Modifier
-                //.background(colorResource(id = R.color.orangeLight))
                 .border(2.dp, colorResource(id = R.color.orange), shape = RoundedCornerShape(50))
 
         ) {

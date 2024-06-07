@@ -110,19 +110,19 @@ fun Register(navController: NavController){
 
 class DBRegister(val navController: NavController): AuthObserver {
     private var connecting = false
-    fun evaluateRegister() {
+    fun evaluateRegister(error1: String, error2: String, error3: String) {
         if(connecting) {
-            message?.setText("Account già registrato")
+            message?.setText(error1)
             message?.show()
             return
         }
         if(password.length < 6) {
-            message?.setText("La password deve essere di almeno 6 caratteri")
+            message?.setText(error2)
             message?.show()
             return
         }
         if(email == "" || password == "") {
-            message?.setText("Email o password non corrette")
+            message?.setText(error3)
             message?.show()
             return
         }

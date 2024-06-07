@@ -60,9 +60,8 @@ fun NewCategoryNavigation(
 ){
     val coroutineScope = rememberCoroutineScope()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController,
-        { NewCategory(navController = navController) }
-    )
+    NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
+    ) { NewCategory(navController = navController) }
 }
 
 @Composable
@@ -71,6 +70,11 @@ fun NewCategory(
 ) {
     val standardImage = stringResource(id = R.string.standard_image_selection)
     val scrollState = rememberScrollState()
+
+    //Error messages
+    val errorAlreadyExistingCategory = stringResource(id = R.string.already_existing_category)
+    val errorMissingCategoryName = stringResource(id = R.string.missing_category_name)
+
     message = Toast.makeText(LocalContext.current, "", Toast.LENGTH_SHORT)
 
     Box(modifier = Modifier.fillMaxSize()){
@@ -118,7 +122,7 @@ fun NewCategory(
                 modifier = Modifier.padding(top = 10.dp)
             ) {
                 ElevatedButton(
-                    onClick = { addCategory(navController , standardImage) } ,
+                    onClick = { addCategory(navController , standardImage, errorMissingCategoryName,errorAlreadyExistingCategory) } ,
                     modifier = Modifier
                         .size(45.dp) ,
                     shape = CircleShape ,
@@ -141,17 +145,17 @@ fun NewCategory(
 }
 
 
-fun addCategory(navController: NavController, standardImage: String) {
+fun addCategory(navController: NavController, standardImage: String, error1: String, error2: String) {
 
     if(newCategory == "" || newCategoryImage == standardImage || newCategoryImage == "") {
         Log.w("NewCategory", "campo vuoto")
-        message?.setText("Inserisci il nome della categoria")
+        message?.setText(error1)
         message?.show()
         return
     }
     if(UserWrapper.getInstance().getCategory(newCategory) != null) {
         Log.w("NewCategory", "categoria già esistente")
-        message?.setText("Categoria già presente")
+        message?.setText(error2)
         message?.show()
         return
     }
