@@ -1,18 +1,23 @@
 package gestionemoney.compose.controller
 
-import android.content.Intent
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 
+/**
+ * class that allows the connection with the authentication system offered by firebase
+ */
 class DBauthentication {
     private var auth = Firebase.auth
     private val observers = mutableListOf<AuthObserver>()
     private val data: HashMap<String, String?> = HashMap()
     private var isSet: Boolean = false
 
+    /**
+     * used to implement the singleton pattern
+     */
     companion object {
         private var instance: DBauthentication? = null
 
@@ -27,13 +32,19 @@ class DBauthentication {
             saveData()
         }
     }
+
+    /**
+     * @return the userId if it has been set correctly, otherwise return null
+     */
     fun getUID(): String? {
         if(!isSet) {
             return null
         }
         return data["uid"]
     }
-
+    /**
+     * @return the email if it has been set correctly, otherwise return null
+     */
     fun getEmail(): String? {
         if(!isSet) {
             return null
@@ -41,6 +52,10 @@ class DBauthentication {
         return data["email"]
     }
 
+    /**
+     * add an object to the list of observer
+     * @see AuthObserver
+     */
     fun addObserver(observer: AuthObserver) {
         observers.add(observer)
     }

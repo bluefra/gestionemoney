@@ -14,8 +14,10 @@ import gestionemoney.compose.model.User
 
 
 /**
- * per utilizzare la seguente classe è necessario invocare: DBconnection.getInstance()
- * non è possibile creare direttamente la classe
+ * class used to connect the application with the firebase db
+ * <strong>warning</strong> this class user, and the UserWrapper user are the same object, and so
+ * to maintain correct functioning of the software, the object in the UserWrapper should never change
+ * @see UserWrapper
  */
 class DBUserConnection private constructor() {
     private val database = Firebase.database
@@ -31,7 +33,7 @@ class DBUserConnection private constructor() {
         }
     }
     /**
-     * usato implementare il pattern Singleton nella classe DBconnection
+     * used to implements the singleton pattern
      */
     companion object {
         private var instance: DBUserConnection? = null
@@ -42,6 +44,13 @@ class DBUserConnection private constructor() {
             }
         }
     }
+
+    /**
+     * it will try to read the data about the user passed by parameter, if the user isn't in the db,
+     * it will create a new user.
+     * on success/un-success it will notify the observer
+     * @see UserChangeObserver
+     */
     fun connectUser(uid: String) {
         userID = uid
         val timer = Timer()
@@ -62,14 +71,26 @@ class DBUserConnection private constructor() {
             }
         })
     }
+
+    /**
+     * add a class to the observers list
+     */
     fun addUserObserver(observer: UserChangeObserver) {
         userObservers.add(observer)
     }
-
+    /**
+     * remove a class to the observers list
+     */
     fun removeUserObserver(observer: UserChangeObserver) {
         userObservers.remove(observer)
     }
-
+    /**
+     * notify the observer of the successful read, passing the user wrapped in the
+     * UserWrapper
+     * @see UserChangeObserver
+     * @see UserWrapper
+     * @param user -> data read from the db
+     */
     private fun notifyUserObservers(user: User) {
         val userWrapper: UserWrapper = UserWrapper.getInstance()
         userWrapper.updateUser(user)
@@ -77,10 +98,21 @@ class DBUserConnection private constructor() {
         userObservers.forEach { it.updateUser(userWrapper) }
     }
 
+    /**
+     * notify the observer of the successful read, passing the user wrapped in the
+     * UserObserver
+     *
+     * @see UserChangeObserver
+     * @param error -> error message
+     */
     private fun notifyError(error: String) {
         userObservers.forEach { it.updateError(error) }
     }
 
+    /**
+     * called after a successful db connection to elaborate the data and store them in a user
+     * object
+     */
     private fun readUserData(value: DataSnapshot) {
         val map: HashMap<String, Any>?
         user = User(userID!!)
@@ -91,9 +123,16 @@ class DBUserConnection private constructor() {
         notifyUserObservers(user!!)
     }
 
+    /**
+     * @return true if the object is properly set and a read from the db has been made
+     */
     fun isConnect(): Boolean {
         return !(userID == null || user == null)
     }
+
+    /**
+     * write the entire user data onto the db, even if the user already exist
+     */
     fun writeUser() {
         if(!isConnect()) { return }
         val myRef = database.getReference(dbNode)
@@ -109,6 +148,11 @@ class DBUserConnection private constructor() {
         }
     }
 
+    /**
+     * write a single category name into the db.
+     * <strong>warning</strong> this function should always be preferred over writeUser() if
+     * possible, to reduce the load on the db side
+     */
     fun writeCategoryName(categoryName: String) {
         if (!isConnect()) {
             return
@@ -128,7 +172,11 @@ class DBUserConnection private constructor() {
                 notifyError(it.message.toString())
             }
     }
-
+    /**
+     * write the last expense associated with the category name passed onto the db.
+     * <strong>warning</strong> this function should always be preferred over writeUser() if
+     * possible, to reduce the load on the db side
+     */
     fun writeLastExpense(categoryName: String) {
         if (!isConnect()) {
             return
@@ -151,6 +199,9 @@ class DBUserConnection private constructor() {
             }
     }
 
+    /**
+     * delete an entire category, with all of the expense from the db.
+     */
     fun deleteCategory(categoryName: String) {
         if (!isConnect()) {
             return
@@ -173,7 +224,9 @@ class DBUserConnection private constructor() {
             }
     }
 
-
+    /**
+     * delete an expense, associated with a specific category name from the db.
+     */
     fun deleteExpense(categoryName: String, expenseDate: String) {
         Log.w("delete expense", expenseDate)
         if (!isConnect()) {
@@ -196,6 +249,10 @@ class DBUserConnection private constructor() {
                 notifyError(it.message.toString())
             }
     }
+
+    /**
+     * close the singleton instance and delete all the data saved (locally).
+     */
     fun close() {
         user = null
         userID = null

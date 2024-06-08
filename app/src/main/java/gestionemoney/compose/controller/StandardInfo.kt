@@ -1,11 +1,14 @@
 package gestionemoney.compose.controller
 
 import gestionemoney.compose.model.DateAdapter
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
-import java.util.concurrent.TimeUnit
 
+/**
+ * class used to simplify the management of the extra info of the user.
+ * to write any info on the db, the class will use the DBInfoConnection class method, it will never
+ * interact directly with the db
+ * @see DBInfoConnection
+ */
 class StandardInfo {
     companion object{
         const val nameInfo = "name"
@@ -20,6 +23,11 @@ class StandardInfo {
         const val lastCatUpdate = "dateLastCatUpdate"
         const val lastExpUpdate = "dateLastExpUpdate"
 
+        /**
+         *  write the standard info, also contained in the companion object with the standard value,
+         *  and it will also compute the possible information with the available data.
+         *  it will write them on the db (using the method of DBInfoConnection).
+         */
         fun writeStandardInfo(name: String, surname: String) {
             val map: HashMap<String, String> = HashMap()
             map[nameInfo] = name
@@ -36,6 +44,11 @@ class StandardInfo {
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 
+        /**
+         * if the category permission to get personal data is granted, it will evaluate the data and
+         * it will write them on the db (using the method of DBInfoConnection).
+         * the passed parameter updateDate = true when a new category is created
+         */
         fun categoryUpdate(updateDate: Boolean) {
             if(!getCategoryPermission()) {
                 return
@@ -55,6 +68,11 @@ class StandardInfo {
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 
+        /**
+         * if the expense permission to get personal data is granted, it will evaluate the data and
+         * it will write them on the db (using the method of DBInfoConnection).
+         * the passed parameter updateDate = true when a new expense is created
+         */
         fun expenseUpdate(updateDate: Boolean) {
             if(!getExpensePermission()) {
                 return
@@ -71,6 +89,10 @@ class StandardInfo {
             DBInfoConnection.getInstance().writeMultipleInfo(map)
         }
 
+        /**
+         * update the category permission both in local and in the db.
+         * if value == false it will remove the data from the db.
+         */
         fun setCategoryPermission(value: Boolean) {
             if(value) {
                 DBInfoConnection.getInstance().writeSingleInfo(catecoryPermission, "true")
@@ -81,10 +103,16 @@ class StandardInfo {
             }
         }
 
+        /**
+         * return the permission associated with the category
+         */
         fun getCategoryPermission(): Boolean {
             return InfoWrapper.getInstance().getInfo(catecoryPermission) == "true"
         }
-
+        /**
+         * update the expense permission both in local and in the db.
+         * if value == false it will remove the data from the db.
+         */
         fun setExpensePermission(value: Boolean) {
             if(value) {
                 DBInfoConnection.getInstance().writeSingleInfo(expensePermission, "true")
@@ -94,15 +122,24 @@ class StandardInfo {
                 removeExpensePermission()
             }
         }
-
+        /**
+         * return the permission associated with the expense
+         */
         fun getExpensePermission(): Boolean {
             return InfoWrapper.getInstance().getInfo(expensePermission) == "true"
         }
+
+        /**
+         * remove the category info from the db.
+         */
         fun removeCategoryPermission() {
             WriteLog.getInstance().writeBasicLog("STDI_remove_cat_permission")
             DBInfoConnection.getInstance().removeSingleInfo(avgCategoryChar)
             DBInfoConnection.getInstance().removeSingleInfo(lastCatUpdate)
         }
+        /**
+         * remove the expense info from the db.
+         */
         fun removeExpensePermission() {
             WriteLog.getInstance().writeBasicLog("STDI_remove_exp_permission")
             DBInfoConnection.getInstance().removeSingleInfo(avgExpenseChar)
