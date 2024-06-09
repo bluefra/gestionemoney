@@ -100,7 +100,7 @@ fun categoryPie(): Map<String, Float> {
     val categoryList: List<Category> = UserWrapper.getInstance().getOrderedListByValue(Category.ORDER.DEC)
     val result: MutableMap<String, Float> = mutableMapOf()
     categoryList.forEach{
-        result[it.getName()] = it.GetTotalExpences().toFloat()
+        result[it.getName()] = it.getTotalExpenses().toFloat()
     }
     return result
 }

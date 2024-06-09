@@ -231,7 +231,7 @@ fun LazyCategoryColumn(
                 CategoryItem(
                     category.getName(),
                     category.getImageURI(),
-                    category.GetTotalExpences(),
+                    category.getTotalExpenses(),
                     navController = navController
                 )
             }
