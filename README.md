@@ -1,4 +1,6 @@
 # gestionemonetaria compose
+# warning
+  è necessario effettuare il sync dei file gradle nel momento in cui si clona il progetto, altrimenti non vi è disponibile il modulo per compilare, per cui non sarà possibile nemmeno eseguire il progetto.
 ### Logs
 ## grammatica
   event-type = [3-4] caratteri di descrizione della classe_event-name
