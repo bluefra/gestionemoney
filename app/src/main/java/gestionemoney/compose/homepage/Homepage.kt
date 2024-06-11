@@ -53,7 +53,7 @@ import gestionemoney.compose.model.Category
 import gestionemoney.compose.navigation.Screens
 import gestionemoney.compose.ui.theme.Black
 import gestionemoney.compose.ui.theme.Roboto
-
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun HomeNavigation(
     navController: NavController
@@ -64,6 +64,7 @@ fun HomeNavigation(
     ) { Homepage(navController = navController) }
 }
 
+// Display the homepage of the app, all the categories of expense and the top app with the navigation drawer.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Homepage(
@@ -131,7 +132,7 @@ fun Homepage(
     }
 }
 
-// Composable function to display a single Category Item
+// Composable function to create a single Category Item
 @SuppressLint("DiscouragedApi")
 @Composable
 fun CategoryItem(
@@ -212,7 +213,7 @@ fun CategoryItem(
     }
 }
 
-// Composable function to generate the Recyclerview (in compose: LazyColumn) for the category list
+// Composable function to generate the Recyclerview (in compose we use the LazyColumn) for the category list
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LazyCategoryColumn(
