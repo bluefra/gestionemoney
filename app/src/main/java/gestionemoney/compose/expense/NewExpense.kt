@@ -59,6 +59,7 @@ private var expense_value: String = ""
 private var date = Date()
 private var message: Toast? = null
 
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun NewExpenseNavigation(
     navController: NavController,
@@ -70,6 +71,7 @@ fun NewExpenseNavigation(
     ) { NewExpense(navController = navController, category) }
 }
 
+// Generate the expense page of the selected expense using database connection.
 @Composable
 fun NewExpense(
     navController: NavController,

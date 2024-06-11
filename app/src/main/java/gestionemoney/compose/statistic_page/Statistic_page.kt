@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,7 +44,7 @@ import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.formatReadingDate
 import gestionemoney.compose.model.getDateDifferenceFromNow
 
-
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun StatisticPageNavigation(
     navController: NavController
@@ -56,7 +55,7 @@ fun StatisticPageNavigation(
     ) { StatisticPage() }
 }
 
-// Composable function to display the user page UI.
+// Composable function that shows statistic for all the expense and category of expense.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatisticPage() {
@@ -67,7 +66,6 @@ fun StatisticPage() {
             Card(
                 modifier= Modifier.padding(10.dp),
                 shape= RoundedCornerShape(100.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
             ){
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(

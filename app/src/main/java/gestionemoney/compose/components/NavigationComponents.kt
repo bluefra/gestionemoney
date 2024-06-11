@@ -44,12 +44,10 @@ import gestionemoney.compose.ui.theme.AppNameText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-//
-//Composable function for the App Tool Bar
-//
+// Composable function that generate the AppToolBar that is displayed at the top of every application's screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppToolbar(
+fun AppToolBar(
     navigationIconClicked : () -> Unit
 ){
 
@@ -76,7 +74,7 @@ fun AppToolbar(
     )
 }
 
-//composable function that generates the navigation drawer for entire app
+// Create the Navigation Drawer to navigate in the applications.
 @Composable
 fun NavigationDrawer(
     drawerState: DrawerState,
@@ -95,7 +93,7 @@ fun NavigationDrawer(
         content = {
             Scaffold(
                 topBar = {
-                    AppToolbar(
+                    AppToolBar(
                         navigationIconClicked = {
                             coroutineScope.launch {
                                 drawerState.open()
@@ -118,7 +116,7 @@ fun NavigationDrawer(
     )
 }
 
-//Composable function for UI of the header of the navigation drawer
+// Display the name of the application
 @Composable
 fun NavigationDrawerHeader(){
     Row(
@@ -132,7 +130,7 @@ fun NavigationDrawerHeader(){
     }
 }
 
-//Composable function for the UI of the body of the navigation drawer
+// Generate every button on the navigation drawer and link them to the relative application's screen
 @Composable
 fun NavigationDrawerBody(
     drawerState: DrawerState,

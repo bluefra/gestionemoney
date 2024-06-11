@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +35,7 @@ import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.model.Category
 
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun DashboardNavigation(
     navController: NavController
@@ -46,6 +46,7 @@ fun DashboardNavigation(
     ) { Dashboard() }
 }
 
+// Display the dashboard screen with the corresponding category of expense using a database connection.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Dashboard(
@@ -56,7 +57,6 @@ fun Dashboard(
             Card(
                 modifier=Modifier.padding(10.dp),
                 shape= RoundedCornerShape(100.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
             ){
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(

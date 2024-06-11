@@ -56,6 +56,8 @@ import gestionemoney.compose.ui.theme.Roboto
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun ExpenseNavigation(
     navController: NavController,
@@ -67,6 +69,8 @@ fun ExpenseNavigation(
     ) { ExpensePage(navController = navController, categoryName) }
 }
 
+// This functions shows all the expense corresponding to the selected category.
+// User can interact with the expenses to navigate to that expense page
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpensePage(

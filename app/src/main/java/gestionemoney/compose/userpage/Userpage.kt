@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +44,7 @@ import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.formatReadingDate
 
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun UserpageNavigation(
     navController: NavController
@@ -55,7 +55,7 @@ fun UserpageNavigation(
     ) { Userpage() }
 }
 
-// Composable function to display the user page.
+// Composable function to display the user infos.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Userpage() {
@@ -66,7 +66,6 @@ fun Userpage() {
             Card(
                 modifier=Modifier.padding(10.dp),
                 shape= RoundedCornerShape(100.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
             ){
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -123,13 +122,13 @@ fun InfoText(string1: String, string2 : String) {
     Row(
         horizontalArrangement = Arrangement.Absolute.Left,
         verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(10.dp)
 
     ) {
         Box(
             modifier = Modifier
                 .size(width = 150.dp , height = 50.dp)
-                .background(Color.Transparent)
-                .padding(16.dp),
+                .background(Color.Transparent),
             contentAlignment = Alignment.CenterStart
         ){
             NormalText(string = string1)

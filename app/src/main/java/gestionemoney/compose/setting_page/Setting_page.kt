@@ -16,7 +16,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,6 +46,7 @@ import gestionemoney.compose.ui.theme.NormalText
 import gestionemoney.compose.ui.theme.TitlePageText
 import gestionemoney.compose.controller.StandardInfo
 
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun SettingPageNavigation(
     navController: NavController
@@ -56,6 +56,8 @@ fun SettingPageNavigation(
     NavigationDrawer(drawerState = drawerState , coroutineScope = coroutineScope , navController = navController
     ) { SettingPage() }
 }
+
+// Shows all the setting and privacy option for the user. User can interact with the option to negate or give the consent.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingPage(){
@@ -66,7 +68,6 @@ fun SettingPage(){
             Card(
                 modifier= Modifier.padding(10.dp),
                 shape= RoundedCornerShape(100.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
             ){
                 CenterAlignedTopAppBar(
                     colors = TopAppBarDefaults.topAppBarColors(

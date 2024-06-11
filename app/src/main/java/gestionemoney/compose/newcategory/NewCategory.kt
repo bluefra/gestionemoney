@@ -54,6 +54,7 @@ private var newCategoryImage = ""
 private const val imageSuffix = "cat"
 private var message: Toast? = null
 
+// Function that add the navigation drawer to the selected application page.
 @Composable
 fun NewCategoryNavigation(
     navController: NavController
@@ -64,6 +65,7 @@ fun NewCategoryNavigation(
     ) { NewCategory(navController = navController) }
 }
 
+// Display the menu for creating a new Category of Expense
 @Composable
 fun NewCategory(
     navController: NavController
