@@ -70,5 +70,8 @@
     <string name="incorrect_pass_format">Formato email o/e pasword errato</string>
     <string name="missing_price">Inserisci i soldi spesi</string>
     <string name="presence_db_token">Carattere speciale inserito non consentito</string>
-    
+    <string name="profile_menu">Profilo</string>
+    <string name="settings_menu">Impostazioni</string>
+    <string name="statistic_menu">Statistiche</string>
+
 </resources>

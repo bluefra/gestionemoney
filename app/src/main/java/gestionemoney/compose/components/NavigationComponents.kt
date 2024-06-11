@@ -205,7 +205,7 @@ fun NavigationDrawerBody(
                 ) {
                     NavigationDrawerItem(
                         modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
-                        label = { Text(text = "Userpage") } ,
+                        label = { Text(text = stringResource(R.string.profile_menu)) } ,
                         selected = false ,
                         icon = {
                             Icon(
@@ -228,7 +228,7 @@ fun NavigationDrawerBody(
                 ) {
                     NavigationDrawerItem(
                         modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
-                        label = { Text(text = "Setting") } ,
+                        label = { Text(text = stringResource(R.string.settings_menu)) } ,
                         selected = false ,
                         icon = {
                             Icon(
@@ -251,7 +251,7 @@ fun NavigationDrawerBody(
                 ) {
                     NavigationDrawerItem(
                         modifier = Modifier.border(2.dp, color = colorResource(id = R.color.orange), shape = RoundedCornerShape(50)),
-                        label = { Text(text = "Statistics") } ,
+                        label = { Text(text = stringResource(R.string.statistic_menu)) } ,
                         selected = false ,
                         icon = {
                             Icon(
