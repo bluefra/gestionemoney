@@ -32,7 +32,7 @@ import gestionemoney.compose.controller.WriteLog
 import gestionemoney.compose.navigation.Screens
 
 const val numberOfDots = 7
-val dotSize = 25.dp
+val dotSize = 15.dp
 const val delayUnit = 150
 const val duration = numberOfDots * delayUnit
 val spaceBetween = 4.dp
