@@ -37,6 +37,13 @@ fun CategoryMenu(categoryList: List<String>, standardOption: String, onChange: (
     DropdownCategoryMenu(categoryList, standardOption, onChange)
 }
 
+@Composable
+fun CategoryMenuImage(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}){
+    NormalText(string = stringResource(R.string.category_image_selection))
+    Spacer(modifier = Modifier.height(5.dp))
+    DropdownCategoryMenu(categoryList, standardOption, onChange)
+}
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun DropdownCategoryMenu(categoryList: List<String>, standardOption: String, onChange: (String) -> Unit = {}) {

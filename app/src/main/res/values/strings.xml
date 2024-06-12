@@ -73,5 +73,6 @@
     <string name="profile_menu">Profilo</string>
     <string name="settings_menu">Impostazioni</string>
     <string name="statistic_menu">Statistiche</string>
+    <string name="category_image_selection">Sceglie un\'immagine per la categoria:</string>
 
 </resources>

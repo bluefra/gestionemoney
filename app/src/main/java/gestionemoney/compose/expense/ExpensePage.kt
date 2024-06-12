@@ -307,6 +307,6 @@ fun LazyActivityColumn(
 
 
 fun formatDate(date: Date): String {
-    val format = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+    val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return format.format(date)
 }

@@ -35,13 +35,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import gestionemoney.compose.R
-import gestionemoney.compose.expense.components.CategoryMenu
 import gestionemoney.compose.components.NavigationDrawer
 import gestionemoney.compose.controller.DBUserConnection
 import gestionemoney.compose.controller.InfoWrapper
 import gestionemoney.compose.controller.StandardInfo
 import gestionemoney.compose.controller.UserWrapper
 import gestionemoney.compose.controller.WriteLog
+import gestionemoney.compose.expense.components.CategoryMenuImage
 import gestionemoney.compose.model.DateAdapter
 import gestionemoney.compose.model.getDateDifferenceFromNowDay
 import gestionemoney.compose.model.weekDay
@@ -114,7 +114,7 @@ fun NewCategory(
             NewCategoryNameTextField(onChange = { newCategory = it})
             Spacer(modifier = Modifier.height(15.dp))
 
-            CategoryMenu(categoryList = getDrawableResources(),
+            CategoryMenuImage(categoryList = getDrawableResources(),
                     standardOption = standardImage,
                     onChange = { newCategoryImage = it + imageSuffix})
 
